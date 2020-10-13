@@ -1,0 +1,22 @@
+.background {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  /* align-content: center; */
+  min-height: 50vh;
+  min-width: 30vw;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.body form {
+  display: flex;
+  flex-flow: column wrap;
+  font-size: 2rem;
+}
+
+.body form input {
+  font-size: 2rem;
+}

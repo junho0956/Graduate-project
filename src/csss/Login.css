@@ -1,0 +1,52 @@
+.divider {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(224, 231, 238, 0.952);
+}
+
+.divider .Main {
+}
+
+@media screen and (min-width: 728px) {
+  .side {
+    height: 25vh;
+  }
+
+  .divider .Main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 50vh;
+  }
+
+  .divider .Main .discription {
+    display: flex;
+    flex-flow: column wrap;
+    font-size: 2rem;
+  }
+
+  .divider .Main .discription .header {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  .divider .Main .LoginComponent {
+  }
+}
+
+@media screen and (max-width: 728px) {
+  .divider .Main {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .divider .Main .discription {
+  }
+
+  .divider .Main .LoginComponent {
+  }
+}
