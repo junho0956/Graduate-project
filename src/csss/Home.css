@@ -1,0 +1,41 @@
+.homebasic {
+  padding-top: 55px;
+}
+
+.navi {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  flex: 10;
+}
+
+.side {
+  flex: 1;
+}
+
+.homeMain {
+  flex: 3.2;
+  background-color: grey;
+}
+
+.homeMain #input {
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 728px) {
+  .side {
+    display: none;
+  }
+  .homeMain {
+    flex: 1;
+  }
+}
+
+@media screen and (min-width: 728px) {
+}

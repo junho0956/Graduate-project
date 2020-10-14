@@ -2,21 +2,94 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  /* align-content: center; */
-  min-height: 50vh;
+  justify-content: center;
+  min-height: 40vh;
   min-width: 30vw;
 }
 
 .title {
-  font-size: 3rem;
+  padding-bottom: 2rem;
 }
 
 .body form {
   display: flex;
   flex-flow: column wrap;
-  font-size: 2rem;
+  align-items: center;
 }
 
-.body form input {
-  font-size: 2rem;
+.body form p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+form input {
+  border: 1px solid rgb(219, 235, 237);
+  background-color: transparent;
+  outline: none;
+  text-align: center;
+}
+
+form button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+#forgotUser {
+  position: relative;
+  left: -4rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  color: rgb(58, 58, 211);
+  text-decoration: none;
+}
+
+.anotherBtn {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.loginBtn :hover,
+.anotherBtn :hover {
+  font-weight: 600;
+}
+
+@media screen and (min-width: 728px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  .body form input {
+    font-size: 1.5rem;
+  }
+  form input {
+    border-radius: 1rem;
+  }
+
+  form button {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 728px) {
+  .title {
+    font-size: 2rem;
+  }
+  .body form input {
+    font-size: 1rem;
+  }
+  form input {
+    border-radius: 0.5rem;
+  }
+  form button {
+    font-size: 1rem;
+  }
+  #forgotUser {
+    left: -3rem;
+    font-size: 0.5rem;
+  }
 }

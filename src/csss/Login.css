@@ -3,10 +3,20 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: rgba(224, 231, 238, 0.952);
+  font-family: "Nanum Gothic", sans-serif;
 }
 
-.divider .Main {
+.divider img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.header {
+  font-weight: 600;
 }
 
 @media screen and (min-width: 728px) {
@@ -25,11 +35,11 @@
   .divider .Main .discription {
     display: flex;
     flex-flow: column wrap;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .divider .Main .discription .header {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 0;
   }
 
@@ -38,15 +48,25 @@
 }
 
 @media screen and (max-width: 728px) {
+  .side {
+    height: 25vh;
+  }
+
+  .headerDiscript {
+    display: none;
+  }
+
   .divider .Main {
     display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: center;
   }
 
-  .divider .Main .discription {
+  .header {
+    font-size: 2rem;
   }
 
   .divider .Main .LoginComponent {
+    margin: 0;
   }
 }
