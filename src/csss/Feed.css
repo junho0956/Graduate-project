@@ -1,0 +1,84 @@
+.feedbasic {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgrey;
+  border-radius: 40px 40px 20px 20px;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.feedTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Nanum Gothic", sans-serif;
+  padding: 1rem;
+}
+
+.feedPicture img {
+  width: 100%;
+  height: 100%;
+}
+
+.feedContent {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+.feedComment {
+  font-family: "Nanum Gothic", sans-serif;
+  padding: 1rem;
+  border-top: 1px solid lightgrey;
+}
+
+.feedTitle img {
+  border: 1px solid white;
+  border-radius: 25px;
+  width: 50px;
+  padding-right: 1rem;
+}
+
+.feedTitle .circleName {
+  font-size: 1.25rem;
+}
+
+.feedContent .contentTop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.contentTop #contentDate {
+  width: 100%;
+  text-align: right;
+  font-size: 0.75rem;
+  color: grey;
+  padding-bottom: 10px;
+}
+
+.feedContent .contentText {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.contentComment {
+}
+
+#commentAll {
+  padding-top: 5px;
+  background-color: white;
+  border: none;
+  color: grey;
+  text-align: right;
+  cursor: pointer;
+}
+
+.feedComment input {
+  border: none;
+  font-size: 1rem;
+}

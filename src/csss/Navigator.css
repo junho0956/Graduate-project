@@ -5,7 +5,7 @@
   border-bottom: 1px solid lightgrey;
   justify-content: center;
   align-items: center;
-  flex: 10;
+  flex: 4;
   background-color: white;
 }
 
@@ -13,24 +13,34 @@
   flex: 1;
 }
 .navMain {
-  flex: 3.2;
   display: flex;
   flex-direction: row;
+  flex: 2;
 }
 .navMain .Logo {
-  flex: 3;
   position: relative;
   text-align: center;
+  flex: 1;
 }
 .navMain .sideMenu {
-  flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  flex: 1;
+  padding-right: 4rem;
 }
 
 @media screen and (min-width: 728px) {
+  .navMain {
+    min-width: 60rem;
+  }
 }
 
 @media screen and (max-width: 728px) {
+  .side {
+    display: none;
+  }
+  .navMain {
+    min-width: 35rem;
+  }
 }

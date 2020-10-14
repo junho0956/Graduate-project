@@ -1,0 +1,65 @@
+.searchbasic {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  margin-top: 2rem;
+  position: fixed;
+  top: 70px;
+  max-height: 50vh;
+}
+
+.searchList {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.searchList::-webkit-scrollbar {
+  /* display: none; */
+}
+
+.searchHead {
+  border-bottom: 1px solid lightgrey;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+#searchInput {
+  border: none;
+  background-color: white;
+  color: lightgrey;
+  font-size: 1.25rem;
+  margin-left: 1rem;
+}
+
+.searchItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.25rem;
+  margin: 1rem;
+}
+
+.searchItem:hover {
+  background-color: lightgrey;
+}
+
+.searchItemInformation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.searchItem img {
+  width: 40px;
+  border: 0.1px solid white;
+  border-radius: 20px;
+  margin-right: 2rem;
+}
+
+#searchItemName {
+  cursor: pointer;
+}
+
+#searchItemInfo {
+  font-size: 0.75rem;
+  color: grey;
+}

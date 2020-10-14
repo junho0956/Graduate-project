@@ -20,8 +20,19 @@
 }
 
 .homeMain {
-  flex: 3.2;
-  background-color: grey;
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+}
+
+.homeMain .homeMainleft {
+  flex: 1.8;
+  margin: 0.5rem;
+}
+
+.homeMain .homeMainright {
+  flex: 1.2;
+  margin: 0.5rem;
 }
 
 .homeMain #input {
@@ -33,9 +44,14 @@
     display: none;
   }
   .homeMain {
-    flex: 1;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    min-width: 35rem;
   }
 }
 
 @media screen and (min-width: 728px) {
+  .homeMain {
+    min-width: 60rem;
+  }
 }
