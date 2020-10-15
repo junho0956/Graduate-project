@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowseRouter as Link, Route, Router } from "react-router-dom";
-import { Navigator, Search, Feed } from "../components";
+import { Navigator, Search, Feed, HomeMenuTab } from "../components";
 import "../csss/Home.css";
 
 const Home = ({}) => {
@@ -16,7 +16,12 @@ const Home = ({}) => {
             <Feed />
           </div>
           <div className="homeMainright">
-            <Search />
+            <div className="homeMenuTitle">
+              <HomeMenuTab />
+            </div>
+            <div>
+              <Search />
+            </div>
           </div>
         </div>
         <div className="side" />

@@ -3,3 +3,4 @@ export { default as Navigator } from "./Navigator";
 export { default as Home } from "./Home";
 export { default as Search } from "./Search";
 export { default as Feed } from "./Feed";
+export { default as HomeMenuTab } from "./HomeMenuTab";

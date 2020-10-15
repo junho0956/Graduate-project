@@ -35,6 +35,10 @@
   margin: 0.5rem;
 }
 
+.homeMenuTitle {
+  flex: 0.5;
+}
+
 .homeMain #input {
   font-size: 3rem;
 }
