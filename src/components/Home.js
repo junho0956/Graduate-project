@@ -19,7 +19,7 @@ const Home = ({}) => {
             <div className="homeMenuTitle">
               <HomeMenuTab />
             </div>
-            <div>
+            <div className="homeMenuInfo">
               <Search />
             </div>
           </div>

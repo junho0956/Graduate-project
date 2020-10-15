@@ -36,7 +36,15 @@
 }
 
 .homeMenuTitle {
-  flex: 0.5;
+  position: fixed;
+  top: 7rem;
+  min-width: 20rem;
+}
+
+.homeMenuInfo {
+  position: fixed;
+  top: 9rem;
+  bottom: 0;
 }
 
 .homeMain #input {

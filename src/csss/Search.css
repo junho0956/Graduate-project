@@ -3,8 +3,6 @@
   flex-direction: column;
   margin: 1rem;
   margin-top: 2rem;
-  position: fixed;
-  top: 70px;
   max-height: 50vh;
 }
 
