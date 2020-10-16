@@ -4,6 +4,8 @@ import { Navigator, Search, Feed, HomeMenuTab } from "../components";
 import "../csss/Home.css";
 
 const Home = ({}) => {
+  const A = [1, 2, 3];
+
   return (
     <div className="homebasic">
       <nav className="navi">
@@ -13,7 +15,7 @@ const Home = ({}) => {
         <div className="side" />
         <div className="homeMain">
           <div className="homeMainleft">
-            <Feed />
+            <Feed A={A} />
           </div>
           <div className="homeMainright">
             <div className="homeMenuTitle">
