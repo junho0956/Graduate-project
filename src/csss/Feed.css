@@ -7,6 +7,10 @@
   margin-bottom: 4rem;
 }
 
+.pictures {
+  position: relative;
+}
+
 ul {
   padding: 0;
   margin: 0;

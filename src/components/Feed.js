@@ -10,7 +10,7 @@ import circleImg from "../img/colony.PNG";
 import circleMainImg from "../img/colonyPicture.PNG";
 import a from "../img/colony.PNG";
 
-import { BsCaretLeft, BsCaretRight } from "react-icons/bs";
+import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 
 import "../csss/Feed.css";
 
@@ -38,17 +38,44 @@ const FeedItem = ({ feed }) => {
         const rightbutton = imgOne("#slideRightButton");
         const button = imgOne(".slideButton");
         button.style.cssText =
-          "position:sticky; width:100%; display:flex; justify-content:space-between; transform:translateY(100%); z-index:10;";
+          "position:absolute; width:100%; display:flex; justify-content:space-between; top:50%; transform:translateY(-50%); z-index:10;";
         leftbutton.style.cssText =
-          "cursor:pointer; position:relative; left:1rem; font-size:2rem";
+          "cursor:pointer; position:absolute; left:1rem; height:1.5rem; width:1.5rem; font-size:1.25rem;";
         rightbutton.style.cssText =
-          "position:relative; font-size:2rem; right:1rem; cursor:pointer;";
-      }
+          "position:absolute; text-align:right; height:1.5rem; width:1.5rem; font-size:1.25rem; right:1rem; cursor:pointer;";
+        leftbutton.children[0].style.cssText =
+          "border-radius:0.75rem; transform:translateY(-10%); background-color:transparent; color:lightgrey; border:1.25px solid lightgrey;";
+        rightbutton.children[0].style.cssText =
+          "border-radius:0.75rem; transform:translateY(-10%); background-color:transparent; color:lightgrey; border:1.25px solid lightgrey;";
 
-      target.style.cssText = `width:calc(${100 * len}%); display:flex;`;
-      Array.from(target.children).forEach(
-        (res) => (res.style.cssText = `width:calc(${100 / len})%;`)
-      );
+        let pos = 0;
+        leftbutton.style.display = "none";
+        leftbutton.addEventListener("click", () => {
+          if (pos > 0) {
+            pos = pos - 1;
+            if (pos == 0) leftbutton.style.display = "none";
+            rightbutton.style.display = "inline";
+          }
+          target.style.marginLeft = `${-pos * 100}%`;
+        });
+
+        rightbutton.addEventListener("click", () => {
+          if (pos < len - 1) {
+            pos = pos + 1;
+            if (pos == len - 1) rightbutton.style.display = "none";
+            leftbutton.style.display = "inline";
+          }
+          target.style.marginLeft = `${-pos * 100}%`;
+        });
+
+        target.style.cssText = `width:calc(${
+          100 * len
+        }%); display:flex; transition:1s;`;
+        Array.from(target.children).forEach(
+          // (res) => (res.style.cssText = `width:calc(${100 / len})%;`)
+          (res) => (res.style.cssText = "width:100%")
+        );
+      }
     };
     window.onload = function () {
       slide();
@@ -64,10 +91,10 @@ const FeedItem = ({ feed }) => {
       <div className="pictures">
         <span className="slideButton">
           <span id="slideLeftButton">
-            <BsCaretLeft />
+            <BsCaretLeftFill />
           </span>
           <span id="slideRightButton">
-            <BsCaretRight />
+            <BsCaretRightFill />
           </span>
         </span>
         <div id="slide" ref={IMG} className="feedPicture">
