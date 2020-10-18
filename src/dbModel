@@ -1,0 +1,49 @@
+// 회원 테이블
+const User = {
+  email: String,
+  password: String,
+  userName: String,
+  nickName: String,
+  gender: String,
+  organization: String,
+  birth: Date,
+  myCircle: Circle,
+  followCircle: Circle,
+  join: Date,
+  profilePhoto: String,
+};
+
+// 동아리 테이블
+const Circles = {
+  name: String,
+  organization: String,
+  description: String,
+  picture: String,
+  follower: User,
+  circleMember: CircleMember,
+  category: String,
+  post: Post,
+};
+
+// 동아리 회원 테이블
+const CircleMember = {
+  member: User,
+  position: String,
+};
+
+// Post 테이블
+const Post = {
+  author: CircleMember,
+  description: String,
+  postPhoto: String,
+  created: Date,
+  likeCount: Number,
+  comment: Comment,
+};
+
+// 댓글(Comment) 테이블
+const Comment = {
+  author: User,
+  description: String,
+  created: Date,
+};

@@ -14,8 +14,8 @@ const HomeMenuTab = () => {
   return (
     <div className="menu">
       <AiOutlineHome />
-      <AiOutlineStar />
       <FiSearch />
+      <AiOutlineStar />
       <HiOutlineUser />
     </div>
   );

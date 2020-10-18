@@ -6,7 +6,7 @@ const Navigator = ({}) => {
     <div className="navigation">
       <div className="side" />
       <div className="navMain">
-        <div className="Logo">Logo</div>
+        <div className="Logo">Clava</div>
       </div>
       <div className="side" />
     </div>

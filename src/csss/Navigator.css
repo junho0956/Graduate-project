@@ -19,6 +19,11 @@
   flex: 2;
 }
 
+.navMain .Logo {
+  font-size: 1.5rem;
+  color: #b620e0;
+}
+
 @media screen and (min-width: 728px) {
   .navMain {
     min-width: 60rem;
