@@ -1,7 +1,17 @@
 .menu {
-  font-size: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
+}
+
+.menu span:hover {
+  background-color: lightgrey;
+}
+
+.menu span {
+  width: 2rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
