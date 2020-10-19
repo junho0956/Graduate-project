@@ -45,8 +45,9 @@
 
 .homeMenuInfo {
   position: fixed;
-  top: 9rem;
+  top: 4rem;
   bottom: 0;
+  margin-left: 2rem;
 }
 
 .homeMain #input {

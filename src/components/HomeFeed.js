@@ -9,82 +9,13 @@ import React, {
 import circleImg from "../img/colony.PNG";
 import circleMainImg from "../img/colonyPicture.PNG";
 import a from "../img/colony.PNG";
-
-import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
+import FeedItem from "./FeedItem";
 
 import "../csss/Feed.css";
 
-// FeedItem
-
-const FeedItem = ({ feed }) => {
-  const circleName = feed.name;
-  const circlePicture = feed.circlePicture;
-  const circleMainPicture = feed.mainPicture;
-  const circleMainText = feed.mainText;
-  const circleComment = feed.comment;
-  const circleDate = feed.circleDate;
-
-  return (
-    <div className="feedbasic">
-      <div className="feedTitle">
-        <img src={circlePicture} />
-        <span className="circleName">{circleName}</span>
-      </div>
-      <div className="pictures">
-        <span className="slideButton">
-          <span id="slideLeftButton">
-            <BsCaretLeftFill />
-          </span>
-          <span id="slideRightButton">
-            <BsCaretRightFill />
-          </span>
-        </span>
-        <div id="slide" className="feedPicture">
-          <ul>
-            <li>
-              <img src={circleMainPicture} />
-            </li>
-            <li>
-              <img src={circleMainPicture} />
-            </li>
-            <li>
-              <img src={circleMainPicture} />
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="feedContent">
-        <div className="contentTop">
-          <i className="far fa-heart"></i>
-          <div id="contentDate">{circleDate}</div>
-        </div>
-        <div className="contentText">{circleMainText}</div>
-        <div className="contentComment">
-          <div className="Incomment">
-            <strong>{circleComment[0].name}</strong>&nbsp;&nbsp;
-            {circleComment[0].Incomment}
-          </div>
-          <div className="Incomment">
-            <strong>{circleComment[1].name}</strong>&nbsp;&nbsp;
-            {circleComment[1].Incomment}
-          </div>
-          <div className="Incomment">
-            <strong>{circleComment[2].name}</strong>&nbsp;&nbsp;
-            {circleComment[2].Incomment}
-          </div>
-          <div id="commentAll">댓글 모두 보기..</div>
-        </div>
-      </div>
-      <div className="feedComment">
-        <input type="text" placeholder="댓글 달기.." />
-      </div>
-    </div>
-  );
-};
-
 // Feed
 
-const Feed = ({ A }) => {
+const HomeFeed = ({ A }) => {
   const [feed, setFeed] = useState({
     name: "colony",
     circlePicture: circleImg,
@@ -181,4 +112,4 @@ const Feed = ({ A }) => {
   );
 };
 
-export default Feed;
+export default HomeFeed;

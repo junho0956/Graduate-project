@@ -1,0 +1,33 @@
+.mycircleBasic {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  margin-top: 2rem;
+}
+
+.JoinCircleTitle {
+  border-bottom: 1px solid lightgrey;
+  font-size: 1.3rem;
+  padding: 5px;
+  margin-left: 1rem;
+}
+
+.JoinCircleList {
+  max-height: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.FollowCircleTitle {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  margin-left: 1rem;
+  padding: 5px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.FollowCircleList {
+  max-height: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

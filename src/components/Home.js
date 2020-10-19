@@ -1,6 +1,12 @@
 import React from "react";
 import { BrowseRouter as Link, Route, Router } from "react-router-dom";
-import { Navigator, Search, Feed, HomeMenuTab } from "../components";
+import {
+  Navigator,
+  Search,
+  HomeFeed,
+  MyCircle,
+  CircleInformation,
+} from "../components";
 import "../csss/Home.css";
 
 const Home = ({}) => {
@@ -15,14 +21,13 @@ const Home = ({}) => {
         <div className="side" />
         <div className="homeMain">
           <div className="homeMainleft">
-            <Feed A={A} />
+            {/* <HomeFeed A={A} /> */}
+            <CircleInformation />
           </div>
           <div className="homeMainright">
-            <div className="homeMenuTitle">
-              <HomeMenuTab />
-            </div>
             <div className="homeMenuInfo">
-              <Search />
+              {/* <Search /> */}
+              <MyCircle />
             </div>
           </div>
         </div>

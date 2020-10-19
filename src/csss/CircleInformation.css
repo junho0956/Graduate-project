@@ -1,0 +1,49 @@
+.circleInformationBasic {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-top: 2rem;
+  /* overflow: hidden; */
+}
+
+.circleInformationBasic .circleInfoImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.circleInfoImg img {
+  width: 20rem;
+  border-radius: 10rem;
+}
+
+.circleInfoName {
+  margin-top: 1rem;
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.circleInfos .circleInformations {
+  display: flex;
+  font-size: 1.25rem;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 1rem;
+  border-bottom: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
+  padding: 1rem;
+  flex: 3;
+}
+
+.circleInfomation {
+  flex: 1;
+  text-align: center;
+}
+
+.circleInfopresent {
+  font-size: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid lightgrey;
+}

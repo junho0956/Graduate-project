@@ -1,0 +1,33 @@
+.joincircleItem {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  align-items: center;
+}
+
+.joincircleItem:hover {
+  background-color: lightgrey;
+}
+
+.joincircleItem img {
+  width: 40px;
+  border-radius: 20px;
+  margin-right: 2rem;
+}
+
+.joincircleInfo {
+  padding-right: 1rem;
+}
+
+.joincircleItem .joincircleItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.joincircleInfo .circleContents {
+  color: grey;
+  font-size: 0.75rem;
+}

@@ -1,0 +1,29 @@
+.followcircleItem {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin: 1rem;
+  align-items: center;
+}
+
+.followcircleItem:hover {
+  background-color: lightgrey;
+}
+
+.followcircleItem img {
+  width: 40px;
+  margin-right: 2rem;
+  /* border: 0.1px solid white; */
+  border-radius: 20px;
+}
+
+.followcircleItem .followcircleInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+}
+
+.followcircleInfo .followcircleContents {
+  color: grey;
+  font-size: 0.75rem;
+}
