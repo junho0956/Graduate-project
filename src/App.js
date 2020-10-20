@@ -5,10 +5,10 @@ import { Login, Home, Navigator } from "./components";
 
 function App() {
   const [MenuState, setMenuState] = useState([
-    { name: "home", checked: true },
-    { name: "search", checked: true },
-    { name: "mycircle", checked: false },
-    { name: "profile", checked: false },
+    { name: "menuhome", checked: true },
+    { name: "menusearch", checked: true },
+    { name: "menumycircle", checked: false },
+    { name: "menuprofile", checked: false },
     {
       name: "feed",
       checked: false,

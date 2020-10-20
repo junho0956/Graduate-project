@@ -10,55 +10,74 @@ import { HiUser, HiOutlineUser } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
 import { RiSearchFill } from "react-icons/ri";
 
+// import jQuery from "jquery";
+// import $ from "jquery";
+// window.$ = window.jQuery = jQuery;
+
 const HomeMenuTab = ({ menuState, handleChangeMenuTabFromNavigator }) => {
   const [state, setState] = useState(menuState);
 
-  const handleOnClick = (e) => {
-    console.log(e.target.id);
-    // state.forEach((res) => console.log(res.name, res.checked));
-    // const newState = state.map((res) =>
-    //   res.name === e.target.id ? { ...res, checked: false } : res
-    // );
-    // console.log("newState:", newState);
-    // setState(newState);
-    // handleChangeMenuTabFromNavigator(newState);
+  const handleOnClick = (id) => {
+    const newState = state.map((res) =>
+      res.name === id ? { ...res, checked: !res.checked } : res
+    );
+    console.log("newState:", newState);
+    setState(newState);
+    handleChangeMenuTabFromNavigator(newState);
   };
 
-  const home = "home",
-    search = "search",
-    star = "star",
-    profile = "profile";
+  useEffect(() => {
+    const menu = document.querySelector(".menutab");
+    menu.style.cssText =
+      "display:flex; flex-direction:row; justify-content:space-around; width:100%";
+    const menuchild = document.querySelectorAll(".menutab div");
+    menuchild.forEach((res) => {
+      res.style.cssText =
+        "width:2rem; font-size:2rem; border-radius:1rem; cursor:pointer";
+      res.addEventListener("mouseenter", function (e) {
+        e.target.style.backgroundColor = "lightgrey";
+      });
+      res.addEventListener("mouseleave", function (e) {
+        e.target.style.backgroundColor = "white";
+      });
+    });
+  });
+
+  const home = "menuhome",
+    search = "menusearch",
+    star = "menumycircle",
+    profile = "menuprofile";
 
   return (
-    <div className="menu">
-      <span>
+    <div className="menutab">
+      <div>
         {state[0].checked ? (
-          <AiFillHome id={home} onClick={handleOnClick} />
+          <AiFillHome onClick={() => handleOnClick(home)} />
         ) : (
-          <AiOutlineHome id={home} onClick={handleOnClick} />
+          <AiOutlineHome onClick={() => handleOnClick(home)} />
         )}
-      </span>
-      <span>
+      </div>
+      <div>
         {state[1].checked ? (
-          <RiSearchFill id={search} onClick={handleOnClick} />
+          <RiSearchFill onClick={() => handleOnClick(search)} />
         ) : (
-          <FiSearch id={search} onClick={handleOnClick} />
+          <FiSearch onClick={() => handleOnClick(search)} />
         )}
-      </span>
-      <span>
+      </div>
+      <div>
         {state[2].checked ? (
-          <AiFillStar id={star} onClick={handleOnClick} />
+          <AiFillStar onClick={() => handleOnClick(star)} />
         ) : (
-          <AiOutlineStar id={star} onClick={handleOnClick} />
+          <AiOutlineStar onClick={() => handleOnClick(star)} />
         )}
-      </span>
-      <span>
+      </div>
+      <div>
         {state[3].checked ? (
-          <HiUser id={profile} onClick={handleOnClick} />
+          <HiUser onClick={() => handleOnClick(profile)} />
         ) : (
-          <HiOutlineUser id={profile} onClick={handleOnClick} />
+          <HiOutlineUser onClick={() => handleOnClick(profile)} />
         )}
-      </span>
+      </div>
     </div>
   );
 };

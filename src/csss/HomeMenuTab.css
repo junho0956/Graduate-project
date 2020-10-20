@@ -5,13 +5,13 @@
   width: 100%;
 }
 
-.menu span:hover {
-  background-color: lightgrey;
-}
-
-.menu span {
+/* .menu {
   width: 2rem;
   font-size: 2rem;
   border-radius: 1rem;
   cursor: pointer;
-}
+} */
+
+/* .menu:nth-child(): hover {
+  background-color: lightgrey;
+} */
