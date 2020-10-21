@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import colonyImg from "../img/colony.PNG";
 import HomeFeed from "./HomeFeed";
 import "../csss/CircleInformation.css";
@@ -15,7 +15,9 @@ const CircleInformation = ({ name }) => {
   });
 
   const A = [1, 2, 3];
-  console.log("circleName : ", name);
+  useEffect(() => {
+    console.log("CircleInformation useEffect");
+  });
 
   return (
     <div className="circleInformationBasic">

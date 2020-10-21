@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { JoinCircle, FollowCircle } from "../components";
 import "../csss/MyCircle.css";
 

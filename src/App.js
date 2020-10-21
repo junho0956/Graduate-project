@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { Login, Home, Navigator } from "./components";
 
@@ -17,7 +17,6 @@ function App() {
   });
 
   const handleChangeMenuTab = (menu, home) => {
-    console.log("app 컴포넌트 재렌더링!");
     setHomeState(home);
     setMenuState(menu);
   };

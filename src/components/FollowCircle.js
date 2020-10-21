@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../csss/FollowCircle.css";
 import colonyImg from "../img/colony.PNG";
 
@@ -14,7 +14,7 @@ const FollowCircle = ({ homeState, handleChangeFeedFromMyCircle }) => {
   });
 
   const handleChange = (e) => {
-    const newHomeState = homeState;
+    const newHomeState = { ...homeState };
     newHomeState.clicked = true;
     newHomeState.circleName = circle.name;
     console.log("followitem : ", newHomeState);

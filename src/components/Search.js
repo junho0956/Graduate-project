@@ -1,13 +1,12 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "../csss/Search.css";
 import colonyImg from "../img/colony.PNG";
 
 const SearchItem = ({ list, homeState, handleChangeFeedFromSearch }) => {
   const handleChangeFeed = (e) => {
-    const newHomeState = homeState;
+    const newHomeState = { ...homeState };
     newHomeState.clicked = true;
     newHomeState.circleName = list.name;
-    console.log("searchItem : ", newHomeState);
     handleChangeFeedFromSearch(newHomeState);
   };
 
@@ -38,7 +37,6 @@ const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
   });
 
   const handleChangeFeed = (e) => {
-    console.log("search : ", e);
     handleChangeFeedFromHome(e);
   };
   return (

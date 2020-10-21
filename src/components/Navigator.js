@@ -7,10 +7,6 @@ const Navigator = ({ menuState, homeState, handleChangeMenuTabFromApp }) => {
     handleChangeMenuTabFromApp(menu, home);
   };
 
-  useEffect(() => {
-    console.log("Navigation useEffect!");
-  });
-
   return (
     <div className="navigation">
       <div className="side" />

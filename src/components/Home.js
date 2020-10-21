@@ -14,14 +14,9 @@ const Home = ({ menuState, homeState, handleChangeFeedFromApp }) => {
   const [state, setState] = useState(homeState);
 
   const handleChangeFeed = (e) => {
-    console.log("home : ", e);
     setState(e);
     handleChangeFeedFromApp(menuState, e);
   };
-
-  useEffect(() => {
-    console.log("home useEffect");
-  });
 
   return (
     <div className="homebasic">
