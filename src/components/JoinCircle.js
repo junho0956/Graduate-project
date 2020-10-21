@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CircleImg from "../img/colony.PNG";
 import "../csss/JoinCircle.css";
 
-const JoinCircle = () => {
+const JoinCircle = ({ homeState, handleChangeFeedFromMyCircle }) => {
   const [circle, setCircle] = useState({
     name: "colony",
     picture: CircleImg,
@@ -13,8 +13,15 @@ const JoinCircle = () => {
     },
   });
 
+  const handleChange = (e) => {
+    const newHomeState = homeState;
+    newHomeState.clicked = true;
+    newHomeState.circleName = circle.name;
+    handleChangeFeedFromMyCircle(newHomeState);
+  };
+
   return (
-    <div className="joincircleItem">
+    <div className="joincircleItem" onClick={handleChange}>
       <img src={circle.picture} />
       <div className="joincircleInfo">
         <div className="circleName">{circle.name}</div>

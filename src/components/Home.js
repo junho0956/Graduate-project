@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowseRouter as Link, Route, Router } from "react-router-dom";
 import {
   // Navigator,
@@ -9,8 +9,19 @@ import {
 } from "../components";
 import "../csss/Home.css";
 
-const Home = ({}) => {
+const Home = ({ menuState, homeState, handleChangeFeedFromApp }) => {
   const A = [1, 2, 3];
+  const [state, setState] = useState(homeState);
+
+  const handleChangeFeed = (e) => {
+    console.log("home : ", e);
+    setState(e);
+    handleChangeFeedFromApp(menuState, e);
+  };
+
+  useEffect(() => {
+    console.log("home useEffect");
+  });
 
   return (
     <div className="homebasic">
@@ -18,12 +29,33 @@ const Home = ({}) => {
         <div className="side" />
         <div className="homeMain">
           <div className="homeMainleft">
-            <HomeFeed A={A} />
+            {state.clicked ? (
+              <CircleInformation name={state.circleName} />
+            ) : (
+              <HomeFeed A={A} />
+            )}
           </div>
           <div className="homeMainright">
             <div className="homeMenuInfo">
-              <Search />
-              <MyCircle />
+              {menuState[1].checked ? (
+                <Search
+                  A={A}
+                  homeState={homeState}
+                  handleChangeFeedFromHome={handleChangeFeed}
+                />
+              ) : menuState[2].checked ? (
+                <MyCircle
+                  A={A}
+                  homeState={homeState}
+                  handleChangeFeedFromHome={handleChangeFeed}
+                />
+              ) : (
+                <Search
+                  A={A}
+                  homeState={homeState}
+                  handleChangeFeedFromHome={handleChangeFeed}
+                />
+              )}
             </div>
           </div>
         </div>

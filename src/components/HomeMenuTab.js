@@ -14,16 +14,24 @@ import { RiSearchFill } from "react-icons/ri";
 // import $ from "jquery";
 // window.$ = window.jQuery = jQuery;
 
-const HomeMenuTab = ({ menuState, handleChangeMenuTabFromNavigator }) => {
+const HomeMenuTab = ({
+  menuState,
+  homeState,
+  handleChangeMenuTabFromNavigator,
+}) => {
   const [state, setState] = useState(menuState);
 
   const handleOnClick = (id) => {
-    const newState = state.map((res) =>
-      res.name === id ? { ...res, checked: !res.checked } : res
+    const newMenuState = state.map((res) =>
+      res.name === id
+        ? { ...res, checked: !res.checked }
+        : { ...res, checked: false }
     );
-    console.log("newState:", newState);
-    setState(newState);
-    handleChangeMenuTabFromNavigator(newState);
+    const newHomeState = homeState;
+    newHomeState.clicked = false;
+    newHomeState.circleName = "";
+    setState(newMenuState);
+    handleChangeMenuTabFromNavigator(newMenuState, newHomeState);
   };
 
   useEffect(() => {
@@ -33,7 +41,7 @@ const HomeMenuTab = ({ menuState, handleChangeMenuTabFromNavigator }) => {
     const menuchild = document.querySelectorAll(".menutab div");
     menuchild.forEach((res) => {
       res.style.cssText =
-        "width:2rem; font-size:2rem; border-radius:1rem; cursor:pointer";
+        "width:1.75rem; font-size:1.75rem; border-radius:1rem; cursor:pointer;";
       res.addEventListener("mouseenter", function (e) {
         e.target.style.backgroundColor = "lightgrey";
       });

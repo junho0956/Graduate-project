@@ -2,9 +2,17 @@ import React, { useState, useMemo, useCallback } from "react";
 import "../csss/Search.css";
 import colonyImg from "../img/colony.PNG";
 
-const SearchItem = ({ list }) => {
+const SearchItem = ({ list, homeState, handleChangeFeedFromSearch }) => {
+  const handleChangeFeed = (e) => {
+    const newHomeState = homeState;
+    newHomeState.clicked = true;
+    newHomeState.circleName = list.name;
+    console.log("searchItem : ", newHomeState);
+    handleChangeFeedFromSearch(newHomeState);
+  };
+
   return (
-    <div className="searchItem">
+    <div className="searchItem" onClick={handleChangeFeed}>
       <img src={list.picture} />
       <div className="searchItemInformation">
         <span id="searchItemName">{list.name}</span>
@@ -18,7 +26,7 @@ const SearchItem = ({ list }) => {
   );
 };
 
-const Search = () => {
+const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
   const [list, setList] = useState({
     name: "colony",
     picture: colonyImg,
@@ -29,36 +37,26 @@ const Search = () => {
     },
   });
 
+  const handleChangeFeed = (e) => {
+    console.log("search : ", e);
+    handleChangeFeedFromHome(e);
+  };
   return (
     <div className="searchbasic">
       <div className="searchHead">
         <input id="searchInput" type="text" placeholder="동아리 찾기..." />
       </div>
       <div className="searchList">
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
-        <SearchItem list={list} />
+        {A.map((res) => {
+          return (
+            <SearchItem
+              list={list}
+              key={res}
+              homeState={homeState}
+              handleChangeFeedFromSearch={handleChangeFeed}
+            />
+          );
+        })}
       </div>
     </div>
   );

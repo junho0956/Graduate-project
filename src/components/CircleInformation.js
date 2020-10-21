@@ -3,7 +3,7 @@ import colonyImg from "../img/colony.PNG";
 import HomeFeed from "./HomeFeed";
 import "../csss/CircleInformation.css";
 
-const CircleInformation = () => {
+const CircleInformation = ({ name }) => {
   const [circle, setCircle] = useState({
     name: "Colony",
     picture: colonyImg,
@@ -15,6 +15,7 @@ const CircleInformation = () => {
   });
 
   const A = [1, 2, 3];
+  console.log("circleName : ", name);
 
   return (
     <div className="circleInformationBasic">

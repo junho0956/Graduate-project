@@ -5,19 +5,21 @@ import { Login, Home, Navigator } from "./components";
 
 function App() {
   const [MenuState, setMenuState] = useState([
-    { name: "menuhome", checked: true },
-    { name: "menusearch", checked: true },
+    { name: "menuhome", checked: false },
+    { name: "menusearch", checked: false },
     { name: "menumycircle", checked: false },
     { name: "menuprofile", checked: false },
-    {
-      name: "feed",
-      checked: false,
-      circlename: "",
-    },
   ]);
 
-  const handleChangeMenuTab = (e) => {
-    console.log("handleChangeMenuTab", e);
+  const [homeState, setHomeState] = useState({
+    clicked: false,
+    circleName: "",
+  });
+
+  const handleChangeMenuTab = (menu, home) => {
+    console.log("app 컴포넌트 재렌더링!");
+    setHomeState(home);
+    setMenuState(menu);
   };
 
   return (
@@ -25,12 +27,19 @@ function App() {
       <div className="navi">
         <Navigator
           menuState={MenuState}
+          homeState={homeState}
           handleChangeMenuTabFromApp={handleChangeMenuTab}
         />
       </div>
       <div className="Root">
         <Router>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/">
+            <Home
+              menuState={MenuState}
+              homeState={homeState}
+              handleChangeFeedFromApp={handleChangeMenuTab}
+            />
+          </Route>
           <Route path="/home" component={Login} />
         </Router>
       </div>

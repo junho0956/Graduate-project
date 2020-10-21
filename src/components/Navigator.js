@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "../csss/Navigator.css";
 import HomeMenuTab from "./HomeMenuTab";
 
-const Navigator = ({ menuState, handleChangeMenuTabFromApp }) => {
-  const handleChangeMenuTabFromNavigator = (e) => {
-    console.log("Navigator에서", e, "를 받았습니다.");
-    handleChangeMenuTabFromApp(e);
+const Navigator = ({ menuState, homeState, handleChangeMenuTabFromApp }) => {
+  const handleChangeMenuTabFromNavigator = (menu, home) => {
+    handleChangeMenuTabFromApp(menu, home);
   };
+
+  useEffect(() => {
+    console.log("Navigation useEffect!");
+  });
 
   return (
     <div className="navigation">
@@ -16,6 +19,7 @@ const Navigator = ({ menuState, handleChangeMenuTabFromApp }) => {
         <div className="menuTab">
           <HomeMenuTab
             menuState={menuState}
+            homeState={homeState}
             handleChangeMenuTabFromNavigator={handleChangeMenuTabFromNavigator}
           />
         </div>
