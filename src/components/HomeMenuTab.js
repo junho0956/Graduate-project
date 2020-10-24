@@ -10,28 +10,24 @@ import { HiUser, HiOutlineUser } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
 import { RiSearchFill } from "react-icons/ri";
 
-// import jQuery from "jquery";
-// import $ from "jquery";
-// window.$ = window.jQuery = jQuery;
-
 const HomeMenuTab = ({
   menuState,
-  homeState,
-  handleChangeMenuTabFromNavigator,
+  circleState,
+  handleChangeFeedFromNavigator,
 }) => {
-  const [state, setState] = useState(menuState);
+  // const [state, setState] = useState(menuState);
 
   const handleOnClick = (id) => {
-    const newMenuState = state.map((res) =>
+    const newMenuState = menuState.map((res) =>
       res.name === id
         ? { ...res, checked: !res.checked }
         : { ...res, checked: false }
     );
-    const newHomeState = homeState;
-    newHomeState.clicked = false;
-    newHomeState.circleName = "";
-    setState(newMenuState);
-    handleChangeMenuTabFromNavigator(newMenuState, newHomeState);
+    const newCircleState = circleState;
+    newCircleState.clicked = false;
+    newCircleState.circleName = "";
+    // setState(newCircleState);
+    handleChangeFeedFromNavigator(newMenuState, newCircleState);
   };
 
   useEffect(() => {
@@ -53,34 +49,26 @@ const HomeMenuTab = ({
 
   const home = "menuhome",
     search = "menusearch",
-    star = "menumycircle",
     profile = "menuprofile";
 
   return (
     <div className="menutab">
       <div>
-        {state[0].checked ? (
+        {menuState[0].checked ? (
           <AiFillHome onClick={() => handleOnClick(home)} />
         ) : (
           <AiOutlineHome onClick={() => handleOnClick(home)} />
         )}
       </div>
       <div>
-        {state[1].checked ? (
+        {menuState[1].checked ? (
           <RiSearchFill onClick={() => handleOnClick(search)} />
         ) : (
           <FiSearch onClick={() => handleOnClick(search)} />
         )}
       </div>
       <div>
-        {state[2].checked ? (
-          <AiFillStar onClick={() => handleOnClick(star)} />
-        ) : (
-          <AiOutlineStar onClick={() => handleOnClick(star)} />
-        )}
-      </div>
-      <div>
-        {state[3].checked ? (
+        {menuState[2].checked ? (
           <HiUser onClick={() => handleOnClick(profile)} />
         ) : (
           <HiOutlineUser onClick={() => handleOnClick(profile)} />

@@ -3,21 +3,24 @@ import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import "./App.css";
 import { Login, Home, Navigator } from "./components";
 
+// import jQuery from "jquery";
+// import $ from "jquery";
+// window.$ = window.jQuery = jQuery;
+
 function App() {
   const [MenuState, setMenuState] = useState([
     { name: "menuhome", checked: false },
     { name: "menusearch", checked: false },
-    { name: "menumycircle", checked: false },
     { name: "menuprofile", checked: false },
   ]);
 
-  const [homeState, setHomeState] = useState({
+  const [circleState, setCircleState] = useState({
     clicked: false,
     circleName: "",
   });
 
-  const handleChangeMenuTab = (menu, home) => {
-    setHomeState(home);
+  const handleChangeFeed = (menu, home) => {
+    setCircleState(home);
     setMenuState(menu);
   };
 
@@ -26,8 +29,8 @@ function App() {
       <div className="navi">
         <Navigator
           menuState={MenuState}
-          homeState={homeState}
-          handleChangeMenuTabFromApp={handleChangeMenuTab}
+          circleState={circleState}
+          handleChangeFeedFromApp={handleChangeFeed}
         />
       </div>
       <div className="Root">
@@ -35,8 +38,8 @@ function App() {
           <Route exact path="/">
             <Home
               menuState={MenuState}
-              homeState={homeState}
-              handleChangeFeedFromApp={handleChangeMenuTab}
+              circleState={circleState}
+              handleChangeFeedFromApp={handleChangeFeed}
             />
           </Route>
           <Route path="/home" component={Login} />

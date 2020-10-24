@@ -9,3 +9,4 @@ export { default as MyCircle } from "./MyCircle";
 export { default as JoinCircle } from "./JoinCircle";
 export { default as FollowCircle } from "./FollowCircle";
 export { default as CircleInformation } from "./CircleInformation";
+export { default as Profile } from "./Profile";

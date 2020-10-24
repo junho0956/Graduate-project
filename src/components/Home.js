@@ -4,17 +4,17 @@ import {
   // Navigator,
   Search,
   HomeFeed,
-  MyCircle,
   CircleInformation,
+  Profile,
 } from "../components";
 import "../csss/Home.css";
 
-const Home = ({ menuState, homeState, handleChangeFeedFromApp }) => {
+const Home = ({ menuState, circleState, handleChangeFeedFromApp }) => {
   const A = [1, 2, 3];
-  const [state, setState] = useState(homeState);
+  // const [state, setState] = useState(homeState);
 
   const handleChangeFeed = (e) => {
-    setState(e);
+    // setState(e);
     handleChangeFeedFromApp(menuState, e);
   };
 
@@ -24,33 +24,25 @@ const Home = ({ menuState, homeState, handleChangeFeedFromApp }) => {
         <div className="side" />
         <div className="homeMain">
           <div className="homeMainleft">
-            {state.clicked ? (
-              <CircleInformation name={state.circleName} />
+            {circleState.clicked ? (
+              <CircleInformation name={circleState.circleName} />
+            ) : menuState[2].checked ? (
+              <Profile
+                A={A}
+                circleState={circleState}
+                handleChangeFeedFromHome={handleChangeFeed}
+              />
             ) : (
               <HomeFeed A={A} />
             )}
           </div>
           <div className="homeMainright">
             <div className="homeMenuInfo">
-              {menuState[1].checked ? (
-                <Search
-                  A={A}
-                  homeState={homeState}
-                  handleChangeFeedFromHome={handleChangeFeed}
-                />
-              ) : menuState[2].checked ? (
-                <MyCircle
-                  A={A}
-                  homeState={homeState}
-                  handleChangeFeedFromHome={handleChangeFeed}
-                />
-              ) : (
-                <Search
-                  A={A}
-                  homeState={homeState}
-                  handleChangeFeedFromHome={handleChangeFeed}
-                />
-              )}
+              <Search
+                A={A}
+                circleState={circleState}
+                handleChangeFeedFromHome={handleChangeFeed}
+              />
             </div>
           </div>
         </div>

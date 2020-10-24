@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { JoinCircle, FollowCircle } from "../components";
 import "../csss/MyCircle.css";
 
-const MyCircle = ({ A, homeState, handleChangeFeedFromHome }) => {
+const MyCircle = ({ A, circleState, handleChangeFeedFromProfile }) => {
   const handleChange = (e) => {
-    console.log("MyCircle : ", e);
-    handleChangeFeedFromHome(e);
+    handleChangeFeedFromProfile(e);
   };
 
   return (
@@ -17,7 +16,7 @@ const MyCircle = ({ A, homeState, handleChangeFeedFromHome }) => {
             return (
               <JoinCircle
                 key={res}
-                homeState={homeState}
+                circleState={circleState}
                 handleChangeFeedFromMyCircle={handleChange}
               />
             );
@@ -31,7 +30,7 @@ const MyCircle = ({ A, homeState, handleChangeFeedFromHome }) => {
             return (
               <FollowCircle
                 key={res}
-                homeState={homeState}
+                circleState={circleState}
                 handleChangeFeedFromMyCircle={handleChange}
               />
             );

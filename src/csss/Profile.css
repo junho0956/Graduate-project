@@ -1,0 +1,22 @@
+.profilebasic {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileHeader img {
+  width: 15rem;
+  border-radius: 7.5rem;
+  cursor: pointer;
+}
+
+.profileInfo {
+  font-size: 1.5rem;
+  font-family: "Nanum Gothic", sans-serif;
+  padding: 1rem;
+}

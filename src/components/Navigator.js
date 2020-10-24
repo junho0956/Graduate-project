@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import "../csss/Navigator.css";
 import HomeMenuTab from "./HomeMenuTab";
 
-const Navigator = ({ menuState, homeState, handleChangeMenuTabFromApp }) => {
-  const handleChangeMenuTabFromNavigator = (menu, home) => {
-    handleChangeMenuTabFromApp(menu, home);
+const Navigator = ({ menuState, circleState, handleChangeFeedFromApp }) => {
+  const handleChangeFeedFromNavigator = (menu, circle) => {
+    handleChangeFeedFromApp(menu, circle);
   };
 
   return (
@@ -15,8 +15,8 @@ const Navigator = ({ menuState, homeState, handleChangeMenuTabFromApp }) => {
         <div className="menuTab">
           <HomeMenuTab
             menuState={menuState}
-            homeState={homeState}
-            handleChangeMenuTabFromNavigator={handleChangeMenuTabFromNavigator}
+            circleState={circleState}
+            handleChangeFeedFromNavigator={handleChangeFeedFromNavigator}
           />
         </div>
       </div>
