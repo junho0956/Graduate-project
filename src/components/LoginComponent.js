@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Link } from "react-router-dom";
 import "../csss/LoginComponent.css";
+import axios from "axios";
 
 const LoginComponent = () => {
   const [idValue, setID] = useState("");
@@ -11,6 +12,21 @@ const LoginComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const userdata = {
+      email: idValue,
+      password: pwValue,
+    };
+
+    axios({
+      method: "post",
+      url: "http://3.35.240.252:8080/auth",
+      data: userdata,
+    })
+      .then((res) => {
+        console.log("post :: ", res);
+      })
+      .catch((error) => console.log(error));
   };
 
   const onChange = (e) => {
@@ -19,10 +35,9 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="background">
-      <div className="title">Sign In</div>
-      <div className="body">
-        <form onSubmit={onSubmit}>
+    <div className="loginBackground">
+      <div className="loginBody">
+        <form className="loginForm" onSubmit={onSubmit}>
           <p>
             <input
               id="id"
@@ -41,15 +56,11 @@ const LoginComponent = () => {
               onChange={onChange}
             />
           </p>
-          {/* <a href="/forgotUser" id="forgotUser">
+          <a href="/forgotUser" id="forgotUser">
             forgot your ID or PW?
-          </a> */}
+          </a>
           <p className="loginBtn">
             <button onClick={onSubmit}>Login!</button>
-          </p>
-          <p className="anotherBtn">
-            <button onClick={createUserBtn}>Sign up</button>
-            <button onClick={forgotUserBtn}>Find user</button>
           </p>
           <p></p>
         </form>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowseRouter as Link, Route, Router } from "react-router-dom";
 import {
-  // Navigator,
+  Navigator,
   Search,
   HomeFeed,
   CircleInformation,
@@ -9,24 +9,43 @@ import {
 } from "../components";
 import "../csss/Home.css";
 
-const Home = ({ menuState, circleState, handleChangeFeedFromApp }) => {
+const Home = () => {
   const A = [1, 2, 3];
-  // const [state, setState] = useState(homeState);
 
-  const handleChangeFeed = (e) => {
-    // setState(e);
-    handleChangeFeedFromApp(menuState, e);
+  // navigation 을 눌렀을 때 그에 맞게 이동
+  const [navState, clickNavi] = useState([
+    { name: "navhome", checked: false },
+    { name: "navsearch", checked: false },
+    { name: "navprofile", checked: false },
+  ]);
+
+  // 검색, 프로필, 동아리 등에서 동아리 정보를 눌렀을 때 이동
+  const [circleState, clickCircle] = useState({
+    clicked: false,
+    circleName: "",
+  });
+
+  const handleChangeFeed = (nav, circle) => {
+    clickCircle(circle);
+    clickNavi(nav);
   };
 
   return (
     <div className="homebasic">
+      <div className="navi">
+        <Navigator
+          navState={navState}
+          circleState={circleState}
+          handleChangeFeedFromHome={handleChangeFeed}
+        />
+      </div>
       <div className="home">
         <div className="side" />
         <div className="homeMain">
           <div className="homeMainleft">
             {circleState.clicked ? (
               <CircleInformation name={circleState.circleName} />
-            ) : menuState[2].checked ? (
+            ) : navState[2].checked ? (
               <Profile
                 A={A}
                 circleState={circleState}

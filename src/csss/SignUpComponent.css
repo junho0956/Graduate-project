@@ -1,79 +1,58 @@
-.loginBackground {
+.signupBackground {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 40vh;
   min-width: 30vw;
 }
 
-.loginBody .loginForm {
+.signupBody .signupForm {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
 }
 
-.loginBody .loginForm p {
+.signupBody .signupForm input {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-.loginForm input {
+.signupForm input {
   border: 1px solid rgb(219, 235, 237);
   background-color: transparent;
   outline: none;
   text-align: center;
 }
 
-.loginForm button {
+.signupForm button {
   cursor: pointer;
   border: none;
   background-color: transparent;
   outline: none;
 }
 
-#forgotUser {
-  position: relative;
-  left: -4rem;
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  cursor: pointer;
-  color: rgb(58, 58, 211);
-  text-decoration: none;
-}
-
-.loginBtn :hover {
-  font-weight: 600;
-}
-
 @media screen and (min-width: 728px) {
-  .title {
-    font-size: 2.5rem;
-  }
-  .loginBody .loginForm input {
+  .signupBody .signupForm input {
     font-size: 1.5rem;
   }
-  .loginForm input {
+  .signupForm input {
     border-radius: 1rem;
   }
 
-  .loginForm button {
+  .signupForm button {
     font-size: 1.5rem;
   }
 }
 
 @media screen and (max-width: 728px) {
-  .title {
-    font-size: 2rem;
-  }
-  .loginBody .loginForm input {
+  .signupBody .signupForm input {
     font-size: 1rem;
   }
-  .loginForm input {
+  .signupForm input {
     border-radius: 0.5rem;
   }
-  .loginForm button {
+  .signupForm button {
     font-size: 1rem;
   }
   #forgotUser {

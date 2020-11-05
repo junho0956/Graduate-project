@@ -10,3 +10,5 @@ export { default as JoinCircle } from "./JoinCircle";
 export { default as FollowCircle } from "./FollowCircle";
 export { default as CircleInformation } from "./CircleInformation";
 export { default as Profile } from "./Profile";
+export { default as SignUpComponent } from "./SignUpComponent";
+export { default as LoginComponent } from "./LoginComponent";
