@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { useState } from "react";
 import "../csss/SignUpComponent.css";
 
@@ -13,24 +14,21 @@ const SignUpComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(signupValue);
+    Axios("http://3.35.240.252:8080/users", {
+      method: "POST",
+      data: signupValue,
+    })
+      .then((res) => {
+        console.log("create!");
+      })
+      .catch((error) => console.log(error));
   };
 
   const onChange = (e) => {
     const changeValue = { ...signupValue };
-    switch (e.target.id) {
-      case "email":
-        setSignup({ ...changeValue, email: e.target.value });
-      case "password":
-        setSignup({ ...changeValue, password: e.target.password });
-      case "name":
-        setSignup({ ...changeValue, name: e.target.password });
-      case "nickname":
-        setSignup({ ...changeValue, nickname: e.target.password });
-      case "organization":
-        setSignup({ ...changeValue, user_organization: e.target.password });
-      default:
-        return;
-    }
+    changeValue[e.target.id] = e.target.value;
+    setSignup(changeValue);
   };
   const onClickGender = (e) => {
     const changeValue = { ...signupValue };
@@ -82,7 +80,7 @@ const SignUpComponent = () => {
             />
             <input
               type="text"
-              id="organization"
+              id="user_organization"
               value={signupValue.user_organization}
               placeholder="Organization"
               onChange={onChange}
@@ -95,14 +93,14 @@ const SignUpComponent = () => {
                 value="male"
                 onClick={onClickGender}
               />
-              <label for="male">male</label>
+              <label htmlFor="male">male</label>
               <input
                 type="radio"
                 id="female"
                 value="female"
                 onClick={onClickGender}
               />
-              <label for="female">female</label>
+              <label htmlFor="female">female</label>
             </p>
             <button onClick={onSubmit}>create New ID!</button>
           </form>
