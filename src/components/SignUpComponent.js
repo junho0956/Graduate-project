@@ -20,7 +20,7 @@ const SignUpComponent = () => {
       data: signupValue,
     })
       .then((res) => {
-        console.log("create!");
+        alert("create user!");
       })
       .catch((error) => console.log(error));
   };
@@ -34,16 +34,6 @@ const SignUpComponent = () => {
     const changeValue = { ...signupValue };
     setSignup({ ...changeValue, user_gender: e.target.value });
   };
-
-  /*
-  http POST 3.35.240.252:8080/users 
-  email="joonho@example.com" 
-  password="test" 
-  name="joonho" 
-  nickname="비켜보세요" 
-  user_gender="male" 
-  user_organization="DA-univer"
-  */
 
   return (
     <div>

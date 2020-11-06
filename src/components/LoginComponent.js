@@ -24,7 +24,7 @@ const LoginComponent = () => {
       data: userdata,
     })
       .then((res) => {
-        console.log("post :: ", res);
+        window.location.href = "/home";
       })
       .catch((error) => console.log(error));
   };
