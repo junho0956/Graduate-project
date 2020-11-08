@@ -10,63 +10,26 @@
   z-index: 10;
 }
 
-.side {
-  flex: 1;
-}
-
 .home {
+}
+
+.homeFeed {
   display: flex;
   flex-direction: row;
-  flex: 10;
-}
-
-.homeMain {
-  display: flex;
-  flex-direction: row;
-  flex: 2;
-}
-
-.homeMain .homeMainleft {
-  flex: 1.8;
-  margin: 0.5rem;
-  z-index: 9;
-}
-
-.homeMain .homeMainright {
-  flex: 1.2;
-  margin: 0.5rem;
-}
-
-.homeMenuTitle {
-  position: fixed;
-  top: 7rem;
-  min-width: 20rem;
-}
-
-.homeMenuInfo {
-  position: fixed;
-  top: 4rem;
-  bottom: 0;
-  margin-left: 2rem;
-}
-
-.homeMain #input {
-  font-size: 3rem;
+  width: 40vw;
+  padding-left: 30vw;
 }
 
 @media screen and (max-width: 728px) {
-  .side {
-    display: none;
-  }
-  .homeMain {
+  /* .homeMain {
     margin-left: 2rem;
     margin-right: 2rem;
     min-width: 35rem;
-  }
+  } */
 }
 
 @media screen and (min-width: 728px) {
-  .homeMain {
+  /* .homeMain {
     min-width: 60rem;
-  }
+  } */
 }

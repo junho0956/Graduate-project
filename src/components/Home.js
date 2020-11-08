@@ -15,18 +15,17 @@ const Home = () => {
   // navigation 을 눌렀을 때 그에 맞게 이동
   const [navState, clickNavi] = useState([
     { name: "navhome", checked: false },
-    { name: "navsearch", checked: false },
     { name: "navprofile", checked: false },
   ]);
 
   // 검색, 프로필, 동아리 등에서 동아리 정보를 눌렀을 때 이동
-  const [circleState, clickCircle] = useState({
-    clicked: false,
-    circleName: "",
-  });
+  // const [circleState, clickCircle] = useState({
+  //   clicked: false,
+  //   circleName: "",
+  // });
 
   const handleChangeFeed = (nav, circle) => {
-    clickCircle(circle);
+    // clickCircle(circle);
     clickNavi(nav);
   };
 
@@ -35,37 +34,18 @@ const Home = () => {
       <div className="navi">
         <Navigator
           navState={navState}
-          circleState={circleState}
+          // circleState={circleState}
           handleChangeFeedFromHome={handleChangeFeed}
         />
       </div>
       <div className="home">
-        <div className="side" />
-        <div className="homeMain">
-          <div className="homeMainleft">
-            {circleState.clicked ? (
-              <CircleInformation name={circleState.circleName} />
-            ) : navState[2].checked ? (
-              <Profile
-                A={A}
-                circleState={circleState}
-                handleChangeFeedFromHome={handleChangeFeed}
-              />
-            ) : (
-              <HomeFeed A={A} />
-            )}
-          </div>
-          <div className="homeMainright">
-            <div className="homeMenuInfo">
-              <Search
-                A={A}
-                circleState={circleState}
-                handleChangeFeedFromHome={handleChangeFeed}
-              />
-            </div>
-          </div>
+        <div className="homeFeed">
+          {navState[1].checked ? (
+            <Profile A={A} handleChangeFeedFromHome={handleChangeFeed} />
+          ) : (
+            <HomeFeed A={A} />
+          )}
         </div>
-        <div className="side" />
       </div>
     </div>
   );

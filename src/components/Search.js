@@ -7,7 +7,6 @@ const SearchItem = ({ list, homeState, handleChangeFeedFromSearch }) => {
     const newHomeState = { ...homeState };
     newHomeState.clicked = true;
     newHomeState.circleName = list.name;
-    console.log("SearchItem 에서 " + list.name + "을 클릭");
     handleChangeFeedFromSearch(newHomeState);
   };
 
@@ -37,8 +36,7 @@ const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
     },
   });
 
-  const handleChangeFeed = (e) => {
-    console.log("Search 에서", e);
+  const handleSearch = (e) => {
     handleChangeFeedFromHome(e);
   };
   return (
@@ -53,7 +51,7 @@ const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
               list={list}
               key={res}
               homeState={homeState}
-              handleChangeFeedFromSearch={handleChangeFeed}
+              handleChangeFeedFromSearch={handleSearch}
             />
           );
         })}

@@ -5,44 +5,30 @@
   border-bottom: 1px solid lightgrey;
   justify-content: center;
   align-items: center;
-  flex: 5;
   background-color: white;
 }
 
-.side {
-  flex: 1;
-}
-.navMain {
-  display: flex;
-  flex-direction: row;
-  flex: 3;
-}
-
-.navMain .Logo {
+.navLogo {
+  width: 100%;
   font-size: 1.5rem;
   color: #b620e0;
-  flex: 2;
   text-align: center;
 }
 
-.navMain .menuTab {
-  flex: 1;
+.navMenuTab {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  height: 55px;
+  right: 1rem;
+  z-index: 11;
+  width: 10vw;
 }
 
 @media screen and (min-width: 728px) {
-  .navMain {
-    min-width: 60rem;
-  }
 }
 
 @media screen and (max-width: 728px) {
-  .side {
-    display: none;
-  }
-  .navMain {
-    min-width: 35rem;
-  }
 }

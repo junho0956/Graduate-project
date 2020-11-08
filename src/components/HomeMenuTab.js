@@ -5,22 +5,27 @@ import {
   AiOutlineHome,
   AiOutlineStar,
   AiFillStar,
+  AiOutlineMenuUnfold,
+  AiOutlineMenuFold,
 } from "react-icons/ai";
 import { HiUser, HiOutlineUser } from "react-icons/hi";
 import { FiSearch } from "react-icons/fi";
 import { RiSearchFill } from "react-icons/ri";
 
-const HomeMenuTab = ({ navState, circleState, handleNavigator }) => {
+const HomeMenuTab = ({ navState, handleNavigator }) => {
+  const [menuOpen, setMenuOpen] = useState(true);
+
   const handleOnClick = (id) => {
     const newNavState = navState.map((res) =>
       res.name === id
         ? { ...res, checked: !res.checked }
         : { ...res, checked: false }
     );
-    const newCircleState = { ...circleState };
-    newCircleState.clicked = false;
-    newCircleState.circleName = "";
-    handleNavigator(newNavState, newCircleState);
+    handleNavigator(newNavState);
+  };
+
+  const handleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   useEffect(() => {
@@ -55,16 +60,16 @@ const HomeMenuTab = ({ navState, circleState, handleNavigator }) => {
       </div>
       <div>
         {navState[1].checked ? (
-          <RiSearchFill onClick={() => handleOnClick(search)} />
-        ) : (
-          <FiSearch onClick={() => handleOnClick(search)} />
-        )}
-      </div>
-      <div>
-        {navState[2].checked ? (
           <HiUser onClick={() => handleOnClick(profile)} />
         ) : (
           <HiOutlineUser onClick={() => handleOnClick(profile)} />
+        )}
+      </div>
+      <div>
+        {menuOpen ? (
+          <AiOutlineMenuUnfold onClick={handleMenu} />
+        ) : (
+          <AiOutlineMenuFold onClick={handleMenu} />
         )}
       </div>
     </div>
