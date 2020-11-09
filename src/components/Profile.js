@@ -19,13 +19,6 @@ const Profile = ({ A, homeState, handleChangeFeedFromHome }) => {
           <div className="profileBelong">DongA Univ.</div>
         </div>
       </div>
-      <div className="profileCircle">
-        <MyCircle
-          A={A}
-          homeState={homeState}
-          handleChangeFeedFromProfile={handleChangeFeed}
-        />
-      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .joincircleItem {
   display: flex;
   flex-direction: row;
-  margin: 1rem;
+  padding: 0.5rem;
   font-size: 1.25rem;
   cursor: pointer;
   align-items: center;

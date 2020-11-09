@@ -1,33 +1,31 @@
 .mycircleBasic {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
-  margin-top: 2rem;
+  font-family: "Nanum Gothic", sans-serif;
 }
 
-.JoinCircleTitle {
-  border-bottom: 1px solid lightgrey;
-  font-size: 1.3rem;
-  padding: 5px;
-  margin-left: 1rem;
-}
-
-.JoinCircleList {
-  max-height: 30vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
+.JoinCircleTitle,
 .FollowCircleTitle {
-  margin-top: 2rem;
-  font-size: 1.3rem;
-  margin-left: 1rem;
-  padding: 5px;
   border-bottom: 1px solid lightgrey;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  cursor: pointer;
+  height: 3vh;
 }
 
-.FollowCircleList {
-  max-height: 30vh;
+.JoinCircleInfo,
+.FollowCircleInfo {
+  max-height: 79.5vh;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.JoinCircleInfo ul,
+.FollowCircleInfo ul {
+  margin-top: -1000%;
+  /* max-height: 30vh; */
 }

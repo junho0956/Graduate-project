@@ -37,17 +37,15 @@ const HomeFeed = ({ A }) => {
   });
 
   useEffect(() => {
-    console.log("----- HomeFeed useEffect! -----");
-    console.log("-- slide start! --");
     const imgAll = (res) => document.querySelectorAll(res);
     const wraps = imgAll(".pictures");
 
     wraps.forEach((wrap) => {
-      const slide = wrap.children[1];
+      const slide = wrap.children[1]; // slide
       slide.style.cssText = "overflow:hidden; position:relative;";
-      const target = slide.children[0];
-      const len = target.children.length;
-      const button = wrap.children[0];
+      const target = slide.children[0]; // ul
+      const len = target.children.length; // li size
+      const button = wrap.children[0]; // left, right button
       if (len > 2) {
         const leftbutton = button.children[0];
         const rightbutton = button.children[1];

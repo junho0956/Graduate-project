@@ -1,12 +1,14 @@
 .searchbasic {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
-  margin-top: 2rem;
-  max-height: 50vh;
+  /* margin: 1rem; */
+  margin-top: 0.5rem;
+  padding: 0;
+  font-family: "Nanum Gothic", sans-serif;
 }
 
 .searchList {
+  max-height: 85vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -16,15 +18,19 @@
 
 .searchHead {
   border-bottom: 1px solid lightgrey;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+#searchInput:focus {
+  outline: none;
 }
 
 #searchInput {
   border: none;
   background-color: white;
   color: lightgrey;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin-left: 1rem;
   padding: 5px;
 }
@@ -34,7 +40,8 @@
   flex-direction: row;
   align-items: center;
   font-size: 1.25rem;
-  margin: 1rem;
+  /* margin: 1rem 1rem 0.5rem 0.5rem; */
+  padding: 0.5rem;
   cursor: pointer;
 }
 
@@ -53,6 +60,7 @@
   border: 0.1px solid white;
   border-radius: 20px;
   margin-right: 2rem;
+  margin-left: 0.5rem;
 }
 
 #searchItemInfo {

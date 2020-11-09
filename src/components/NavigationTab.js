@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "../csss/HomeMenuTab.css";
+import React, { useEffect } from "react";
+import "../csss/NavigationTab.css";
 import {
   AiFillHome,
   AiOutlineHome,
-  AiOutlineStar,
-  AiFillStar,
   AiOutlineMenuUnfold,
   AiOutlineMenuFold,
 } from "react-icons/ai";
 import { HiUser, HiOutlineUser } from "react-icons/hi";
-import { FiSearch } from "react-icons/fi";
-import { RiSearchFill } from "react-icons/ri";
 
-const HomeMenuTab = ({ navState, handleNavigator }) => {
-  const [menuOpen, setMenuOpen] = useState(true);
-
+const HomeMenuTab = ({ navState, sidemenu, handleNavigator }) => {
   const handleOnClick = (id) => {
     const newNavState = navState.map((res) =>
-      res.name === id
-        ? { ...res, checked: !res.checked }
-        : { ...res, checked: false }
+      res.name === id ? { ...res, checked: true } : { ...res, checked: false }
     );
-    handleNavigator(newNavState);
+    handleNavigator(newNavState, sidemenu);
   };
 
   const handleMenu = () => {
-    setMenuOpen(!menuOpen);
+    const newMenuOpen = !sidemenu;
+    handleNavigator(navState, newMenuOpen);
   };
 
   useEffect(() => {
@@ -46,7 +39,6 @@ const HomeMenuTab = ({ navState, handleNavigator }) => {
   });
 
   const home = "navhome",
-    search = "navsearch",
     profile = "navprofile";
 
   return (
@@ -66,7 +58,7 @@ const HomeMenuTab = ({ navState, handleNavigator }) => {
         )}
       </div>
       <div>
-        {menuOpen ? (
+        {sidemenu ? (
           <AiOutlineMenuUnfold onClick={handleMenu} />
         ) : (
           <AiOutlineMenuFold onClick={handleMenu} />
