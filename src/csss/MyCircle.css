@@ -19,7 +19,7 @@
 
 .JoinCircleInfo,
 .FollowCircleInfo {
-  max-height: 79.5vh;
+  max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }

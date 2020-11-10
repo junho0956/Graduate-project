@@ -66,7 +66,7 @@ const SideMenu = () => {
         </div>
       </div>
       <div className="sideMenuInfo">
-        {search ? <Search A={A} /> : <MyCircle A={A} />}
+        {search ? <Search /> : <MyCircle A={A} />}
       </div>
     </div>
   );
