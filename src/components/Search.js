@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../csss/Search.css";
 import axios from "axios";
 import colonyImg from "../img/colony.PNG";
+// import useSearch from "../Hooks/useSearch";
 
 const SearchItem = ({ list, homeState, handleChangeFeedFromSearch }) => {
   const handleChangeFeed = (e) => {
@@ -29,6 +30,29 @@ const SearchItem = ({ list, homeState, handleChangeFeedFromSearch }) => {
 const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
   const [list, setList] = useState([]);
   const [searchCircleInput, setSearchCircleInput] = useState("");
+  const [circleList, setCircleList] = useState([]);
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://3.35.240.252:8080/circles",
+    })
+      .then((res) => {
+        const newCircleList = res.data.map((res) => {
+          return {
+            name: res.name,
+            picture: colonyImg,
+            information: {
+              school: res.organization,
+              location: "Busan",
+              what: res.category,
+            },
+          };
+        });
+        setCircleList(newCircleList);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   /*
   {
     name: "colony",
@@ -42,27 +66,31 @@ const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
   */
 
   useEffect(() => {
-    // get circle
-    console.log("searchCircleInput : ", searchCircleInput);
+    if (searchCircleInput.length == 0) {
+      setList([]);
+      return;
+    }
 
-    axios({
-      method: "GET",
-      url: `http://3.35.240.252:8080/circles/${searchCircleInput}`,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => console.log("error: ", error));
+    console.log("circleList : ", circleList);
+
+    const newList = circleList.filter((res) => {
+      return (
+        res.name.toLowerCase().indexOf(searchCircleInput.toLowerCase()) != -1
+      );
+    });
+
+    // console.log("newList : ", newList);
+    setList(newList);
   }, [searchCircleInput]);
 
   const handleSearchInput = (e) => {
-    console.log("click : ", e.target.value);
     setSearchCircleInput(e.target.value);
   };
 
   const handleSearch = (e) => {
     handleChangeFeedFromHome(e);
   };
+
   return (
     <div className="searchbasic">
       <div className="searchHead">
@@ -73,7 +101,13 @@ const Search = ({ A, homeState, handleChangeFeedFromHome }) => {
           onChange={handleSearchInput}
         />
       </div>
-      <div className="searchList"></div>
+      <div className="searchList">
+        {list.length >= 1
+          ? list.map((res, index) => {
+              return <SearchItem key={index} list={res} />;
+            })
+          : null}
+      </div>
     </div>
   );
 };

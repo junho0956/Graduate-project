@@ -30,8 +30,8 @@ const MyCircle = ({ A, handleChangeFeedFromProfile }) => {
     const joinHeight = Number(joincircleHeight.slice(0, -2)) * -1;
     const followHeight = Number(followcircleHeight.slice(0, -2)) * -1;
     console.log(joinHeight);
-    jointarget.style.cssText = `transition:0.5s; margin-top:${joinHeight}px;`;
-    followtarget.style.cssText = `transition:0.5s; margin-top:${followHeight}px;`;
+    jointarget.style.cssText = `transition:1s; margin-top:${joinHeight}px;`;
+    followtarget.style.cssText = `transition:1s; margin-top:${followHeight}px;`;
     if (joincircle) {
       jointarget.style.marginTop = "0%";
       followtitle.style.borderTop = "1px solid lightgrey";
