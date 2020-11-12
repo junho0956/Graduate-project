@@ -7,7 +7,11 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 20;
+}
+
+.home {
+  z-index: 15;
 }
 
 .homeFeed {
@@ -21,7 +25,7 @@
   position: fixed;
   top: 55px;
   right: 0;
-  z-index: 10;
+  z-index: 15;
   overflow: hidden;
 }
 

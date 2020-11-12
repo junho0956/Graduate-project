@@ -43,13 +43,13 @@ const SideMenu = () => {
   };
 
   useEffect(() => {
-    const sideMenus = document.querySelectorAll(".sideMenuSelect div");
+    // const sideMenus = document.querySelectorAll(".sideMenuSelect div");
     const searchs = document.querySelector(".sideMenuSearch");
     const circles = document.querySelector(".sideMenuCircle");
     if (search) {
       searchs.style.backgroundColor = "lightgrey";
       circles.style.backgroundColor = "white";
-    } else {
+    } else if (circle) {
       searchs.style.backgroundColor = "white";
       circles.style.backgroundColor = "lightgrey";
     }

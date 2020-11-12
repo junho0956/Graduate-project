@@ -2,9 +2,18 @@ import React, { useEffect } from "react";
 import "../csss/Navigator.css";
 import NavigationTab from "./NavigationTab";
 
-const Navigator = ({ navState, sidemenu, handleChangeFeedFromHome }) => {
+const Navigator = ({
+  navState,
+  sidemenu,
+  handleChangeFeedFromHome,
+  handleLogoutFromHome,
+}) => {
   const handleNavigator = (nav, sidemenu) => {
     handleChangeFeedFromHome(nav, sidemenu);
+  };
+
+  const handleLogout = () => {
+    handleLogoutFromHome();
   };
 
   return (
@@ -15,6 +24,7 @@ const Navigator = ({ navState, sidemenu, handleChangeFeedFromHome }) => {
           navState={navState}
           sidemenu={sidemenu}
           handleNavigator={handleNavigator}
+          handleLogoutFromNavigator={handleLogout}
         />
       </div>
     </div>

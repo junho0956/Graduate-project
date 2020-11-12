@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../csss/Login.css";
 import { LoginComponent, SignUpComponent } from "../components";
 import backgroundImg from "../img/5.jpg";
 
-import jQuery from "jquery";
-import $ from "jquery";
-window.$ = window.jQuery = jQuery;
-
-const Login = ({}) => {
+const Login = () => {
   const [changeState, setChangeState] = useState(true);
 
   const changeLogin = (e) => {

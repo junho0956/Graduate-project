@@ -6,6 +6,7 @@
   border-left: 1px solid lightgrey;
   display: flex;
   flex-direction: column;
+  /* z-index: 1; */
 }
 
 .sideMenuSelect {

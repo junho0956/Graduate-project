@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
+import React from "react";
+// import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import { Login, Home } from "./components";
-
+import getUserToken from "./Hooks/getUserToken";
 // import jQuery from "jquery";
 // import $ from "jquery";
 // window.$ = window.jQuery = jQuery;
 
 function App() {
-  useEffect(() => {});
+  const [token, setToken] = getUserToken("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    window.location.reload();
+  };
 
   return (
     <div className="Appbasic">
       <div className="Root">
-        <Router>
-          <Route exact path="/" component={Login} />
-          <Route path="/home">
-            <Home />
-          </Route>
-        </Router>
+        {token.token !== null ? (
+          <Home handleLogoutFromApp={handleLogout} />
+        ) : (
+          <Login />
+        )}
       </div>
     </div>
   );

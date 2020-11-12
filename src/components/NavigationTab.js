@@ -7,8 +7,24 @@ import {
   AiOutlineMenuFold,
 } from "react-icons/ai";
 import { HiUser, HiOutlineUser } from "react-icons/hi";
+import jQuery from "jquery";
+import $ from "jquery";
+window.$ = window.jQuery = jQuery;
 
-const HomeMenuTab = ({ navState, sidemenu, handleNavigator }) => {
+function settingJquery() {
+  $(document).ready(function () {
+    $(".userProfile").click(function () {
+      $(".userProfileIn").fadeToggle();
+    });
+  });
+}
+
+const HomeMenuTab = ({
+  navState,
+  sidemenu,
+  handleNavigator,
+  handleLogoutFromNavigator,
+}) => {
   const handleOnClick = (id) => {
     const newNavState = navState.map((res) =>
       res.name === id ? { ...res, checked: true } : { ...res, checked: false }
@@ -36,7 +52,13 @@ const HomeMenuTab = ({ navState, sidemenu, handleNavigator }) => {
         e.target.style.backgroundColor = "white";
       });
     });
-  });
+
+    settingJquery();
+  }, []);
+
+  const handleLogout = () => {
+    handleLogoutFromNavigator();
+  };
 
   const home = "navhome",
     profile = "navprofile";
@@ -50,12 +72,16 @@ const HomeMenuTab = ({ navState, sidemenu, handleNavigator }) => {
           <AiOutlineHome onClick={() => handleOnClick(home)} />
         )}
       </div>
-      <div>
-        {navState[1].checked ? (
-          <HiUser onClick={() => handleOnClick(profile)} />
-        ) : (
-          <HiOutlineUser onClick={() => handleOnClick(profile)} />
-        )}
+      <div className="userProfile">
+        {navState[1].checked ? <HiUser /> : <HiOutlineUser />}
+        <ul className="userProfileIn">
+          <li className="userProfileLi" onClick={() => handleOnClick(profile)}>
+            프로필
+          </li>
+          <li className="userProfileLi" onClick={handleLogout}>
+            로그아웃
+          </li>
+        </ul>
       </div>
       <div>
         {sidemenu ? (

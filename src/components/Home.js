@@ -9,8 +9,9 @@ import {
   SideMenu,
 } from "../components";
 import "../csss/Home.css";
+import getUserToken from "../Hooks/getUserToken";
 
-const Home = () => {
+const Home = ({ handleLogoutFromApp }) => {
   const A = [1, 2, 3];
 
   const [navState, clickNavi] = useState([
@@ -39,6 +40,10 @@ const Home = () => {
     }
   };
 
+  const handleLogout = () => {
+    handleLogoutFromApp();
+  };
+
   return (
     <div className="homebasic">
       <div className="navi">
@@ -46,12 +51,18 @@ const Home = () => {
           navState={navState}
           sidemenu={sidemenu}
           handleChangeFeedFromHome={handleChangeFeed}
+          handleLogoutFromHome={handleLogout}
         />
       </div>
       <div className="home">
         <div className="homeFeed">
           {navState[1].checked ? (
-            <Profile A={A} handleChangeFeedFromHome={handleChangeFeed} />
+            <Profile
+              A={A}
+              email={localStorage.getItem("email")}
+              loginUser={true}
+              handleChangeFeedFromHome={handleChangeFeed}
+            />
           ) : (
             <HomeFeed A={A} />
           )}

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { BrowserRouter as Link } from "react-router-dom";
 import "../csss/LoginComponent.css";
 import axios from "axios";
+import getUserToken from "../Hooks/getUserToken";
 
 const LoginComponent = () => {
   const [idValue, setID] = useState("");
   const [pwValue, setPW] = useState("");
+  const [usertoken, setUserToken] = getUserToken("token");
 
-  const createUserBtn = () => {};
   const forgotUserBtn = () => {};
 
   const onSubmit = (e) => {
@@ -24,6 +24,11 @@ const LoginComponent = () => {
       data: userdata,
     })
       .then((res) => {
+        const usertokenData = {
+          token: res.data.accessToken,
+          email: idValue,
+        };
+        setUserToken(usertokenData);
         window.location.href = "/home";
       })
       .catch((error) => console.log(error));
@@ -56,7 +61,7 @@ const LoginComponent = () => {
               onChange={onChange}
             />
           </p>
-          <a href="/forgotUser" id="forgotUser">
+          <a href="/forgotUser" id="forgotUser" onClick={forgotUserBtn}>
             forgot your ID or PW?
           </a>
           <p className="loginBtn">
