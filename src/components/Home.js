@@ -58,8 +58,7 @@ const Home = ({ handleLogoutFromApp }) => {
         <div className="homeFeed">
           {navState[1].checked ? (
             <Profile
-              A={A}
-              email={localStorage.getItem("email")}
+              nickname={localStorage.getItem("nickname")}
               loginUser={true}
               handleChangeFeedFromHome={handleChangeFeed}
             />

@@ -27,9 +27,10 @@ const LoginComponent = () => {
         const usertokenData = {
           token: res.data.accessToken,
           email: idValue,
+          nickname: res.data.userNickname,
         };
         setUserToken(usertokenData);
-        window.location.href = "/home";
+        window.location.reload();
       })
       .catch((error) => console.log(error));
   };

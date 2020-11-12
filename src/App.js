@@ -13,6 +13,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
+    localStorage.removeItem("nickname");
     window.location.reload();
   };
 
