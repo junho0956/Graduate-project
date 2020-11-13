@@ -20,21 +20,20 @@ const Home = ({ handleLogoutFromApp }) => {
   ]);
   const [sidemenu, setMenuOpen] = useState(true);
 
-  const movingSideMenu = (close) => {
+  const movingSideMenu = (menuOpen) => {
+    console.log(menuOpen);
     const menu = document.querySelector(".sidemenuLoc");
     const target = menu.children[0]; // ul
     target.style.cssText = "transition:1s;";
 
-    if (!close) {
+    if (!menuOpen) {
       target.style.marginLeft = "100%";
-    } else {
-      target.style.marginLeft = "0";
     }
   };
 
   const handleChangeFeed = (nav, setSideMenu) => {
     clickNavi(nav);
-    if (sidemenu != setSideMenu) {
+    if (sidemenu !== setSideMenu) {
       setMenuOpen(setSideMenu);
       movingSideMenu(setSideMenu);
     }
@@ -59,7 +58,6 @@ const Home = ({ handleLogoutFromApp }) => {
           {navState[1].checked ? (
             <Profile
               nickname={localStorage.getItem("nickname")}
-              loginUser={true}
               handleChangeFeedFromHome={handleChangeFeed}
             />
           ) : (

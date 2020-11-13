@@ -8,7 +8,6 @@ import $ from "jquery";
 window.$ = window.jQuery = jQuery;
 
 const ViewCircle = ({ data }) => {
-  console.log("data : ", data);
   return (
     <div className="viewCirclebasic">
       <img src={colony}></img>
@@ -17,7 +16,7 @@ const ViewCircle = ({ data }) => {
   );
 };
 
-const Profile = ({ nickname, loginUser, handleChangeFeedFromHome }) => {
+const Profile = ({ nickname, handleChangeFeedFromHome }) => {
   const [user, setUser] = useState({
     organization: "",
     userPhoto: null,
@@ -90,31 +89,11 @@ const Profile = ({ nickname, loginUser, handleChangeFeedFromHome }) => {
     getUserInfo();
   }, [nickname]);
 
-  useEffect(() => {
-    if (loginUser) {
-      if (user.userPhoto === null) {
-        const userimg = document.querySelector(".profileImg img");
-        const addimgBtn = document.querySelector(".profileImgAddButton div");
-        userimg.addEventListener("mouseenter", () => {
-          userimg.style.opacity = "0.3";
-          addimgBtn.style.display = "block";
-        });
-        userimg.addEventListener("mouseleave", () => {
-          userimg.style.opacity = "1";
-          addimgBtn.style.display = "none";
-        });
-      }
-    }
-  }, [user]);
-
   return (
     <div className="profilebasic">
       <div className="profileLeft">
         <div className="profileImg">
-          <img src={default_profile_img}></img>
-          <div className="profileImgAddButton">
-            <div>이미지 추가</div>
-          </div>
+          <img src={default_profile_img} />
         </div>
         <div className="profileUserInfo">
           <div>{nickname}</div>

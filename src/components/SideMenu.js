@@ -7,30 +7,8 @@ import { FiSearch } from "react-icons/fi";
 const SideMenu = () => {
   const [search, setSearch] = useState(true);
   const [circle, setCircle] = useState(false);
-  const searchs = "search",
-    circles = "circles";
-  const A = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-  ];
+  const searchs = "search";
+  const circles = "circles";
 
   const handleSideMenu = (select) => {
     if (select === "search") {
@@ -65,9 +43,7 @@ const SideMenu = () => {
           <AiOutlineStar onClick={() => handleSideMenu(circles)} />
         </div>
       </div>
-      <div className="sideMenuInfo">
-        {search ? <Search /> : <MyCircle A={A} />}
-      </div>
+      <div className="sideMenuInfo">{search ? <Search /> : <MyCircle />}</div>
     </div>
   );
 };

@@ -9,32 +9,15 @@
 .profileLeft {
   display: flex;
   flex-direction: column;
-  padding: 15vh 5rem 0 0;
+  padding: 15vh 0 0 0;
   margin: 0;
+  width: 17vw;
 }
 
 .profileImg img {
   border-radius: 50%;
-  margin-bottom: 2rem;
-  opacity: 1;
-}
-
-.profileImgAddButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 1.1rem;
-  background-color: transparent;
-}
-
-.profileImgAddButton div {
-  position: absolute;
-  display: none;
-  background-color: lightgrey;
-}
-
-.profileImgAddButton div:hover {
-  font-weight: 700;
+  margin-bottom: 1.5rem;
+  margin-right: 1rem;
 }
 
 .profileUserInfo div {
@@ -45,8 +28,8 @@
 .profileRight {
   display: flex;
   flex-direction: column;
-  padding-top: 15vh;
-  width: 100%;
+  padding: 15vh 0 0 0;
+  width: 23vw;
 }
 
 .profileRight p {
@@ -73,9 +56,9 @@
 
 .viewCirclebasic {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-items: center;
-  width: 7vw;
+  width: 10vw;
   cursor: pointer;
   border-radius: 5px;
   padding: 5px;
