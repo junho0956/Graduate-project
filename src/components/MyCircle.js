@@ -1,88 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { JoinCircle, FollowCircle } from "../components";
 import "../csss/MyCircle.css";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
-import axios from "axios";
-import colonyImg from "../img/colony.PNG";
+import { getUserProfile } from "../Hooks/getUserProfile";
+import { getUserCircle } from "../Hooks/getUserCircle";
 
-const MyCircle = ({ handleChangeFeedFromProfile }) => {
+const MyCircle = () => {
+  // circleState
+  const [circleInfo, setCircleInfo] = useState({
+    joincircle: [],
+    followcircle: [],
+  });
+
+  // click circle state
   const [joincircle, setJoinCircle] = useState(false);
   const [followcircle, setFollowCircle] = useState(false);
-  const [joincircleList, setJoinCircleList] = useState([]);
-  const [followcircleList, setFollowCircleList] = useState([]);
 
-  const user = localStorage.getItem("nickname");
+  const getProfileAndCircle = useCallback(async () => {
+    const userprofile = await getUserProfile(localStorage.getItem("nickname"));
+    if (userprofile) {
+      const usercircle = await getUserCircle(userprofile);
+      if (usercircle) {
+        setCircleInfo(usercircle);
+      }
+    }
+  }, []);
 
   useEffect(() => {
-    // user의 mycircle, followcircle 정보 가져오기
-    async function getUserCircle() {
-      const usercircles = await axios({
-        method: "GET",
-        url: `http://3.35.240.252:8080/users/${user}`,
-      });
-
-      // 가지고온 mycircle의 모든 객체를 map으로 탐색하여
-      // circle component로 보내기 위한 데이터셋 joincircleList 상태값 변화
-      const mycirclelist = await Promise.all(
-        usercircles.data.myCircle.map(async (res) => {
-          return await axios({
-            method: "GET",
-            url: `http://3.35.240.252:8080/circlesName/${res.circleName}`,
-          });
-        })
-      );
-
-      const followcirclelist = await Promise.all(
-        usercircles.data.followCircle.map(async (res) => {
-          return await axios({
-            method: "GET",
-            url: `http://3.35.240.252:8080/circlesName/${res.circleName}`,
-          });
-        })
-      );
-
-      const newJoinCircle = mycirclelist.map((res) => {
-        return {
-          name: res.data.name,
-          // picture: res.data.circleProfilePhoto,
-          picture: colonyImg,
-          Information: {
-            school: res.data.organization,
-            location: "Busan",
-            what: res.data.category,
-          },
-        };
-      });
-
-      const newFollowCircle = followcirclelist.map((res) => {
-        return {
-          name: res.data.name,
-          // picture: res.data.circleProfilePhoto,
-          picture: colonyImg,
-          Information: {
-            school: res.data.organization,
-            location: "Busan",
-            what: res.data.category,
-          },
-        };
-      });
-
-      setJoinCircleList(newJoinCircle);
-      setFollowCircleList(newFollowCircle);
-    }
-
-    getUserCircle();
-  }, [user, joincircleList, followcircleList]);
-
-  const handleCircle = (id) => {
-    if (id === "join") {
-      setJoinCircle(!joincircle);
-      setFollowCircle(false);
-    } else if (id === "follow") {
-      setJoinCircle(false);
-      setFollowCircle(!followcircle);
-    }
-  };
+    getProfileAndCircle();
+  }, []);
 
   useEffect(() => {
     const followtitle = document.querySelector(".FollowCircleTitle");
@@ -97,8 +43,8 @@ const MyCircle = ({ handleChangeFeedFromProfile }) => {
     const joinHeight = Number(joincircleHeight.slice(0, -2)) * -1;
     const followHeight = Number(followcircleHeight.slice(0, -2)) * -1;
 
-    jointarget.style.cssText = `transition:1s; margin-top:${joinHeight}px;`;
-    followtarget.style.cssText = `transition:1s; margin-top:${followHeight}px;`;
+    jointarget.style.cssText = `transition:0.5s; margin-top:${joinHeight}px;`;
+    followtarget.style.cssText = `transition:0.5s; margin-top:${followHeight}px;`;
 
     if (joincircle) {
       jointarget.style.marginTop = "0%";
@@ -111,8 +57,15 @@ const MyCircle = ({ handleChangeFeedFromProfile }) => {
     }
   });
 
-  const handleChange = (e) => {
-    handleChangeFeedFromProfile(e);
+  // click circle handling
+  const handleCircle = (id) => {
+    if (id === "join") {
+      setJoinCircle(!joincircle);
+      setFollowCircle(false);
+    } else if (id === "follow") {
+      setJoinCircle(false);
+      setFollowCircle(!followcircle);
+    }
   };
 
   return (
@@ -125,7 +78,7 @@ const MyCircle = ({ handleChangeFeedFromProfile }) => {
         <div className="JoinCircleInfo">
           <ul>
             <li>
-              {joincircleList.map((res, index) => {
+              {circleInfo.joincircle.map((res, index) => {
                 return <JoinCircle key={index} data={res} />;
               })}
             </li>
@@ -143,7 +96,7 @@ const MyCircle = ({ handleChangeFeedFromProfile }) => {
         <div className="FollowCircleInfo">
           <ul>
             <li>
-              {followcircleList.map((res, index) => {
+              {circleInfo.followcircle.map((res, index) => {
                 return <FollowCircle key={index} data={res} />;
               })}
             </li>

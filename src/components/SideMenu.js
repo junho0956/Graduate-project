@@ -5,11 +5,11 @@ import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 
 const SideMenu = () => {
+  // select search/circle state, default click search
   const [search, setSearch] = useState(true);
   const [circle, setCircle] = useState(false);
-  const searchs = "search";
-  const circles = "circles";
 
+  // state menu
   const handleSideMenu = (select) => {
     if (select === "search") {
       setSearch(true);
@@ -20,6 +20,7 @@ const SideMenu = () => {
     }
   };
 
+  // change css from state
   useEffect(() => {
     // const sideMenus = document.querySelectorAll(".sideMenuSelect div");
     const searchs = document.querySelector(".sideMenuSearch");
@@ -31,7 +32,11 @@ const SideMenu = () => {
       searchs.style.backgroundColor = "white";
       circles.style.backgroundColor = "lightgrey";
     }
-  });
+  }, [search, circle]);
+
+  // params
+  const searchs = "search";
+  const circles = "circles";
 
   return (
     <div className="sideMenu">

@@ -3,17 +3,15 @@ import CircleImg from "../img/colony.PNG";
 import "../csss/JoinCircle.css";
 
 const JoinCircle = ({ data, handleChangeFeedFromMyCircle }) => {
-  const [circle, setCircle] = useState([
-    {
-      name: "",
-      picture: null,
-      information: {
-        school: "",
-        location: "",
-        what: "",
-      },
+  const [circle, setCircle] = useState({
+    name: data.circleName,
+    picture: CircleImg,
+    information: {
+      school: data.Information.school,
+      location: data.Information.location,
+      what: data.Information.what,
     },
-  ]);
+  });
 
   const handleChange = (e) => {
     // const newcircleState = { ...circleState };
