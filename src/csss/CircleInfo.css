@@ -1,12 +1,11 @@
-.circleInformationBasic {
+.circleInfobasic {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  margin-top: 2rem;
-  /* overflow: hidden; */
+  margin-top: 3rem;
+  font-family: 'Nanum-Gothic', sans-serif;
 }
 
-.circleInformationBasic .circleInfoImg {
+.circleInfoImg {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -27,18 +26,16 @@
 
 .circleInfos .circleInformations {
   display: flex;
-  font-size: 1.25rem;
   flex-direction: row;
-  justify-content: space-around;
   margin-top: 1rem;
   border-bottom: 1px solid lightgrey;
   border-top: 1px solid lightgrey;
   padding: 1rem;
-  flex: 3;
+  font-size: 1.25rem;
 }
 
 .circleInfomation {
-  flex: 1;
+  flex:1;
   text-align: center;
 }
 

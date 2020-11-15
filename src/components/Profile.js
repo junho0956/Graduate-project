@@ -6,16 +6,25 @@ import colony from "../img/colony.PNG";
 import { getUserProfile } from "../Hooks/getUserProfile";
 import { getUserCircle } from "../Hooks/getUserCircle";
 
-const ViewCircle = ({ data }) => {
+const ViewCircle = ({ state, data, changeScreen }) => {
+
+  const changeScreenView = () => {
+    let newState = state.map(res => {return {...res, checked:false}});
+    newState[2].checked = true;
+    console.log("data : ",data);
+    newState[2].id = data.circleId;
+    changeScreen(newState);
+  }
+
   return (
-    <div className="viewCirclebasic">
+    <div className="viewCirclebasic" onClick={changeScreenView}>
       <img src={colony}></img>
       {data.circleName}
     </div>
   );
 };
 
-const Profile = ({ nickname, handleChangeFeedFromHome }) => {
+const Profile = ({ state, changeScreen }) => {
   const [user, setUser] = useState({
     organization: "",
     userPhoto: "",
@@ -28,13 +37,8 @@ const Profile = ({ nickname, handleChangeFeedFromHome }) => {
     followcircle: [],
   });
 
-  // home state handling
-  const handleChangeFeed = (e) => {
-    handleChangeFeedFromHome(e);
-  };
-
   const getProfileAndCircle = useCallback(async () => {
-    const userprofile = await getUserProfile(nickname);
+    const userprofile = await getUserProfile(state[1].name);
     if (userprofile) {
       const newUserInfo = {
         organization: userprofile.organization,
@@ -49,11 +53,25 @@ const Profile = ({ nickname, handleChangeFeedFromHome }) => {
         setCircleInfo(usercircle);
       }
     }
-  }, [nickname]);
+  }, [state]);
 
   useEffect(() => {
     getProfileAndCircle();
-  }, [nickname]);
+  }, [state]);
+
+  const profileUpdate = (e) => {
+    if (e.target.files !== null) {
+      //create format data
+      const fd = new FormData();
+      // formdata에 key, value 추가
+      fd.append("filename", e.target.files[0]);
+      axios.post("http://3.35.240.252:8080/images", fd);
+    }
+  };
+
+  const changeScreenProfile = res => {
+    changeScreen(res);
+  }
 
   return (
     <div className="profilebasic">
@@ -62,8 +80,15 @@ const Profile = ({ nickname, handleChangeFeedFromHome }) => {
           <img src={default_profile_img} />
         </div>
         <div className="profileUserInfo">
-          <div>{nickname}</div>
+          <div>{state[1].name}</div>
           <div>{user.organization}</div>
+        </div>
+        <div className="profileUpdate">
+          <input
+            type="file"
+            accept="image/jpeg, image/jpg"
+            onChange={profileUpdate}
+          />
         </div>
       </div>
       <div className="profileRight">
@@ -71,7 +96,7 @@ const Profile = ({ nickname, handleChangeFeedFromHome }) => {
           <p>Joining</p>
           <div className="profileJoinCircleView">
             {circleInfo.joincircle.map((res, index) => {
-              return <ViewCircle data={res} key={index} />;
+              return <ViewCircle state={state} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>
         </div>
@@ -79,7 +104,7 @@ const Profile = ({ nickname, handleChangeFeedFromHome }) => {
           <p>Following</p>
           <div className="profileFollowCircleView">
             {circleInfo.followcircle.map((res, index) => {
-              return <ViewCircle data={res} key={index} />;
+              return <ViewCircle state={state} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>
         </div>

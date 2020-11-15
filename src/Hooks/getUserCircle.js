@@ -32,6 +32,7 @@ export async function getUserCircle(userInfo) {
 
   const getjoinInfo = joincircleResult.map((res) => {
     return {
+      circleId: res.data.id,
       circleName: res.data.name,
       circlePhoto: res.data.circleProfilePhoto,
       Information: {
@@ -44,6 +45,7 @@ export async function getUserCircle(userInfo) {
   });
   const getfollowInfo = followcircleResult.map((res) => {
     return {
+      circleId: res.data.id,
       circleName: res.data.name,
       circlePhoto: res.data.circleProfilePhoto,
       Information: {

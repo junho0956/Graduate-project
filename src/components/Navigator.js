@@ -2,15 +2,17 @@ import React, { useEffect } from "react";
 import "../csss/Navigator.css";
 import NavigationTab from "./NavigationTab";
 
-const Navigator = ({
-  navState,
-  sidemenu,
-  handleChangeFeedFromHome,
-  handleLogoutFromHome,
-}) => {
-  const handleNavigator = (nav, sidemenu) => {
-    handleChangeFeedFromHome(nav, sidemenu);
+const Navigator = ({ navState, sidemenu, changeScreen, handleLogoutFromHome }) => {
+  
+  const changeScreenNav = (nav, sidemenu) => {
+    changeScreen(nav, sidemenu);
   };
+
+  const ClickLogo = () => {
+    const newState = navState.map(res => {return {...res, checked:false}});
+    newState[0].checked = true;
+    changeScreen(newState);
+  }
 
   const handleLogout = () => {
     handleLogoutFromHome();
@@ -18,12 +20,12 @@ const Navigator = ({
 
   return (
     <div className="navigation">
-      <div className="navLogo">Clava</div>
+      <div className="navLogo"><div className="logoClava" onClick={ClickLogo}>Clava</div></div>
       <div className="navMenuTab">
         <NavigationTab
           navState={navState}
           sidemenu={sidemenu}
-          handleNavigator={handleNavigator}
+          changeScreen={changeScreenNav}
           handleLogoutFromNavigator={handleLogout}
         />
       </div>

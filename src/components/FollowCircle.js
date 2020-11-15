@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../csss/FollowCircle.css";
 import colonyImg from "../img/colony.PNG";
 
-const FollowCircle = ({ data, handleChangeFeedFromMyCircle }) => {
+const FollowCircle = ({ data, state, changeScreen }) => {
   const [circle, setCircle] = useState({
+    id: data.circleId,
     name: data.circleName,
     picture: colonyImg,
     information: {
@@ -13,15 +14,15 @@ const FollowCircle = ({ data, handleChangeFeedFromMyCircle }) => {
     },
   });
 
-  const handleChange = (e) => {
-    // const newcircleState = { ...circleState };
-    // newcircleState.clicked = true;
-    // newcircleState.circleName = circle.name;
-    // handleChangeFeedFromMyCircle(newcircleState);
+  const changeScreenF = () => {
+    const newState = state.map(res => {return{...res, checked:false}});
+    newState[2].id = circle.id;
+    newState[2].checked = true;
+    changeScreen(newState);
   };
 
   return (
-    <div className="followcircleItem" onClick={handleChange}>
+    <div className="followcircleItem" onClick={changeScreenF}>
       <img src={circle.picture} />
       <div className="followcircleInfo">
         <div className="followcircleTitle">{circle.name}</div>

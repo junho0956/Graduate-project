@@ -1,47 +1,37 @@
 import React, { useState, useEffect } from "react";
-import {
-  Navigator,
-  HomeFeed,
-  CircleInformation,
-  Profile,
-  SideMenu,
-} from "../components";
+import { Navigator, HomeFeed, CircleInfo, Profile, SideMenu} from "../components";
 import "../csss/Home.css";
 
 const Home = ({ handleLogoutFromApp }) => {
-  const [navState, clickNavi] = useState([
-    { name: "navhome", checked: true },
-    { name: "navprofile", checked: false },
+
+  const [navState, setNavState] = useState([
+    { name: "", checked: true }, // home 0
+    { name: "", checked: false }, // profile 1
+    { id: "", checked: false }, // circle 2
+    { name: "", checked: false }, // feed? 3
   ]);
   const [sidemenu, setMenuOpen] = useState(true);
 
-  // sidemenu animation function
+
   const movingSideMenu = (menuOpen) => {
-    const menu = document.querySelector(".sidemenuLoc");
-    // target is ul
-    const target = menu.children[0];
+    const target = document.querySelector(".sidemenuLoc").children[0];
     target.style.cssText = "transition:1s;";
 
-    if (!menuOpen) {
-      target.style.marginLeft = "100%";
-    }
+    if (!menuOpen) target.style.marginLeft = "100%";
   };
 
-  // navigation, sidemenu 의 state 값에 대한 handling
-  const handleChangeFeed = (nav, setSideMenu) => {
-    clickNavi(nav);
-    if (sidemenu !== setSideMenu) {
+  
+  const changeScreen = (nav, setSideMenu) => {
+    setNavState(nav);
+    if (setSideMenu !== undefined && sidemenu !== setSideMenu) {
       setMenuOpen(setSideMenu);
       movingSideMenu(setSideMenu);
     }
   };
 
-  // logout handling
-  const handleLogout = () => {
-    handleLogoutFromApp();
-  };
 
-  // Feed 완성전까지 사용할 데이터
+  const handleLogout = () => handleLogoutFromApp();
+
   const A = [1, 2, 3];
 
   return (
@@ -50,25 +40,22 @@ const Home = ({ handleLogoutFromApp }) => {
         <Navigator
           navState={navState}
           sidemenu={sidemenu}
-          handleChangeFeedFromHome={handleChangeFeed}
+          changeScreen={changeScreen}
           handleLogoutFromHome={handleLogout}
         />
       </div>
       <div className="home">
         <div className="homeFeed">
-          {navState[1].checked ? (
-            <Profile
-              nickname={localStorage.getItem("nickname")}
-              handleChangeFeedFromHome={handleChangeFeed}
-            />
-          ) : (
-            <HomeFeed A={A} />
+          {navState[0].checked ? <HomeFeed A={A} /> : (
+            navState[1].checked ? <Profile state={navState} changeScreen={changeScreen} /> : (
+              <CircleInfo state={navState} changeScreen={changeScreen} />
+            )
           )}
         </div>
         <div className="sidemenuLoc">
           <ul>
             <li>
-              <SideMenu />
+              <SideMenu state={navState} changeScreen={changeScreen}/>
             </li>
           </ul>
         </div>

@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 import "../csss/NavigationTab.css";
-import {
-  AiFillHome,
-  AiOutlineHome,
-  AiOutlineMenuUnfold,
-  AiOutlineMenuFold,
-} from "react-icons/ai";
+import { AiFillHome, AiOutlineHome, AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 import { HiUser, HiOutlineUser } from "react-icons/hi";
+
 import jQuery from "jquery";
 import $ from "jquery";
 window.$ = window.jQuery = jQuery;
@@ -19,22 +15,24 @@ function settingJquery() {
   });
 }
 
-const HomeMenuTab = ({
-  navState,
-  sidemenu,
-  handleNavigator,
-  handleLogoutFromNavigator,
-}) => {
+const HomeMenuTab = ({ navState, sidemenu, changeScreen, handleLogoutFromNavigator }) => {
+  
   const handleOnClick = (id) => {
-    const newNavState = navState.map((res) =>
-      res.name === id ? { ...res, checked: true } : { ...res, checked: false }
-    );
-    handleNavigator(newNavState, sidemenu);
+
+    let newNavState = navState.map(res => {return {...res, checked:false}})
+    
+    if(id === 'home') newNavState[0].checked = true;
+    else if(id === 'profile') {
+      newNavState[1].name = localStorage.getItem('nickname');
+      newNavState[1].checked = true;
+    }
+    
+    changeScreen(newNavState, sidemenu);
   };
 
   const handleMenu = () => {
     const newMenuOpen = !sidemenu;
-    handleNavigator(navState, newMenuOpen);
+    changeScreen(navState, newMenuOpen);
   };
 
   useEffect(() => {
@@ -60,18 +58,18 @@ const HomeMenuTab = ({
     handleLogoutFromNavigator();
   };
 
-  const home = "navhome",
-    profile = "navprofile";
+  const home = 'home', 
+  profile = 'profile';
 
   return (
     <div className="menutab">
+      
       <div>
-        {navState[0].checked ? (
-          <AiFillHome onClick={() => handleOnClick(home)} />
-        ) : (
-          <AiOutlineHome onClick={() => handleOnClick(home)} />
-        )}
+        {navState[0].checked ? 
+          <AiFillHome onClick={() => handleOnClick(home)} /> :
+          <AiOutlineHome onClick={() => handleOnClick(home)} /> }
       </div>
+
       <div className="userProfile">
         {navState[1].checked ? <HiUser /> : <HiOutlineUser />}
         <ul className="userProfileIn">
@@ -83,6 +81,7 @@ const HomeMenuTab = ({
           </li>
         </ul>
       </div>
+
       <div>
         {sidemenu ? (
           <AiOutlineMenuUnfold onClick={handleMenu} />

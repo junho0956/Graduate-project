@@ -4,7 +4,7 @@ import { Search, MyCircle } from "../components";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 
-const SideMenu = () => {
+const SideMenu = ({state, changeScreen}) => {
   // select search/circle state, default click search
   const [search, setSearch] = useState(true);
   const [circle, setCircle] = useState(false);
@@ -34,6 +34,10 @@ const SideMenu = () => {
     }
   }, [search, circle]);
 
+  const changeScreenSide = (res) => {
+    changeScreen(res)
+  }
+
   // params
   const searchs = "search";
   const circles = "circles";
@@ -48,7 +52,10 @@ const SideMenu = () => {
           <AiOutlineStar onClick={() => handleSideMenu(circles)} />
         </div>
       </div>
-      <div className="sideMenuInfo">{search ? <Search /> : <MyCircle />}</div>
+      <div className="sideMenuInfo">
+        {search ? <Search state={state} changeScreen={changeScreenSide}/> : 
+        <MyCircle state={state} changeScreen={changeScreenSide} /> } 
+      </div>
     </div>
   );
 };

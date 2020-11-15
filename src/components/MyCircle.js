@@ -5,14 +5,13 @@ import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { getUserProfile } from "../Hooks/getUserProfile";
 import { getUserCircle } from "../Hooks/getUserCircle";
 
-const MyCircle = () => {
-  // circleState
+const MyCircle = ({state, changeScreen}) => {
+  
   const [circleInfo, setCircleInfo] = useState({
     joincircle: [],
     followcircle: [],
   });
 
-  // click circle state
   const [joincircle, setJoinCircle] = useState(false);
   const [followcircle, setFollowCircle] = useState(false);
 
@@ -24,11 +23,11 @@ const MyCircle = () => {
         setCircleInfo(usercircle);
       }
     }
-  }, []);
+  }, [state]);
 
   useEffect(() => {
     getProfileAndCircle();
-  }, []);
+  }, [state]);
 
   useEffect(() => {
     const followtitle = document.querySelector(".FollowCircleTitle");
@@ -68,6 +67,8 @@ const MyCircle = () => {
     }
   };
 
+  const changeScreenCircle = res => changeScreen(res);
+
   return (
     <div className="mycircleBasic">
       <div className="JoinCircle">
@@ -79,7 +80,7 @@ const MyCircle = () => {
           <ul>
             <li>
               {circleInfo.joincircle.map((res, index) => {
-                return <JoinCircle key={index} data={res} />;
+                return <JoinCircle key={index} data={res} state={state} changeScreen={changeScreenCircle}/>;
               })}
             </li>
           </ul>
@@ -97,7 +98,7 @@ const MyCircle = () => {
           <ul>
             <li>
               {circleInfo.followcircle.map((res, index) => {
-                return <FollowCircle key={index} data={res} />;
+                return <FollowCircle key={index} data={res} state={state} changeScreen={changeScreenCircle}/>;
               })}
             </li>
           </ul>
