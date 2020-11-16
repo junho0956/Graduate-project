@@ -16,7 +16,7 @@ const JoinCircle = ({ data, state, changeScreen }) => {
 
   const changeScreenJ = () => {
     const newState = state.map(res => {return{...res, checked:false}});
-    newState[2].id = circle.id;
+    newState[2].name = circle.name;
     newState[2].checked = true;
     changeScreen(newState);
   };

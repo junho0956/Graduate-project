@@ -7,7 +7,7 @@ const SearchItem = ({ list, state, changeScreen }) => {
   
   const changeScreenItem = () => {
     const newState = state.map(res => {return {...res, checked:false}});
-    newState[2].id = list.id;
+    newState[2].name = list.name;
     newState[2].checked = true;
     changeScreen(newState);
   }
@@ -34,8 +34,11 @@ const Search = ({ state, changeScreen }) => {
 
   useEffect(() => {
 
-    axios.get("http://3.35.240.252:8080/circles")
-      .then((res) => {
+    axios({
+      method: 'POST',
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+      url: "http://3.35.240.252:8080/circles/all", 
+    }).then((res) => {
         const newCircleList = res.data.map((res) => {
           return {
             id: res.id,

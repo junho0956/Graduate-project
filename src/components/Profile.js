@@ -11,8 +11,7 @@ const ViewCircle = ({ state, data, changeScreen }) => {
   const changeScreenView = () => {
     let newState = state.map(res => {return {...res, checked:false}});
     newState[2].checked = true;
-    console.log("data : ",data);
-    newState[2].id = data.circleId;
+    newState[2].name = data.circleName;
     changeScreen(newState);
   }
 
@@ -64,10 +63,16 @@ const Profile = ({ state, changeScreen }) => {
       //create format data
       const fd = new FormData();
       // formdata에 key, value 추가
-      fd.append("filename", e.target.files[0]);
-      axios.post("http://3.35.240.252:8080/images", fd);
-    }
+      fd.append("data", e.target.files[0]);
+      axios({
+        method:"post",
+        url:"http://3.35.240.252:8080/upload",
+        data:fd,
+        processData:false,
+        contentType:false,
+    });
   };
+}
 
   const changeScreenProfile = res => {
     changeScreen(res);

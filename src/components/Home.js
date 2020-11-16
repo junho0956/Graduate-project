@@ -7,7 +7,7 @@ const Home = ({ handleLogoutFromApp }) => {
   const [navState, setNavState] = useState([
     { name: "", checked: true }, // home 0
     { name: "", checked: false }, // profile 1
-    { id: "", checked: false }, // circle 2
+    { name: "", checked: false }, // circle 2
     { name: "", checked: false }, // feed? 3
   ]);
   const [sidemenu, setMenuOpen] = useState(true);

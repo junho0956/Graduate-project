@@ -16,16 +16,20 @@ export async function getUserCircle(userInfo) {
   const joincircleResult = await Promise.all(
     settingUser.joinCircle.map(async (res) => {
       return await axios({
-        method: "GET",
-        url: `http://3.35.240.252:8080/circlesName/${res.circleName}`,
+        method: "POST",
+        url: `http://3.35.240.252:8080/circles/found`,
+        headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
+        data: {circleName : res.circleName}
       });
     })
   );
   const followcircleResult = await Promise.all(
     settingUser.followCircle.map(async (res) => {
       return await axios({
-        method: "GET",
-        url: `http://3.35.240.252:8080/circlesName/${res.circleName}`,
+        method: "POST",
+        url: `http://3.35.240.252:8080/circles/found`,
+        headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
+        data: {circleName : res.circleName}
       });
     })
   );

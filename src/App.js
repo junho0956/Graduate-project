@@ -14,6 +14,7 @@ function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("nickname");
+    localStorage.removeItem('userId');
     window.location.reload();
   };
 

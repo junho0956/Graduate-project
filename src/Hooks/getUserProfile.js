@@ -14,6 +14,8 @@ export async function getUserProfile(nickname) {
     data: formdata
   });
 
+  localStorage.setItem('userId', res.data.id);
+
   return {
     organization: res.data.user_organization,
     userPhoto: res.data.profilePhoto,
