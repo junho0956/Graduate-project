@@ -2,7 +2,6 @@ import axios from "axios";
 
 export async function getUserCircle(userInfo) {
   const settingUser = { ...userInfo };
-
   /**
    * await는 Promise 객체는 pending 자체를 기다린 후에 반환하지만,
    * Promise 배열은 pending 을 기다리지 않고 반환하게 된다.
@@ -19,7 +18,7 @@ export async function getUserCircle(userInfo) {
         method: "POST",
         url: `http://3.35.240.252:8080/circles/found`,
         headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
-        data: {circleName : res.circleName}
+        data: {circleName : res.name}
       });
     })
   );
@@ -29,7 +28,7 @@ export async function getUserCircle(userInfo) {
         method: "POST",
         url: `http://3.35.240.252:8080/circles/found`,
         headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
-        data: {circleName : res.circleName}
+        data: {circleName : res.name}
       });
     })
   );

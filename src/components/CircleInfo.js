@@ -3,6 +3,8 @@ import colonyImg from "../img/colony.PNG";
 import HomeFeed from "./HomeFeed";
 import "../csss/CircleInfo.css";
 import axios from 'axios';
+import {CirclePosts} from '../components';
+import { data } from 'jquery';
 
 const CircleJoinIn = () => {
   return(
@@ -26,53 +28,69 @@ const CircleFollowIn = () => {
 
 const CircleJoinFollow = (state) => {
   return(
-    <div>
-      {
+    <div>{
       state.join ? <div className="JFbutton">활동 중</div> :
       state.follow ? <div className="circleJFbutton"><CircleJoinIn/> <div className="JFbutton">팔로우 중</div></div> :
       <div className="circleJFbutton"><CircleJoinIn /><CircleFollowIn /></div>
-      }
-    </div>
+    }</div>
   )
 }
 
-const CircleInfo = ({ state }) => {
+const CircleInfo = ({ screenState, changeScreen }) => {
   const [circle, setCircle] = useState({});
+  const [dataForPost, setdataForPost] = useState([]);
   
   const getCircle = async() => {
+
     const getcircleInfo = await axios({
       method:'POST',
       url:`http://3.35.240.252:8080/circles/found`,
       headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
-      data:{circleName:state[2].name}
+      data:{circleName:screenState[2].name}
     });
 
-    const userId = localStorage.getItem('userId');
-    let userJoinCheck = getcircleInfo.data.circleMember.filter(res => res.userId === userId);
-    // let userFollowCheck = getcircleInfo.data.circleFollower.filter(res => res.userId === userId);
-    userJoinCheck = userJoinCheck === userId ? true : false;
-    // userFollowCheck = userFollowCheck === nickname ? true : false;
-    let userFollowCheck = false;
+    const userEmail = localStorage.getItem('email');
+    
+    let checkUserJoinCircle = getcircleInfo.data.circleMember.filter(res => res.email === userEmail);
+    let checkUserFollowCircle = getcircleInfo.data.circleFollower.filter(res => res.email === userEmail);
+    if(checkUserJoinCircle) checkUserJoinCircle = true;
+    if(checkUserFollowCircle) checkUserFollowCircle = true;
+    
+    const circleData = getcircleInfo.data;
     const newCircle = {
-      name: getcircleInfo.data.name,
-      picture: colonyImg,
-      organization: getcircleInfo.data.organization,
-      description: getcircleInfo.data.description,
-      category: getcircleInfo.data.category,
-      location: 'Busan',
-      circlePost: getcircleInfo.data.circlePost,
-      circleMember: getcircleInfo.data.circleMember,
-      circleFollower: [],
-      circleUserCheck: {join : userJoinCheck, follow : userFollowCheck}, // join || follower
+      name: circleData.name,
+      picture: circleData.circleProfilePhoto ? circleData.circleProfilePhoto : colonyImg,
+      organization: circleData.organization,
+      description: circleData.description,
+      category: circleData.category,
+      location: circleData.place ? circleData.place : 'Busan',
+      circlePost: circleData.circlePosts,
+      circleMember: circleData.circleMember,
+      circleFollower: circleData.circleFollower,
+      circleUserCheck: {
+        join : checkUserJoinCircle, 
+        follow : checkUserFollowCircle
+      },
     }
+    const makeDataForPost = newCircle.circlePost.map(res => {
+      return{
+        name: newCircle.name,
+        picture: newCircle.picture,
+        mainPicture: ['"../img/1.jpg"', '../img/2.jpg', '../img/3.jpg', '..img/4.jpg'],
+        post: res,
+      }
+    })
     setCircle(newCircle);
+    setdataForPost(makeDataForPost);
   }
 
   useEffect(() => {
     getCircle();
-  }, [state]);
+  }, [screenState]);
 
-  const A = [1, 2, 3];
+  const changeScreenCircleInfo = (res) => {
+    changeScreen(res);
+  }
 
   return (
     <div className="circleInfobasic">
@@ -94,8 +112,8 @@ const CircleInfo = ({ state }) => {
         <div className="circleInfopresent">
           <p>{circle.description}</p>
         </div>
-        <div className="circleFeed">
-          <HomeFeed A={A} />
+        <div>
+          <CirclePosts screenState={screenState} postdata={dataForPost} screenState={screenState} changeScreen={changeScreenCircleInfo}/>
         </div>
       </div>
     </div>

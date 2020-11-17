@@ -15,79 +15,60 @@ function settingJquery() {
   });
 }
 
-const HomeMenuTab = ({ navState, sidemenu, changeScreen, handleLogoutFromNavigator }) => {
+const HomeMenuTab = ({ screenState, sidemenu, changeScreen, handleLogoutFromNavigator }) => {
   
-  const handleOnClick = (id) => {
-
-    let newNavState = navState.map(res => {return {...res, checked:false}})
-    
-    if(id === 'home') newNavState[0].checked = true;
+  const changeScreenTab = (id) => {
+    let newscreenState = screenState.map(res => {return {...res, checked:false}})
+    if(id === 'home') newscreenState[0].checked = true;
     else if(id === 'profile') {
-      newNavState[1].name = localStorage.getItem('nickname');
-      newNavState[1].checked = true;
+      newscreenState[1].name = localStorage.getItem('nickname');
+      newscreenState[1].checked = true;
     }
-    
-    changeScreen(newNavState, sidemenu);
+    changeScreen(newscreenState, sidemenu);
   };
 
-  const handleMenu = () => {
+  const sideMenuChange = () => {
     const newMenuOpen = !sidemenu;
-    changeScreen(navState, newMenuOpen);
+    changeScreen(screenState, newMenuOpen);
   };
 
   useEffect(() => {
     const menu = document.querySelector(".menutab");
-    menu.style.cssText =
-      "display:flex; flex-direction:row; justify-content:space-around; width:100%";
+    menu.style.cssText = "display:flex; flex-direction:row; justify-content:space-around; width:100%";
     const menuchild = document.querySelectorAll(".menutab div");
-    menuchild.forEach((res) => {
-      res.style.cssText =
-        "width:1.75rem; font-size:1.75rem; border-radius:1rem; cursor:pointer;";
-      res.addEventListener("mouseenter", function (e) {
-        e.target.style.backgroundColor = "lightgrey";
-      });
-      res.addEventListener("mouseleave", function (e) {
-        e.target.style.backgroundColor = "white";
-      });
+    menuchild.forEach(res => {
+      res.style.cssText = "width:1.75rem; font-size:1.75rem; border-radius:1rem; cursor:pointer;";
+      res.addEventListener("mouseenter", function (e) { e.target.style.backgroundColor = "lightgrey"; });
+      res.addEventListener("mouseleave", function (e) { e.target.style.backgroundColor = "white"; });
     });
 
     settingJquery();
   }, []);
 
-  const handleLogout = () => {
-    handleLogoutFromNavigator();
-  };
+  const handleLogout = () => handleLogoutFromNavigator();
 
-  const home = 'home', 
-  profile = 'profile';
+  const home = 'home', profile = 'profile';
 
   return (
     <div className="menutab">
-      
       <div>
-        {navState[0].checked ? 
-          <AiFillHome onClick={() => handleOnClick(home)} /> :
-          <AiOutlineHome onClick={() => handleOnClick(home)} /> }
+        {screenState[0].checked ? 
+          <AiFillHome onClick={() => changeScreenTab(home)} /> :
+          <AiOutlineHome onClick={() => changeScreenTab(home)} /> }
       </div>
 
       <div className="userProfile">
-        {navState[1].checked ? <HiUser /> : <HiOutlineUser />}
+        {screenState[1].checked ? <HiUser /> : <HiOutlineUser />}
         <ul className="userProfileIn">
-          <li className="userProfileLi" onClick={() => handleOnClick(profile)}>
-            프로필
-          </li>
-          <li className="userProfileLi" onClick={handleLogout}>
-            로그아웃
-          </li>
+          <li className="userProfileLi" onClick={() => changeScreenTab(profile)}>프로필</li>
+          <li className="userProfileLi" onClick={handleLogout}>로그아웃</li>
         </ul>
       </div>
 
       <div>
-        {sidemenu ? (
-          <AiOutlineMenuUnfold onClick={handleMenu} />
-        ) : (
-          <AiOutlineMenuFold onClick={handleMenu} />
-        )}
+        {sidemenu ?
+        <AiOutlineMenuUnfold onClick={sideMenuChange} /> :
+        <AiOutlineMenuFold onClick={sideMenuChange} />}
       </div>
     </div>
   );

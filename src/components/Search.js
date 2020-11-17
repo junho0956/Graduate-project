@@ -2,34 +2,35 @@ import React, { useState, useEffect } from "react";
 import "../csss/Search.css";
 import axios from "axios";
 import colonyImg from "../img/colony.PNG";
+import {Circle} from '../model';
 
-const SearchItem = ({ list, state, changeScreen }) => {
+const SearchItem = ({ searchResult, screenState, changeScreen }) => {
   
   const changeScreenItem = () => {
-    const newState = state.map(res => {return {...res, checked:false}});
-    newState[2].name = list.name;
-    newState[2].checked = true;
-    changeScreen(newState);
+    const newscreenState = screenState.map(res => {return {...res, checked:false}});
+    newscreenState[2].name = searchResult.name;
+    newscreenState[2].checked = true;
+    changeScreen(newscreenState);
   }
 
   return (
     <div className="searchItem" onClick={changeScreenItem}>
-      <img src={list.picture} />
+      <img src={searchResult.picture} />
       <div className="searchItemInformation">
-        <span id="searchItemName">{list.name}</span>
+        <span id="searchItemName">{searchResult.name}</span>
         <span id="searchItemInfo">
-          {list.information.school}&nbsp;/&nbsp;{list.information.location}
+          {searchResult.information.school}&nbsp;/&nbsp;{searchResult.information.location}
           &nbsp;/&nbsp;
-          {list.information.what}
+          {searchResult.information.what}
         </span>
       </div>
     </div>
   );
 };
 
-const Search = ({ state, changeScreen }) => {
-  const [list, setList] = useState([]);
-  const [searchCircleInput, setSearchCircleInput] = useState("");
+const Search = ({ screenState, changeScreen }) => {
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   const [circleList, setCircleList] = useState([]);
 
   useEffect(() => {
@@ -58,38 +59,34 @@ const Search = ({ state, changeScreen }) => {
   }, []);
 
   useEffect(() => {
-    if (searchCircleInput.length == 0) setList([]);
+    if (searchInput.length == 0) setSearchResult([]);
     else{
-      const newList = circleList.filter((res) => { return res.name.toLowerCase().indexOf(searchCircleInput.toLowerCase()) != -1 });
-      setList(newList);
+      const newList = circleList.filter((res) => { return res.name.toLowerCase().indexOf(searchInput.toLowerCase()) != -1 });
+      setSearchResult(newList);
     }
-  }, [searchCircleInput]);
+  }, [searchInput]);
 
-  const handleSearchInput = (e) => {
-    setSearchCircleInput(e.target.value);
-  };
-
-  const changeScreenSearch = (res) => {
-    changeScreen(res);
-  };
+  const SearchInput = e => setSearchInput(e.target.value);
+  const changeScreenSearch = res => changeScreen(res);
 
   return (
     <div className="searchbasic">
+
       <div className="searchHead">
         <input
           id="searchInput"
           type="text"
           placeholder="동아리 찾기..."
-          onChange={handleSearchInput}
+          onChange={SearchInput}
         />
       </div>
+
       <div className="searchList">
-        {list.length >= 1
-          ? list.map((res, index) => {
-              return <SearchItem key={index} list={res} state={state} changeScreen={changeScreenSearch} />;
-            })
-          : null}
+        {searchResult.length >= 1 ? searchResult.map((res, index) => {
+          return <SearchItem key={index} searchResult={res} screenState={screenState} changeScreen={changeScreenSearch} />;
+        }) : null}
       </div>
+
     </div>
   );
 };

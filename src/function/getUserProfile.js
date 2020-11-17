@@ -13,9 +13,7 @@ export async function getUserProfile(nickname) {
     headers: {'Authorization':'Bearer ' + token},
     data: formdata
   });
-
   localStorage.setItem('userId', res.data.id);
-
   return {
     organization: res.data.user_organization,
     userPhoto: res.data.profilePhoto,

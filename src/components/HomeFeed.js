@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-
 import circleImg from "../img/colony.PNG";
 import circleMainImg from "../img/colonyPicture.PNG";
 import FeedItem from "./FeedItem";
-
 import "../csss/Feed.css";
-
 import jQuery from "jquery";
 import $ from "jquery";
 window.$ = window.jQuery = jQuery;
 
-// Feed
 
-const HomeFeed = ({ A }) => {
+const HomeFeed = ({ A, screenState }) => {
   const [feed, setFeed] = useState({
     name: "colony",
     circlePicture: circleImg,
@@ -33,7 +29,7 @@ const HomeFeed = ({ A }) => {
         name: "student2",
         Incomment: "저기서 술각임 ㄹㅇ ㅋㅋ",
       },
-    ],
+    ],  
   });
 
   useEffect(() => {
@@ -107,7 +103,7 @@ const HomeFeed = ({ A }) => {
     <div>
       <div>
         {A.map((res) => {
-          return <FeedItem key={res} feed={feed} />;
+          return <FeedItem key={res} feed={feed} screenState={screenState}/>;
         })}
       </div>
     </div>

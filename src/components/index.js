@@ -13,3 +13,4 @@ export { default as Profile } from "./Profile";
 export { default as SignUpComponent } from "./SignUpComponent";
 export { default as LoginComponent } from "./LoginComponent";
 export { default as SideMenu } from "./SideMenu";
+export { default as CirclePosts } from './CirclePosts';

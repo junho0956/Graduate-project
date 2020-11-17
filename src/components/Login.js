@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import "../csss/Login.css";
 import { LoginComponent, SignUpComponent } from "../components";
 import backgroundImg from "../img/5.jpg";
+import "../csss/Login.css";
 
 const Login = () => {
-  const [changeState, setChangeState] = useState(true);
+  const [loginOrSignup, setloginOrSignup] = useState(true);
 
-  const changeLogin = (e) => {
+  const ClickLoginorSignUp = (e) => {
     const loginButton = document.getElementById("loginbtn");
     const signupButton = document.getElementById("signupbtn");
 
     if (e.target.id === "loginbtn") {
-      if (!changeState) {
+      if (!loginOrSignup) {
         loginButton.style.fontSize = "2.5rem";
         signupButton.style.fontSize = "1.5rem";
-        setChangeState(!changeState);
+        setloginOrSignup(!loginOrSignup);
       }
     } else if (e.target.id === "signupbtn") {
-      if (changeState) {
+      if (loginOrSignup) {
         loginButton.style.fontSize = "1.5rem";
         signupButton.style.fontSize = "2.5rem";
-        setChangeState(!changeState);
+        setloginOrSignup(!loginOrSignup);
       }
     }
   };
@@ -38,15 +38,15 @@ const Login = () => {
         </div>
         <div className="loginComponents">
           <div className="loginChangeButton">
-            <button id="loginbtn" onClick={changeLogin}>
+            <button id="loginbtn" onClick={ClickLoginorSignUp}>
               Login
             </button>
-            <button id="signupbtn" onClick={changeLogin}>
+            <button id="signupbtn" onClick={ClickLoginorSignUp}>
               new ID
             </button>
           </div>
           <div className="loginComponent">
-            {changeState ? <LoginComponent /> : <SignUpComponent />}
+            {loginOrSignup ? <LoginComponent /> : <SignUpComponent />}
           </div>
         </div>
       </div>

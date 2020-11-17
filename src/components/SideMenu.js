@@ -4,12 +4,11 @@ import { Search, MyCircle } from "../components";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 
-const SideMenu = ({state, changeScreen}) => {
-  // select search/circle state, default click search
-  const [search, setSearch] = useState(true);
-  const [circle, setCircle] = useState(false);
+const SideMenu = ({screenState, changeScreen}) => {
 
-  // state menu
+  const [searchBtn, setSearch] = useState(true);
+  const [circleBtn, setCircle] = useState(false);
+
   const handleSideMenu = (select) => {
     if (select === "search") {
       setSearch(true);
@@ -20,42 +19,39 @@ const SideMenu = ({state, changeScreen}) => {
     }
   };
 
-  // change css from state
   useEffect(() => {
-    // const sideMenus = document.querySelectorAll(".sideMenuSelect div");
     const searchs = document.querySelector(".sideMenuSearch");
     const circles = document.querySelector(".sideMenuCircle");
-    if (search) {
+    if (searchBtn) {
       searchs.style.backgroundColor = "lightgrey";
       circles.style.backgroundColor = "white";
-    } else if (circle) {
+    } else if (circleBtn) {
       searchs.style.backgroundColor = "white";
       circles.style.backgroundColor = "lightgrey";
     }
-  }, [search, circle]);
+  }, [searchBtn, circleBtn]);
 
   const changeScreenSide = (res) => {
     changeScreen(res)
   }
 
-  // params
   const searchs = "search";
   const circles = "circles";
 
   return (
     <div className="sideMenu">
+
       <div className="sideMenuSelect">
-        <div className="sideMenuSearch">
-          <FiSearch onClick={() => handleSideMenu(searchs)} />
-        </div>
-        <div className="sideMenuCircle">
-          <AiOutlineStar onClick={() => handleSideMenu(circles)} />
-        </div>
+        <div className="sideMenuSearch"><FiSearch onClick={() => handleSideMenu(searchs)} /></div>
+        <div className="sideMenuCircle"><AiOutlineStar onClick={() => handleSideMenu(circles)} /></div>
       </div>
+
       <div className="sideMenuInfo">
-        {search ? <Search state={state} changeScreen={changeScreenSide}/> : 
-        <MyCircle state={state} changeScreen={changeScreenSide} /> } 
+        {searchBtn ? 
+        <Search screenState={screenState} changeScreen={changeScreenSide}/> : 
+        <MyCircle screenState={screenState} changeScreen={changeScreenSide} /> } 
       </div>
+      
     </div>
   );
 };

@@ -3,6 +3,7 @@
   flex-direction: column;
   margin-top: 3rem;
   font-family: 'Nanum-Gothic', sans-serif;
+  width:100%;
 }
 
 .circleInfoImg {
@@ -72,4 +73,24 @@
 .JFbutton:hover{
   font-size:1.1rem;
   font-weight:600;
+}
+
+.circlePost{
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.circleMiniPost{
+  position: relative;
+  cursor:pointer;
+}
+
+.circleMiniPost img{
+  position: relative;
+  width:17vw;
+  height:17vw;
+  margin:1rem;
+  border-radius:10px;
+  box-shadow: 1px 1px 3px;
 }

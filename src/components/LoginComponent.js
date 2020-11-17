@@ -10,7 +10,7 @@ const LoginComponent = () => {
 
   const forgotUserBtn = () => {};
 
-  const onSubmit = (e) => {
+  const attempLogin = (e) => {
     e.preventDefault();
 
     const userdata = {
@@ -18,21 +18,17 @@ const LoginComponent = () => {
       password: pwValue,
     };
 
-    axios({
-      method: "post",
-      url: "http://3.35.240.252:8080/auth",
-      data: userdata,
+    axios.post("http://3.35.240.252:8080/auth", userdata)
+    .then((res) => {
+      const usertokenData = {
+        token: res.data.accessToken,
+        email: idValue,
+        nickname: res.data.userNickname,
+      };
+      setUserToken(usertokenData);
+      window.location.reload();
     })
-      .then((res) => {
-        const usertokenData = {
-          token: res.data.accessToken,
-          email: idValue,
-          nickname: res.data.userNickname,
-        };
-        setUserToken(usertokenData);
-        window.location.reload();
-      })
-      .catch((error) => console.log(error));
+    .catch((error) => console.log(error));
   };
 
   const onChange = (e) => {
@@ -43,7 +39,7 @@ const LoginComponent = () => {
   return (
     <div className="loginBackground">
       <div className="loginBody">
-        <form className="loginForm" onSubmit={onSubmit}>
+        <form className="loginForm" onSubmit={attempLogin}>
           <p>
             <input
               id="id"
@@ -62,13 +58,8 @@ const LoginComponent = () => {
               onChange={onChange}
             />
           </p>
-          <a href="/forgotUser" id="forgotUser" onClick={forgotUserBtn}>
-            forgot your ID or PW?
-          </a>
-          <p className="loginBtn">
-            <button onClick={onSubmit}>Login!</button>
-          </p>
-          <p></p>
+          <a href="/forgotUser" id="forgotUser" onClick={forgotUserBtn}>forgot your ID or PW?</a>
+          <p className="loginBtn"><button onClick={attempLogin}>Login!</button></p>
         </form>
       </div>
     </div>

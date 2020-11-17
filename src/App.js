@@ -21,11 +21,7 @@ function App() {
   return (
     <div className="Appbasic">
       <div className="Root">
-        {token.token !== null ? (
-          <Home handleLogoutFromApp={handleLogout} />
-        ) : (
-          <Login />
-        )}
+        {token.token !== null ? <Home handleLogoutFromApp={handleLogout} /> : <Login /> }
       </div>
     </div>
   );
