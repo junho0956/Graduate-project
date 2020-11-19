@@ -16,6 +16,7 @@ const LoginComponent = () => {
     const userdata = {
       email: idValue,
       password: pwValue,
+      newList:['hello','world!'],
     };
 
     axios.post("http://3.35.240.252:8080/auth", userdata)
@@ -25,8 +26,16 @@ const LoginComponent = () => {
         email: idValue,
         nickname: res.data.userNickname,
       };
-      setUserToken(usertokenData);
-      window.location.reload();
+
+      if(res.data.accessToken){
+        setUserToken(usertokenData);
+        window.location.reload();
+      }
+      else{
+        alert(res.data.msg);
+        setPW('');
+      }
+
     })
     .catch((error) => console.log(error));
   };

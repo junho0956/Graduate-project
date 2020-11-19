@@ -1,3 +1,5 @@
+import { BsListOl } from 'react-icons/bs';
+
 export const User = {
     email: String,
     password: String,
@@ -43,3 +45,18 @@ export const Circle = {
     post: Array(Post)
 }
 
+export const CircleInformation = {
+    name: String,
+    picture: String,
+    organization: String,
+    description: String,
+    category: String,
+    location: String,
+    circlePost: Array(Post),
+    circleMember: Array(CircleMember),
+    circleFollower: Array(User),
+    circleUserCheck: {
+      join : Boolean, 
+      follow : Boolean
+    },
+  }

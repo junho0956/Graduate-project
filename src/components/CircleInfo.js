@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from "react";
 import colonyImg from "../img/colony.PNG";
-import HomeFeed from "./HomeFeed";
 import "../csss/CircleInfo.css";
 import axios from 'axios';
 import {CirclePosts} from '../components';
-import { data } from 'jquery';
+import {CircleInformation} from '../model';
+
+const WritePosting = ({screenState, changeScreen}) => {
+  
+  const gowrite = () => {
+    const newscreenState = screenState.map(res => {return {...res, checked:false}});
+    newscreenState[4].checked = true;
+    // newscreenState[4].writepostCircleName = 
+    changeScreen(newscreenState);
+  }
+  
+  return(
+    <div className="JFbutton">
+      <div onClick = {gowrite}>
+        글쓰기
+      </div>
+    </div>
+  )
+}
 
 const CircleJoinIn = () => {
   return(
@@ -26,18 +43,21 @@ const CircleFollowIn = () => {
   )
 }
 
-const CircleJoinFollow = (state) => {
+const CircleJoinFollow = ({state, screenState, changeScreen}) => {
+  
+  const changeScreenJF = (res) => changeScreen(res);
+
   return(
     <div>{
       state.join ? <div className="JFbutton">활동 중</div> :
       state.follow ? <div className="circleJFbutton"><CircleJoinIn/> <div className="JFbutton">팔로우 중</div></div> :
-      <div className="circleJFbutton"><CircleJoinIn /><CircleFollowIn /></div>
+      <div className="circleJFbutton"><WritePosting screenState={screenState} changeScreen={changeScreenJF} /><CircleJoinIn /><CircleFollowIn /></div>
     }</div>
   )
 }
 
 const CircleInfo = ({ screenState, changeScreen }) => {
-  const [circle, setCircle] = useState({});
+  const [circle, setCircle] = useState(CircleInformation);
   const [dataForPost, setdataForPost] = useState([]);
   
   const getCircle = async() => {
@@ -48,13 +68,12 @@ const CircleInfo = ({ screenState, changeScreen }) => {
       headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
       data:{circleName:screenState[2].name}
     });
-
     const userEmail = localStorage.getItem('email');
     
     let checkUserJoinCircle = getcircleInfo.data.circleMember.filter(res => res.email === userEmail);
     let checkUserFollowCircle = getcircleInfo.data.circleFollower.filter(res => res.email === userEmail);
-    if(checkUserJoinCircle) checkUserJoinCircle = true;
-    if(checkUserFollowCircle) checkUserFollowCircle = true;
+    checkUserJoinCircle = checkUserJoinCircle.length > 0 ? true : false;
+    checkUserFollowCircle = checkUserFollowCircle.length > 0 ? true : false;
     
     const circleData = getcircleInfo.data;
     const newCircle = {
@@ -72,6 +91,7 @@ const CircleInfo = ({ screenState, changeScreen }) => {
         follow : checkUserFollowCircle
       },
     }
+
     const makeDataForPost = newCircle.circlePost.map(res => {
       return{
         name: newCircle.name,
@@ -100,7 +120,7 @@ const CircleInfo = ({ screenState, changeScreen }) => {
       <div className="circleInfoTitle">
         <div className="circleInfoName">{circle.name}</div>
         <div className="circleInfoCheckUser">
-          <CircleJoinFollow state={circle.circleUserCheck}/>
+          <CircleJoinFollow state={circle.circleUserCheck} screenState={screenState} changeScreen={changeScreenCircleInfo}/>
         </div>
       </div>
       <div className="circleInfos">

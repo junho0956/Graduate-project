@@ -102,9 +102,9 @@ const HomeFeed = ({ A, screenState }) => {
   return (
     <div>
       <div>
-        {A.map((res) => {
+        {/* {A.map((res) => {
           return <FeedItem key={res} feed={feed} screenState={screenState}/>;
-        })}
+        })} */}
       </div>
     </div>
   );

@@ -1,0 +1,37 @@
+.writePost{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    height:100%;
+    margin-top:3rem;
+}
+
+.writePostImage{
+    border-radius:10px;
+    position: relative;
+    background-color: black;
+    width:20rem;
+    height:20rem;
+}
+
+.writePostImageInsert{
+    position: absolute;
+    display:flex;
+    flex-direction: row;
+    background-color: white;
+    cursor:pointer;
+    width:8vw;
+    height:3vh;
+    border-radius: 4px;
+    top:1rem;
+    left:1rem;
+}
+
+.writePostImageInsert span{
+    padding:2px;
+    font-size: 1.2rem;
+}
+
+.writePostImageInsert:hover{
+    background-color:lightgrey;
+}

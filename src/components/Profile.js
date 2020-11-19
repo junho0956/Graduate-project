@@ -64,7 +64,8 @@ const Profile = ({ screenState, changeScreen }) => {
       const fd = new FormData();
       fd.append("data", e.target.files[0]);
       axios({
-        method:"post",
+        method:"patch",
+        Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
         url:"http://3.35.240.252:8080/upload",
         data:fd,
         processData:false,

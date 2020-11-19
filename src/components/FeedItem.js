@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 // FeedItem
 
@@ -11,6 +11,10 @@ const FeedItem = ({ screenState, changeScreen}) => {
   const circleMainText = feed.post.description;
   const circleComment = feed.post.postComment;
   const circleDate = feed.post.write_date;
+  const circleData = {
+    name:feed.name,
+    
+  }
 
   return (
     <div className="feedbasic">

@@ -54,7 +54,7 @@ const CirclePosts = ({postdata, screenState, changeScreen}) => {
 
         $(document).ready(function(){
             $(".circleMiniPost").mouseenter(function(){
-                $(this).children('img').css("opacity","0.2");
+                $(this).children('img').css("opacity","0.3");
                 $(this).children('.circleMiniPostInfo').css('display',"inline-block");
             })
             $(".circleMiniPost").mouseleave(function(){
