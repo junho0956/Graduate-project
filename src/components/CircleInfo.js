@@ -5,12 +5,13 @@ import axios from 'axios';
 import {CirclePosts} from '../components';
 import {CircleInformation} from '../model';
 
-const WritePosting = ({screenState, changeScreen}) => {
+const WritePosting = ({cid, screenState, changeScreen}) => {
   
   const gowrite = () => {
+    // console.log("screenS")
     const newscreenState = screenState.map(res => {return {...res, checked:false}});
     newscreenState[4].checked = true;
-    // newscreenState[4].writepostCircleName = 
+    newscreenState[4].writepostCircleID = cid;
     changeScreen(newscreenState);
   }
   
@@ -43,7 +44,7 @@ const CircleFollowIn = () => {
   )
 }
 
-const CircleJoinFollow = ({state, screenState, changeScreen}) => {
+const CircleJoinFollow = ({cid, state, screenState, changeScreen}) => {
   
   const changeScreenJF = (res) => changeScreen(res);
 
@@ -51,7 +52,7 @@ const CircleJoinFollow = ({state, screenState, changeScreen}) => {
     <div>{
       state.join ? <div className="JFbutton">활동 중</div> :
       state.follow ? <div className="circleJFbutton"><CircleJoinIn/> <div className="JFbutton">팔로우 중</div></div> :
-      <div className="circleJFbutton"><WritePosting screenState={screenState} changeScreen={changeScreenJF} /><CircleJoinIn /><CircleFollowIn /></div>
+      <div className="circleJFbutton"><WritePosting cid={cid} screenState={screenState} changeScreen={changeScreenJF} /><CircleJoinIn /><CircleFollowIn /></div>
     }</div>
   )
 }
@@ -77,6 +78,7 @@ const CircleInfo = ({ screenState, changeScreen }) => {
     
     const circleData = getcircleInfo.data;
     const newCircle = {
+      id: circleData.id,
       name: circleData.name,
       picture: circleData.circleProfilePhoto ? circleData.circleProfilePhoto : colonyImg,
       organization: circleData.organization,
@@ -120,7 +122,7 @@ const CircleInfo = ({ screenState, changeScreen }) => {
       <div className="circleInfoTitle">
         <div className="circleInfoName">{circle.name}</div>
         <div className="circleInfoCheckUser">
-          <CircleJoinFollow state={circle.circleUserCheck} screenState={screenState} changeScreen={changeScreenCircleInfo}/>
+          <CircleJoinFollow cid={circle.id} state={circle.circleUserCheck} screenState={screenState} changeScreen={changeScreenCircleInfo}/>
         </div>
       </div>
       <div className="circleInfos">

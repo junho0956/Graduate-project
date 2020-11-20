@@ -10,7 +10,7 @@ const Home = ({ handleLogoutFromApp }) => {
     { name: "", checked: false }, // profile 1
     { name: "", checked: false }, // circle 2
     { postData: "", checked: false }, // feed 3
-    { writepostCircleName: "", checked: false}
+    { writepostCircleID: "", checked: false}
   ]);
   const [sidemenu, setMenuOpen] = useState(true);
 
