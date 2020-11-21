@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import '../csss/CircleInfo.css';
-import image from '../img/1.jpg';
 import jQuery from "jquery";
 import $ from "jquery";
+import image from '../img/1.jpg';
 window.$ = window.jQuery = jQuery;
 
 
@@ -12,18 +12,17 @@ const CirclePost = ({postdata, screenState, changeScreen}) => {
         const newscreenState = screenState.map(res => {return{...res, checked:false}});
         newscreenState[3].checked = true;
         newscreenState[3].postData = postdata;
-        console.log(newscreenState[3]);
         changeScreen(newscreenState);
     }
 
     return(
         <span className="circleMiniPost" onClick={changeScreenCirclePost}>
-            <img src={image}></img>
+            <img src={postdata.postPhoto.length > 0 ? postdata.postPhoto[0].photoUrl : image}></img>
             <div className="circleMiniPostInfo">
-                <div className="miniInfoDate">{postdata.post.write_Date}</div>
+                <div className="miniInfoDate">{postdata.write_Date}</div>
                 <div className="miniInfoMain">
-                    <div className="miniInfoAuthor">{postdata.post.author}</div>
-                    <div className="miniInfoDescription">{postdata.post.description}</div>
+                    <div className="miniInfoAuthor">{postdata.author}</div>
+                    <div className="miniInfoDescription">{postdata.description}</div>
                 </div>
             </div>
         </span>

@@ -4,23 +4,19 @@ import "../csss/MyCircle.css";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { getUserProfile } from "../function/getUserProfile";
 import { getUserCircle } from "../function/getUserCircle";
+import {UserCircleInfo} from '../model';
 
 const MyCircle = ({screenState, changeScreen}) => {
   
-  const [circleInfo, setCircleInfo] = useState({
-    joincircle: [],
-    followcircle: [],
-  });
+  const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
   const [Clickjoincircle, setJoinCircle] = useState(false);
   const [Clickfollowcircle, setFollowCircle] = useState(false);
 
   // 사이드메뉴에서 사용하기 위한 mycircle, followcircle 정보가져오기 
   const getProfileAndCircle = useCallback(async () => {
     const userprofile = await getUserProfile(localStorage.getItem("nickname"));
-    if (userprofile) {
-      const usercircle = await getUserCircle(userprofile);
-      if (usercircle) setCircleInfo(usercircle);
-    }
+    const usercircle = await getUserCircle(userprofile);
+    if (userprofile && usercircle) setCircleInfo(usercircle);
   }, []);
 
   useEffect(() => {getProfileAndCircle()}, []);
@@ -50,10 +46,13 @@ const MyCircle = ({screenState, changeScreen}) => {
   });
 
   const ClickCircleChange = (id) => {
-    if (id === "join") {
+    if (id === "join")
+    {
       setJoinCircle(!Clickjoincircle);
       setFollowCircle(false);
-    } else if (id === "follow") {
+    } 
+    else if (id === "follow")
+    {
       setJoinCircle(false);
       setFollowCircle(!Clickfollowcircle);
     }

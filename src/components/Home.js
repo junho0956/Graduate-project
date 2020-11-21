@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Navigator, HomeFeed, CircleInfo, Profile, SideMenu, FeedItem, WritePost} from "../components";
 import "../csss/Home.css";
 import { getAllCircle } from '../function/getAllCircle';
+import {getUserProfile} from '../function/getUserProfile';
+import {getUserCircle} from '../function/getUserCircle';
+import {UserInfo, UserCircleInfo} from '../model';
 
 const Home = ({ handleLogoutFromApp }) => {
 
@@ -10,20 +13,33 @@ const Home = ({ handleLogoutFromApp }) => {
     { name: "", checked: true }, // home 0
     { name: "", checked: false }, // profile 1
     { name: "", checked: false }, // circle 2
-    { postData: "", checked: false }, // feed 3
+    { postData: [], checked: false }, // feed 3
     { writepostCircleID: "", checked: false}
   ]);
   // sideMenu open/close 관리
   const [sidemenu, setMenuOpen] = useState(true);
-  const [searchData, setSearchData] = useState([]);
+  const [searchTotalData, setSearchData] = useState([]);
+  const [userInfo, setUserInfo] = useState(UserInfo)
+  const [userCircleList, setUserCircleList] = useState(UserCircleInfo)
   
   const AllCircles = useCallback(async() => {
     const result = await getAllCircle();
-    console.log(result);
     if(result) setSearchData(result);
   }, []);
 
-  useEffect(() => {AllCircles()}, []);
+  const getProfileCircleOfUser = useCallback(async() => {
+    const resultProfile = await getUserProfile(localStorage.getItem('nickname'));
+    const resultCircle = await getUserCircle(resultProfile);
+    if(resultProfile && resultCircle){
+      setUserInfo(resultProfile);
+      setUserCircleList(resultCircle);
+    }
+  }, []);
+
+  useEffect(() => {
+    AllCircles();
+    getProfileCircleOfUser();
+  }, []);
 
   const movingSideMenu = (menuOpen) => {
     const sidemenuUl = document.querySelector(".sidemenuLoc").children[0];
@@ -59,7 +75,7 @@ const Home = ({ handleLogoutFromApp }) => {
       <div className="home">
         <div className="homeFeed">
           {screenState[0].checked ? <HomeFeed A={A} screenState={screenState}/> : 
-          screenState[1].checked ? <Profile screenState={screenState} changeScreen={changeScreen} /> : 
+          screenState[1].checked ? <Profile userInfo={userInfo} userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen} /> : 
           screenState[2].checked ? <CircleInfo screenState={screenState} changeScreen={changeScreen} /> :
           screenState[3].checked ? <FeedItem screenState={screenState} changeScreen={changeScreen} /> :
           <WritePost screenState={screenState} changeScreen={changeScreen} />
@@ -68,7 +84,7 @@ const Home = ({ handleLogoutFromApp }) => {
         <div className="sidemenuLoc">
           <ul>
             <li>
-              <SideMenu searchData={searchData} screenState={screenState} changeScreen={changeScreen}/>
+              <SideMenu searchTotalData={searchTotalData} userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen}/>
             </li>
           </ul>
         </div>

@@ -3,8 +3,7 @@ import "../csss/Profile.css";
 import default_profile_img from "../img/default-profile.jpg";
 import axios from "axios";
 import colony from "../img/colony.PNG";
-import { getUserProfile } from "../function/getUserProfile";
-import { getUserCircle } from "../function/getUserCircle";
+import {UserInfo, UserCircleInfo} from '../model';
 
 const ViewCircle = ({ screenState, data, changeScreen }) => {
 
@@ -23,42 +22,16 @@ const ViewCircle = ({ screenState, data, changeScreen }) => {
   );
 };
 
-const Profile = ({ screenState, changeScreen }) => {
-  const [user, setUser] = useState({
-    organization: "",
-    userPhoto: "",
-    followCircle: "",
-    joinCircle: "",
-  });
-
-  const [circleInfo, setCircleInfo] = useState({
-    joincircle: [],
-    followcircle: [],
-  });
-
-  const getProfileAndCircle = useCallback(async () => {
-    const userprofile = await getUserProfile(screenState[1].name);
-    
-    if (userprofile) {
-      const newUserInfo = {
-        organization: userprofile.organization,
-        userPhoto: userprofile.userPhoto,
-        followcircle: userprofile.followCircle,
-        joincircle: userprofile.joinCircle,
-      };
-
-      const usercircle = await getUserCircle(userprofile);
-      if (usercircle) {
-        setUser(newUserInfo);
-        setCircleInfo(usercircle);
-      }
-    }
-  }, [screenState]);
+const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
+  const [user, setUser] = useState(UserInfo);
+  const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
 
   useEffect(() => {
-    getProfileAndCircle();
-  }, [screenState]);
+    setUser(userInfo);
+    setCircleInfo(userCircleList);
+  }, [userInfo, userCircleList]);
 
+  // 업로드 구현
   const profileUpdate = (e) => {
     if (e.target.files !== null) {
       const fd = new FormData();
@@ -70,15 +43,12 @@ const Profile = ({ screenState, changeScreen }) => {
         data:fd,
         processData:false,
         contentType:false,
-    }).then(res => {
-      console.log(res);
-    })
-  };
-}
-
-  const changeScreenProfile = res => {
-    changeScreen(res);
+      }).then(res => {
+        console.log(res);
+      })
+    };
   }
+  const changeScreenProfile = res => changeScreen(res);
 
   return (
     <div className="profilebasic">
@@ -102,7 +72,7 @@ const Profile = ({ screenState, changeScreen }) => {
         <div className="profileJoinCircle">
           <p>Joining</p>
           <div className="profileJoinCircleView">
-            {circleInfo.joincircle.map((res, index) => {
+            {circleInfo.joinCircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>
@@ -110,7 +80,7 @@ const Profile = ({ screenState, changeScreen }) => {
         <div className="profileFollowCircle">
           <p>Following</p>
           <div className="profileFollowCircleView">
-            {circleInfo.followcircle.map((res, index) => {
+            {circleInfo.followCircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>

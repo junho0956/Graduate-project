@@ -38,12 +38,10 @@ export async function getUserCircle(userInfo) {
       circleId: res.data.id,
       circleName: res.data.name,
       circlePhoto: res.data.circleProfilePhoto,
-      Information: {
-        school: res.data.organization,
-        what: res.data.category,
-        location: "Busan",
-        description: res.data.discription,
-      },
+      school: res.data.organization,
+      what: res.data.category,
+      location: res.data.place,
+      description: res.data.discription,
     };
   });
   const getfollowInfo = followcircleResult.map((res) => {
@@ -51,12 +49,10 @@ export async function getUserCircle(userInfo) {
       circleId: res.data.id,
       circleName: res.data.name,
       circlePhoto: res.data.circleProfilePhoto,
-      Information: {
-        school: res.data.organization,
-        what: res.data.category,
-        location: "Busan",
-        description: res.data.discription,
-      },
+      school: res.data.organization,
+      what: res.data.category,
+      location: res.data.place,
+      description: res.data.discription,
     };
   });
 

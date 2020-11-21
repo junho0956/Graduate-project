@@ -46,17 +46,29 @@ export const Circle = {
 }
 
 export const CircleInformation = {
-    name: String,
-    picture: String,
-    organization: String,
-    description: String,
-    category: String,
-    location: String,
-    circlePost: Array(Post),
-    circleMember: Array(CircleMember),
-    circleFollower: Array(User),
+    name: "",
+    circleProfilePhoto: "",
+    organization: "",
+    description: "",
+    category: "",
+    location: "",
+    circlePosts: [],
+    circleMember: [],
+    circleFollower: [],
     circleUserCheck: {
-      join : Boolean, 
-      follow : Boolean
+      join : false, 
+      follow : false,
     },
-  }
+}
+
+export const UserInfo = {
+    organization: "",
+    userPhoto: "",
+    followCircle: "",
+    joinCircle: "",
+}
+
+export const UserCircleInfo = {
+    joinCircle: [],
+    followCircle: [],
+}

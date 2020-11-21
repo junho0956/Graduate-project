@@ -4,7 +4,7 @@ import { Search, MyCircle } from "../components";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 
-const SideMenu = ({searchData, screenState, changeScreen}) => {
+const SideMenu = ({searchTotalData, screenState, changeScreen}) => {
 
   // sideMenu 검색/동아리 버튼
   const [searchBtn, setSearch] = useState(true);
@@ -49,7 +49,7 @@ const SideMenu = ({searchData, screenState, changeScreen}) => {
 
       <div className="sideMenuInfo">
         {searchBtn ? 
-        <Search searchData={searchData} screenState={screenState} changeScreen={changeScreenSide}/> : 
+        <Search searchTotalData={searchTotalData} screenState={screenState} changeScreen={changeScreenSide}/> : 
         <MyCircle screenState={screenState} changeScreen={changeScreenSide} /> } 
       </div>
       
