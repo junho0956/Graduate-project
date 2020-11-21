@@ -4,6 +4,7 @@ import axios from "axios";
 import colonyImg from "../img/colony.PNG";
 import {Circle} from '../model';
 
+// 검색결과별 컴포넌트
 const SearchItem = ({ searchResult, screenState, changeScreen }) => {
   
   const changeScreenItem = () => {
@@ -19,45 +20,25 @@ const SearchItem = ({ searchResult, screenState, changeScreen }) => {
       <div className="searchItemInformation">
         <span id="searchItemName">{searchResult.name}</span>
         <span id="searchItemInfo">
-          {searchResult.information.school}&nbsp;/&nbsp;{searchResult.information.location}
+          {searchResult.school}&nbsp;/&nbsp;{searchResult.location}
           &nbsp;/&nbsp;
-          {searchResult.information.what}
+          {searchResult.what}
         </span>
       </div>
     </div>
   );
 };
 
-const Search = ({ screenState, changeScreen }) => {
+const Search = ({ searchData, screenState, changeScreen }) => {
+  // 검색에 사용되는 상탯값(검색결과, 검색인풋, 동아리 리스트)
   const [searchResult, setSearchResult] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [circleList, setCircleList] = useState([]);
 
-  useEffect(() => {
+  // Home component에서 searchData 값이 바뀔때마다 circleList를 변경함
+  useEffect(() => {setCircleList(searchData)},[searchData]);
 
-    axios({
-      method: 'POST',
-      headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
-      url: "http://3.35.240.252:8080/circles/all", 
-    }).then((res) => {
-        const newCircleList = res.data.map((res) => {
-          return {
-            id: res.id,
-            name: res.name,
-            picture: colonyImg,
-            information: {
-              school: res.organization,
-              location: "Busan",
-              what: res.category,
-            },
-          };
-        });
-        setCircleList(newCircleList);
-      })
-      .catch((error) => console.log(error));
-
-  }, []);
-
+  // 검색 Effect => input이 바뀔때마다 렌더링
   useEffect(() => {
     if (searchInput.length == 0) setSearchResult([]);
     else{
@@ -66,7 +47,9 @@ const Search = ({ screenState, changeScreen }) => {
     }
   }, [searchInput]);
 
+  // 인풋 state
   const SearchInput = e => setSearchInput(e.target.value);
+  // 전체 스크린 관리
   const changeScreenSearch = res => changeScreen(res);
 
   return (

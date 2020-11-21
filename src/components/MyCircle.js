@@ -14,15 +14,16 @@ const MyCircle = ({screenState, changeScreen}) => {
   const [Clickjoincircle, setJoinCircle] = useState(false);
   const [Clickfollowcircle, setFollowCircle] = useState(false);
 
+  // 사이드메뉴에서 사용하기 위한 mycircle, followcircle 정보가져오기 
   const getProfileAndCircle = useCallback(async () => {
     const userprofile = await getUserProfile(localStorage.getItem("nickname"));
     if (userprofile) {
       const usercircle = await getUserCircle(userprofile);
       if (usercircle) setCircleInfo(usercircle);
     }
-  }, [screenState]);
+  }, []);
 
-  useEffect(() => {getProfileAndCircle()}, [screenState]);
+  useEffect(() => {getProfileAndCircle()}, []);
 
   useEffect(() => {
     const followtitle = document.querySelector(".FollowCircleTitle");

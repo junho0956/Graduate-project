@@ -74,16 +74,15 @@ const WritePost = ({screenState, changeScreen}) => {
     const GoPost = () => {
         const formdata = {
             description: area,
-            PhotoUrl: Image
+            photoUrl: Image
         };
-        console.log(formdata);
         axios({
             method:'post',
             url:`http://3.35.240.252:8080/circles/${screenState[4].writepostCircleID}/posts`,
-            headers: {'Autorization':'Bearer '+localStorage.getItem('token')},
+            headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
             data: formdata,
         })
-        .then(res => console.log(res))
+        .then(res => console.log("res : ",res))
         .catch(error => console.log("error!", error))
     }
 

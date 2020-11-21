@@ -16,7 +16,7 @@ export async function getUserCircle(userInfo) {
     settingUser.joinCircle.map(async (res) => {
       return await axios({
         method: "POST",
-        url: `http://3.35.240.252:8080/circles/found`,
+        url: `http://3.35.240.252:8080/circles/found2`,
         headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
         data: {circleName : res.name}
       });
@@ -26,7 +26,7 @@ export async function getUserCircle(userInfo) {
     settingUser.followCircle.map(async (res) => {
       return await axios({
         method: "POST",
-        url: `http://3.35.240.252:8080/circles/found`,
+        url: `http://3.35.240.252:8080/circles/found2`,
         headers: {'Authorization':'Bearer ' + localStorage.getItem('token')},
         data: {circleName : res.name}
       });

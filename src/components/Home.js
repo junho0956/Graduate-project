@@ -1,10 +1,11 @@
-import axios from 'axios';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Navigator, HomeFeed, CircleInfo, Profile, SideMenu, FeedItem, WritePost} from "../components";
 import "../csss/Home.css";
+import { getAllCircle } from '../function/getAllCircle';
 
 const Home = ({ handleLogoutFromApp }) => {
 
+  // 전체 state 관리
   const [screenState, setScreenState] = useState([
     { name: "", checked: true }, // home 0
     { name: "", checked: false }, // profile 1
@@ -12,27 +13,25 @@ const Home = ({ handleLogoutFromApp }) => {
     { postData: "", checked: false }, // feed 3
     { writepostCircleID: "", checked: false}
   ]);
+  // sideMenu open/close 관리
   const [sidemenu, setMenuOpen] = useState(true);
+  const [searchData, setSearchData] = useState([]);
+  
+  const AllCircles = useCallback(async() => {
+    const result = await getAllCircle();
+    console.log(result);
+    if(result) setSearchData(result);
+  }, []);
+
+  useEffect(() => {AllCircles()}, []);
 
   const movingSideMenu = (menuOpen) => {
     const sidemenuUl = document.querySelector(".sidemenuLoc").children[0];
     sidemenuUl.style.cssText = "transition:1s;";
     if (!menuOpen) sidemenuUl.style.marginLeft = "100%";
   };
-
-  // useEffect(() => {
-  //   axios({
-  //     method:"post",
-  //     url:'http://3.35.240.252:8080/circles/10/posts',
-  //     description:'hello world',
-  //     photoUrl: ['http://naver.com', 'http://google.com'],
-  //     headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
-  //   })
-  //   .then(res => console.log("success!", res))
-  //   .catch(error => console.log(error));
-  // },[])
-
   
+  // 전체 스크린 관리
   const changeScreen = (screenState, setSideMenu) => {
     setScreenState(screenState);
     if (setSideMenu !== undefined && sidemenu !== setSideMenu) {
@@ -40,9 +39,11 @@ const Home = ({ handleLogoutFromApp }) => {
       movingSideMenu(setSideMenu);
     }
   };
-
+  
+  // 로그아웃 핸들러
   const handleLogout = () => handleLogoutFromApp();
 
+  // 임시용
   const A = [1, 2, 3];
 
   return (
@@ -67,7 +68,7 @@ const Home = ({ handleLogoutFromApp }) => {
         <div className="sidemenuLoc">
           <ul>
             <li>
-              <SideMenu screenState={screenState} changeScreen={changeScreen}/>
+              <SideMenu searchData={searchData} screenState={screenState} changeScreen={changeScreen}/>
             </li>
           </ul>
         </div>

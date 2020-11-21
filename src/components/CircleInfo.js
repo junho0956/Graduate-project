@@ -61,11 +61,12 @@ const CircleInfo = ({ screenState, changeScreen }) => {
   const [circle, setCircle] = useState(CircleInformation);
   const [dataForPost, setdataForPost] = useState([]);
   
+  // screenState가 바뀌면서 띄우고자 하는 동아리에 대한 정보를 name을 기준으로
   const getCircle = async() => {
 
     const getcircleInfo = await axios({
       method:'POST',
-      url:`http://3.35.240.252:8080/circles/found`,
+      url:`http://3.35.240.252:8080/circles/found2`,
       headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
       data:{circleName:screenState[2].name}
     });

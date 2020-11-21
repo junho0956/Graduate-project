@@ -4,11 +4,13 @@ import { Search, MyCircle } from "../components";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 
-const SideMenu = ({screenState, changeScreen}) => {
+const SideMenu = ({searchData, screenState, changeScreen}) => {
 
+  // sideMenu 검색/동아리 버튼
   const [searchBtn, setSearch] = useState(true);
   const [circleBtn, setCircle] = useState(false);
 
+  // sideMenu 버튼이 navigation에 있기 때문에 연결해서 관리
   const handleSideMenu = (select) => {
     if (select === "search") {
       setSearch(true);
@@ -19,6 +21,7 @@ const SideMenu = ({screenState, changeScreen}) => {
     }
   };
 
+  // sideMenu 효과 => 버튼 변경될때만 렌더링
   useEffect(() => {
     const searchs = document.querySelector(".sideMenuSearch");
     const circles = document.querySelector(".sideMenuCircle");
@@ -31,13 +34,11 @@ const SideMenu = ({screenState, changeScreen}) => {
     }
   }, [searchBtn, circleBtn]);
 
-  const changeScreenSide = (res) => {
-    changeScreen(res)
-  }
+  // 전체 스크린 관리
+  const changeScreenSide = (res) => changeScreen(res);
 
   const searchs = "search";
   const circles = "circles";
-
   return (
     <div className="sideMenu">
 
@@ -48,7 +49,7 @@ const SideMenu = ({screenState, changeScreen}) => {
 
       <div className="sideMenuInfo">
         {searchBtn ? 
-        <Search screenState={screenState} changeScreen={changeScreenSide}/> : 
+        <Search searchData={searchData} screenState={screenState} changeScreen={changeScreenSide}/> : 
         <MyCircle screenState={screenState} changeScreen={changeScreenSide} /> } 
       </div>
       
