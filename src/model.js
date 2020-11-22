@@ -69,6 +69,6 @@ export const UserInfo = {
 }
 
 export const UserCircleInfo = {
-    joinCircle: [],
-    followCircle: [],
+    joincircle: [],
+    followcircle: [],
 }

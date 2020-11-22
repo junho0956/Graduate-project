@@ -25,7 +25,7 @@ const ViewCircle = ({ screenState, data, changeScreen }) => {
 const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
   const [user, setUser] = useState(UserInfo);
   const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
-
+  
   useEffect(() => {
     setUser(userInfo);
     setCircleInfo(userCircleList);
@@ -34,17 +34,18 @@ const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
   // 업로드 구현
   const profileUpdate = (e) => {
     if (e.target.files !== null) {
+      console.log("file : ",e.target.files[0]);
       const fd = new FormData();
       fd.append("data", e.target.files[0]);
       axios({
-        method:"patch",
+        method:"post",
         Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
         url:"http://3.35.240.252:8080/upload",
         data:fd,
         processData:false,
         contentType:false,
       }).then(res => {
-        console.log(res);
+        console.log("result : ",res);
       })
     };
   }
@@ -72,7 +73,7 @@ const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
         <div className="profileJoinCircle">
           <p>Joining</p>
           <div className="profileJoinCircleView">
-            {circleInfo.joinCircle.map((res, index) => {
+            {circleInfo.joincircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>
@@ -80,7 +81,7 @@ const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
         <div className="profileFollowCircle">
           <p>Following</p>
           <div className="profileFollowCircleView">
-            {circleInfo.followCircle.map((res, index) => {
+            {circleInfo.followcircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>

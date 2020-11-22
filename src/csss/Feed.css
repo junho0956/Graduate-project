@@ -44,6 +44,7 @@ li {
   font-family: "Nanum Gothic", sans-serif;
   padding: 1rem;
   border-top: 1px solid lightgrey;
+  position: relative;
 }
 
 .feedTitle img {
@@ -79,9 +80,6 @@ li {
   margin-top: 0.5rem;
 }
 
-.contentComment {
-}
-
 #commentAll {
   padding-top: 5px;
   background-color: white;
@@ -91,7 +89,24 @@ li {
   cursor: pointer;
 }
 
-.feedComment input {
+.feedComment textarea {
   border: none;
-  font-size: 1rem;
+  padding:0.2rem;
+  font-size: 1.3rem;
+  width:100%;
+  line-height: 1.1;
+  resize:none;
+}
+
+.feedComment textarea:focus{
+  outline:none;
+  border-bottom:1.5px solid black;
+}
+
+.feedComment textarea::-webkit-scrollbar{
+  display:none;
+}
+
+.commentButton{
+  display:none;
 }

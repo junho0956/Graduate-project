@@ -38,6 +38,7 @@ const WritePost = ({screenState, changeScreen}) => {
     const whereCircle = screenState[4].writepostCircleName;
     const [Image, setImage] = useState([]);
     const [area, setArea] = useState();
+    const [ImageFormData, setImageFormData] = useState([]);
 
     const cancleWritePost = () => {
         if(window.confirm('작성을 취소하시겠습니까?')){
@@ -54,15 +55,13 @@ const WritePost = ({screenState, changeScreen}) => {
 
     const addPicture = (e) => {
         if(e.target.files !== null){
-            // const newImage = new FormData();
-            // newImage.append("data", e.target.files[0]);
-            // let newImageSet = Image.map(res=>res);
-            // newImageSet = newImageSet.concat(newImage);
-            let newImage = Image.map(res => res);
-            newImage = newImage.concat(e.target.files[0].name);
-            console.log("newImage : ",newImage);
-            // setImage(newImageSet);
+            let newImage = Image.concat(e.target.files[0].name);
+            const fd = new FormData();
+            fd.append("data", e.target.files[0]);
+            let newimageformdata = ImageFormData.concat(fd);
+
             setImage(newImage);
+            setImageFormData(newimageformdata);
         }
     }
 
@@ -71,10 +70,26 @@ const WritePost = ({screenState, changeScreen}) => {
         setArea(newArea);
     }
 
-    const GoPost = () => {
+    const GoPost = async() => {
+        
+        // 업로드 후에 받은 주소를 서버로 보내줌
+        const getUploadUrl = await Promise.all(
+            ImageFormData.map(async(res) => {
+                return await axios({
+                    method:'POST',
+                    url: "http://3.35.240.252:8080/upload",
+                    Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
+                    data:res,
+                    processData:false,
+                    contentType:false,
+                })
+                .then(res => {return res.data});
+            })
+        )
+
         const formdata = {
             description: area,
-            photoUrl: Image
+            photoUrl: getUploadUrl,
         };
         axios({
             method:'post',
@@ -82,8 +97,12 @@ const WritePost = ({screenState, changeScreen}) => {
             headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
             data: formdata,
         })
-        .then(res => console.log("res : ",res))
-        .catch(error => console.log("error!", error))
+        .then(res => {
+            const newscreenState = screenState.map(res => {return{...res , checked : false }});
+            newscreenState[2].checked = true;
+            changeScreen(newscreenState);
+        })
+        .catch(error => console.log("error!", error));
     }
 
     return(
