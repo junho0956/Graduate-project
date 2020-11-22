@@ -7,11 +7,9 @@ const JoinCircle = ({ data, screenState, changeScreen }) => {
     id: data.circleId,
     name: data.circleName,
     picture: CircleImg,
-    information: {
-      school: data.Information.school,
-      location: data.Information.location,
-      what: data.Information.what,
-    },
+    school: data.Information.school,
+    location: data.Information.location,
+    what: data.Information.what,
   });
 
   const changeScreenJ = () => {
@@ -27,8 +25,8 @@ const JoinCircle = ({ data, screenState, changeScreen }) => {
       <div className="joincircleInfo">
         <div className="circleName">{circle.name}</div>
         <div className="circleContents">
-          {circle.information.school}&nbsp;/&nbsp;{circle.information.location}
-          &nbsp;/&nbsp;{circle.information.what}
+          {circle.school}&nbsp;/&nbsp;{circle.location}
+          &nbsp;/&nbsp;{circle.what}
         </div>
       </div>
     </div>

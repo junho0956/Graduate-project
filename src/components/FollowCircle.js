@@ -7,11 +7,9 @@ const FollowCircle = ({ data, sreenState, changeScreen }) => {
     id: data.circleId,
     name: data.circleName,
     picture: colonyImg,
-    information: {
-      school: data.Information.school,
-      location: data.Information.location,
-      what: data.Information.what,
-    },
+    school: data.school,
+    location: data.location,
+    what: data.what,
   });
 
   const changeScreenF = () => {
@@ -27,8 +25,8 @@ const FollowCircle = ({ data, sreenState, changeScreen }) => {
       <div className="followcircleInfo">
         <div className="followcircleTitle">{circle.name}</div>
         <div className="followcircleContents">
-          {circle.information.school}&nbsp;/&nbsp;{circle.information.location}
-          &nbsp;/&nbsp;{circle.information.what}
+          {circle.school}&nbsp;/&nbsp;{circle.location}
+          &nbsp;/&nbsp;{circle.what}
         </div>
       </div>
     </div>

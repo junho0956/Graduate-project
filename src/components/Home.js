@@ -10,7 +10,7 @@ const Home = ({ handleLogoutFromApp }) => {
 
   // 전체 state 관리
   const [screenState, setScreenState] = useState([
-    { name: "", checked: true }, // home 0
+    { AllPostData: [], checked: true }, // home 0
     { name: "", checked: false }, // profile 1
     { name: "", checked: false }, // circle 2
     { postData: [], checked: false }, // feed 3
@@ -74,10 +74,10 @@ const Home = ({ handleLogoutFromApp }) => {
       </div>
       <div className="home">
         <div className="homeFeed">
-          {screenState[0].checked ? <HomeFeed A={A} screenState={screenState}/> : 
+          {screenState[0].checked ? <HomeFeed userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen}/> : 
           screenState[1].checked ? <Profile userInfo={userInfo} userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen} /> : 
           screenState[2].checked ? <CircleInfo screenState={screenState} changeScreen={changeScreen} /> :
-          screenState[3].checked ? <FeedItem screenState={screenState} changeScreen={changeScreen} /> :
+          screenState[3].checked ? <FeedItem postData={screenState[3].postData} changeScreen={changeScreen} /> :
           <WritePost screenState={screenState} changeScreen={changeScreen} />
           }
         </div>

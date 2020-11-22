@@ -4,6 +4,7 @@ import "../csss/CircleInfo.css";
 import axios from 'axios';
 import {CirclePosts} from '../components';
 import {CircleInformation} from '../model';
+import {getCircleInfo} from '../function/getCircleInfo';
 
 const WritePosting = ({cid, screenState, changeScreen}) => {
   
@@ -63,33 +64,12 @@ const CircleInfo = ({ screenState, changeScreen }) => {
 
   // screenState가 바뀌면서 띄우고자 하는 동아리에 대한 정보를 name을 기준으로 가져옴
   const getCircle = async() => {
-
-    const getcircleInfo = await axios({
-      method:'POST',
-      url:`http://3.35.240.252:8080/circles/found2`,
-      headers: {'Authorization':'Bearer '+localStorage.getItem('token')},
-      data:{circleName:screenState[2].name}
-    });
-    const userEmail = localStorage.getItem('email');
-    
-    let checkUserJoinCircle = getcircleInfo.data.circleMember.filter(res => res.email === userEmail);
-    let checkUserFollowCircle = getcircleInfo.data.circleFollower.filter(res => res.email === userEmail);
-    checkUserJoinCircle = checkUserJoinCircle.length > 0 ? true : false;
-    checkUserFollowCircle = checkUserFollowCircle.length > 0 ? true : false;
-    
-    let newCircle = getcircleInfo.data;
-    newCircle.circleUserCheck = {
-        join : checkUserJoinCircle, 
-        follow : checkUserFollowCircle
+    const result = await getCircleInfo(screenState[2].name);
+    if(result){
+      // console.log(result);
+      setCircle(result.circle);
+      setdataForPost(result.dataForPost);
     }
-    const makeDataForPost = newCircle.circlePosts.map(res => {
-      res.circleProfilePhoto = newCircle.circleProfilePhoto;
-      res.circleName = newCircle.name;
-      return res;
-    });
-    
-    setCircle(newCircle);
-    setdataForPost(makeDataForPost);
   }
 
   useEffect(() => {

@@ -24,9 +24,9 @@ const setCommentCss = () => {
   })      
 }
 
-const FeedItem = ({ screenState, changeScreen}) => {
+const FeedItem = ({ postData, changeScreen}) => {
   
-  const [feed, setFeed] = useState(screenState[3].postData);
+  const [feed, setFeed] = useState(postData);
   const [writecomment, setWritecomment] = useState("");
   const cancle = "cancle", comment = 'comment';
 
@@ -35,7 +35,9 @@ const FeedItem = ({ screenState, changeScreen}) => {
   }
 
   useEffect(() => setCommentCss(),[]);
-  useEffect(() => slider(), [feed]);
+  useEffect(() => {
+    slider();
+  }, [feed]);
 
   const commentButton = btn => {
 
