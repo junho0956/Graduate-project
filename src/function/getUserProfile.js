@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export async function getUserProfile(nickname) {
+  console.log(nickname);
   const formdata = {
     nickName: nickname
   };
@@ -12,9 +13,10 @@ export async function getUserProfile(nickname) {
     url: `http://3.35.240.252:8080/users/found`,
     headers: {'Authorization':'Bearer ' + token},
     data: formdata
-  });
-
+  }).catch(error => console.log(error));
+  console.log(res.data);
   localStorage.setItem('userId', res.data.id);
+  
   return {
     organization: res.data.user_organization,
     userPhoto: res.data.profilePhoto,

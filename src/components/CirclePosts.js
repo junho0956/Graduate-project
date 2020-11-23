@@ -13,7 +13,7 @@ const CirclePost = ({postdata, screenState, changeScreen}) => {
         newscreenState[3].checked = true;
         newscreenState[3].postData = postdata;
         changeScreen(newscreenState);
-    }
+    } 
 
     return(
         <span className="circleMiniPost" onClick={changeScreenCirclePost}>
@@ -30,7 +30,7 @@ const CirclePost = ({postdata, screenState, changeScreen}) => {
 }
 
 const CirclePosts = ({postdata, screenState, changeScreen}) => {
-    
+    // console.log(postdata);
     useEffect(() => {
 
         const miniPostInfoParent = document.querySelectorAll('.circleMiniPostInfo');

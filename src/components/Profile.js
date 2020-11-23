@@ -37,16 +37,18 @@ const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
       console.log("file : ",e.target.files[0]);
       const fd = new FormData();
       fd.append("data", e.target.files[0]);
-      axios({
-        method:"post",
-        Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
-        url:"http://3.35.240.252:8080/upload",
-        data:fd,
-        processData:false,
-        contentType:false,
-      }).then(res => {
-        console.log("result : ",res);
-      })
+      console.log("file fd type => ", typeof fd);
+      console.log("file image type => ", typeof e.target.files[0]);
+      // axios({
+      //   method:"post",
+      //   Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
+      //   url:"http://3.35.240.252:8080/upload",
+      //   data:fd,
+      //   processData:false,
+      //   contentType:false,
+      // }).then(res => {
+      //   console.log("result : ",res);
+      // })
     };
   }
   const changeScreenProfile = res => changeScreen(res);

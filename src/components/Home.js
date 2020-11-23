@@ -29,10 +29,13 @@ const Home = ({ handleLogoutFromApp }) => {
 
   const getProfileCircleOfUser = useCallback(async() => {
     const resultProfile = await getUserProfile(localStorage.getItem('nickname'));
-    const resultCircle = await getUserCircle(resultProfile);
-    if(resultProfile && resultCircle){
-      setUserInfo(resultProfile);
-      setUserCircleList(resultCircle);
+    // console.log(resultProfile);
+    if(resultProfile){
+      const resultCircle = await getUserCircle(resultProfile);
+      if(resultCircle){
+        setUserInfo(resultProfile);
+        setUserCircleList(resultCircle);
+      }
     }
   }, []);
 
@@ -64,7 +67,7 @@ const Home = ({ handleLogoutFromApp }) => {
 
   return (
     <div className="homebasic">
-      <div className="navi">
+      <div className="homenavi">
         <Navigator
           screenState={screenState}
           sidemenu={sidemenu}
@@ -72,7 +75,7 @@ const Home = ({ handleLogoutFromApp }) => {
           handleLogoutFromHome={handleLogout}
         />
       </div>
-      <div className="home">
+      <div className="homeMain">
         <div className="homeFeed">
           {screenState[0].checked ? <HomeFeed userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen}/> : 
           screenState[1].checked ? <Profile userInfo={userInfo} userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen} /> : 

@@ -1,6 +1,6 @@
 export function slider(){
     const imgAll = (res) => document.querySelectorAll(res);
-    const wraps = imgAll(".pictures");
+    const wraps = imgAll(".mainPictures");
 
     wraps.forEach((wrap) => {
       const slide = wrap.children[1]; // slide

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import colonyImg from "../img/colony.PNG";
 import "../csss/CircleInfo.css";
 import axios from 'axios';
 import {CirclePosts} from '../components';
@@ -25,19 +24,117 @@ const WritePosting = ({cid, screenState, changeScreen}) => {
   )
 }
 
-const CircleJoinIn = () => {
+const CircleJoinOut = ({cid}) => {
+  const [joinstate, setJoinState] = useState(true);
+
+  useEffect(() => {
+    const btn = document.querySelector("#circlejoinout");
+    btn.addEventListener('mouseenter', function(){
+      btn.innerHTML = '탈퇴하기';
+    })
+    btn.addEventListener('mouseleave', function(){
+      btn.innerHTML = '활동 중';
+    })
+  },[cid]);
+  const CircleOut = () => {
+    axios({
+      method:"DELETE",
+      url:'http://3.35.240.252:8080/delete/myCircle',
+      data:{deleteId: cid},
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
+    })
+    .then(() => {
+      setJoinState(false);
+    })
+    .catch(error => console.log(error));
+  }
+
   return(
-    <div className="JFbutton">
-      <div>
+    <div className="JFbutton" id="circlejoinout"onClick={CircleOut}>활동 중</div>
+  )
+}
+
+const CircleJoinIn = ({cid, screenState}) => {
+  const [joinstate, setJoinState] = useState(false);
+
+  const signUpCircle = () => {
+    const formdata = {
+      circleId: cid,
+      circleName: screenState[2].name,
+    }
+    console.log("보낼 데이터: ",formdata);
+    console.log(typeof formdata.circleId);
+    console.log(typeof formdata.circleName);
+    axios({
+      method:'POST',
+      url:`http://3.35.240.252:8080/users/${localStorage.getItem('nickname')}/joinCircle`,
+      Headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+      data: formdata,
+    }).then(() => {
+      setJoinState(true);
+    }).catch(error => console.log(error))
+  }
+
+  return(
+    <div className="JFbutton" onClick={signUpCircle}>
         가입하기
-      </div>
     </div>
   )
 }
 
-const CircleFollowIn = () => {
+const CircleFollowOut = ({cid}) => {
+  const [followstate, setFollowState] = useState(true);
+
+  useEffect(() => {
+    const btn = document.querySelector("#circlefollowout");
+    btn.addEventListener('mouseenter', function(){
+      btn.innerHTML = '팔로우 끊기';
+    })
+    btn.addEventListener('mouseleave', function(){
+      btn.innerHTML = '팔로우 중';
+    })
+  },[cid]);
+
+  const FollowOut = () => {
+    axios({
+      method:"DELETE",
+      url:'http://3.35.240.252:8080/delete/follower',
+      data:{deleteId: cid},
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
+    })
+    .then(() => {
+      setFollowState(false);
+    })
+    .catch(error => console.log(error));
+  }
+
   return(
-    <div className="JFbutton">
+    <div className="JFbutton" id="circlefollowout"onClick={FollowOut}>팔로우 중</div>
+  )
+}
+
+const CircleFollowIn = ({cid, screenState}) => {
+  const [followstate, setFollowState] = useState(false);
+  
+  const followCircle = () => {
+    const formdata = {
+      circleId: cid,
+      circleName: screenState[2].name,
+    }
+    console.log(formdata);
+    console.log(localStorage.getItem('nickname'));
+    axios({
+      method:'POST',
+      url:`http://3.35.240.252:8080/users/${localStorage.getItem('nickname')}/follower`,
+      Headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+      data: formdata,
+    }).then(() => {
+      setFollowState(true);
+    })
+  }
+
+  return(
+    <div className="JFbutton" onClick={followCircle}>
       <div>
         팔로우하기
       </div>
@@ -46,15 +143,16 @@ const CircleFollowIn = () => {
 }
 
 const CircleJoinFollow = ({cid, state, screenState, changeScreen}) => {
-  
   const changeScreenJF = (res) => changeScreen(res);
 
   return(
-    <div>{
-      state.join ? <div className="JFbutton">활동 중</div> :
-      state.follow ? <div className="circleJFbutton"><CircleJoinIn/> <div className="JFbutton">팔로우 중</div></div> :
-      <div className="circleJFbutton"><WritePosting cid={cid} screenState={screenState} changeScreen={changeScreenJF} /><CircleJoinIn /><CircleFollowIn /></div>
-    }</div>
+    <div>
+    {
+      state.join ? <div className="circleJFbutton"><WritePosting cid={cid} screenState={screenState} changeScreen={changeScreenJF}/><CircleJoinOut cid={cid}/></div> :
+      state.follow ? <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState}/> <CircleFollowOut cid={cid}/></div> :
+      <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState}/><CircleFollowIn cid={cid} screenState={screenState}/></div>
+    }
+    </div>
   )
 }
 
@@ -66,7 +164,6 @@ const CircleInfo = ({ screenState, changeScreen }) => {
   const getCircle = async() => {
     const result = await getCircleInfo(screenState[2].name);
     if(result){
-      // console.log(result);
       setCircle(result.circle);
       setdataForPost(result.dataForPost);
     }

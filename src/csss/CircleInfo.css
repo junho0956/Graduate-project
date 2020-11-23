@@ -11,11 +11,13 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
+
 }
 
 .circleInfoImg img {
-  width: 20rem;
-  border-radius: 10rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 8rem;
 }
 
 .circleInfoTitle{
