@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../csss/FollowCircle.css";
-import colonyImg from "../img/colony.PNG";
 
 const FollowCircle = ({ data, sreenState, changeScreen }) => {
   const [circle, setCircle] = useState({
     id: data.circleId,
     name: data.circleName,
-    picture: colonyImg,
+    picture: data.circlePhoto,
     school: data.school,
     location: data.location,
     what: data.what,

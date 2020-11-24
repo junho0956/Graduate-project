@@ -20,7 +20,7 @@
 
 .loginForm input {
   border: 1px solid rgb(219, 235, 237);
-  background-color: transparent;
+  background-color: white;
   outline: none;
   text-align: center;
 }
@@ -28,8 +28,9 @@
 .loginForm button {
   cursor: pointer;
   border: none;
-  background-color: transparent;
+  background-color: white;
   outline: none;
+  border-radius: 10px;
 }
 
 #forgotUser {
@@ -39,7 +40,8 @@
   padding: 0;
   font-size: 1rem;
   cursor: pointer;
-  color: rgb(58, 58, 211);
+  /* color: rgb(58, 58, 211); */
+  color:blue;
   text-decoration: none;
 }
 

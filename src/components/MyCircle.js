@@ -2,26 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import { JoinCircle, FollowCircle } from "../components";
 import "../csss/MyCircle.css";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
-import { getUserProfile } from "../function/getUserProfile";
-import { getUserCircle } from "../function/getUserCircle";
 import {UserCircleInfo} from '../model';
 
-const MyCircle = ({screenState, changeScreen}) => {
+const MyCircle = ({userCircleList, screenState, changeScreen}) => {
   
   const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
   const [Clickjoincircle, setJoinCircle] = useState(false);
   const [Clickfollowcircle, setFollowCircle] = useState(false);
 
-  // 사이드메뉴에서 사용하기 위한 mycircle, followcircle 정보가져오기 
-  const getProfileAndCircle = useCallback(async () => {
-    const userprofile = await getUserProfile(localStorage.getItem("nickname"));
-    const usercircle = await getUserCircle(userprofile);
-    if (userprofile && usercircle) setCircleInfo(usercircle);
-  }, []);
-
-  useEffect(() => {getProfileAndCircle()}, []);
-
-  useEffect(() => {
+  const setAnimation = () => {
     const followtitle = document.querySelector(".FollowCircleTitle");
     const joinslide = document.querySelector(".JoinCircleInfo");
     const jointarget = joinslide.children[0];
@@ -31,28 +20,33 @@ const MyCircle = ({screenState, changeScreen}) => {
     const followcircleHeight = window.getComputedStyle(followtarget.children[0]).height;
     const joinHeight = Number(joincircleHeight.slice(0, -2)) * -1;
     const followHeight = Number(followcircleHeight.slice(0, -2)) * -1;
-
+  
     jointarget.style.cssText = `transition:0.5s; margin-top:${joinHeight}px;`;
     followtarget.style.cssText = `transition:0.5s; margin-top:${followHeight}px;`;
-
+  
     if (Clickjoincircle) 
     {
       jointarget.style.marginTop = "0%";
       followtitle.style.borderTop = "1px solid lightgrey";
     } 
     else followtitle.style.borderTop = "none";
-
+  
     if (Clickfollowcircle) followtarget.style.marginTop = "0%";
-  });
+  }
+
+  useEffect(() => setAnimation());
+
+  useEffect(() => {
+    setCircleInfo(userCircleList);
+  }, [userCircleList]);
 
   const ClickCircleChange = (id) => {
-    if (id === "join")
-    {
+
+    if (id === "join"){
       setJoinCircle(!Clickjoincircle);
       setFollowCircle(false);
     } 
-    else if (id === "follow")
-    {
+    else if (id === "follow"){
       setJoinCircle(false);
       setFollowCircle(!Clickfollowcircle);
     }

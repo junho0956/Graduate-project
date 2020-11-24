@@ -20,7 +20,7 @@
 
 .signupForm input {
   border: 1px solid rgb(219, 235, 237);
-  background-color: transparent;
+  background-color: white;
   outline: none;
   text-align: center;
 }
@@ -28,7 +28,7 @@
 .signupForm button {
   cursor: pointer;
   border: none;
-  background-color: transparent;
+  background-color: white;
   outline: none;
 }
 

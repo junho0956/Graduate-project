@@ -1,11 +1,9 @@
 import axios from "axios";
 
 export async function getUserProfile(nickname) {
-  console.log(nickname);
   const formdata = {
     nickName: nickname
-  };
-
+  }; 
   const token = localStorage.getItem('token');
   
   const res = await axios({
@@ -14,9 +12,10 @@ export async function getUserProfile(nickname) {
     headers: {'Authorization':'Bearer ' + token},
     data: formdata
   }).catch(error => console.log(error));
-  console.log(res.data);
-  localStorage.setItem('userId', res.data.id);
   
+  if(localStorage.getItem('userId') === null){
+    localStorage.setItem('userId', res.data.id);
+  }
   return {
     organization: res.data.user_organization,
     userPhoto: res.data.profilePhoto,

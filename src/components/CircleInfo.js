@@ -8,7 +8,6 @@ import {getCircleInfo} from '../function/getCircleInfo';
 const WritePosting = ({cid, screenState, changeScreen}) => {
   
   const gowrite = () => {
-    // console.log("screenS")
     const newscreenState = screenState.map(res => {return {...res, checked:false}});
     newscreenState[4].checked = true;
     newscreenState[4].writepostCircleID = cid;
@@ -24,9 +23,8 @@ const WritePosting = ({cid, screenState, changeScreen}) => {
   )
 }
 
-const CircleJoinOut = ({cid}) => {
-  const [joinstate, setJoinState] = useState(true);
-
+const CircleJoinOut = ({cid, screenState, changeScreen}) => {
+  
   useEffect(() => {
     const btn = document.querySelector("#circlejoinout");
     btn.addEventListener('mouseenter', function(){
@@ -44,7 +42,9 @@ const CircleJoinOut = ({cid}) => {
       headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
     })
     .then(() => {
-      setJoinState(false);
+      let newscreenState = screenState.map(res => res);
+      newscreenState[5].changeState++;
+      changeScreen(newscreenState);
     })
     .catch(error => console.log(error));
   }
@@ -54,24 +54,18 @@ const CircleJoinOut = ({cid}) => {
   )
 }
 
-const CircleJoinIn = ({cid, screenState}) => {
-  const [joinstate, setJoinState] = useState(false);
+const CircleJoinIn = ({cid, screenState, changeScreen}) => {
 
   const signUpCircle = () => {
-    const formdata = {
-      circleId: cid,
-      circleName: screenState[2].name,
-    }
-    console.log("보낼 데이터: ",formdata);
-    console.log(typeof formdata.circleId);
-    console.log(typeof formdata.circleName);
+    
     axios({
       method:'POST',
-      url:`http://3.35.240.252:8080/users/${localStorage.getItem('nickname')}/joinCircle`,
-      Headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
-      data: formdata,
+      url:`http://3.35.240.252:8080/users/joinCircle/${cid}`,
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
     }).then(() => {
-      setJoinState(true);
+      let newscreenState = screenState.map(res => res);
+      newscreenState[5].changeState++;
+      changeScreen(newscreenState);
     }).catch(error => console.log(error))
   }
 
@@ -82,8 +76,7 @@ const CircleJoinIn = ({cid, screenState}) => {
   )
 }
 
-const CircleFollowOut = ({cid}) => {
-  const [followstate, setFollowState] = useState(true);
+const CircleFollowOut = ({cid, screenState, changeScreen}) => {
 
   useEffect(() => {
     const btn = document.querySelector("#circlefollowout");
@@ -103,7 +96,9 @@ const CircleFollowOut = ({cid}) => {
       headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
     })
     .then(() => {
-      setFollowState(false);
+      let newscreenState = screenState.map(res => res);
+      newscreenState[5].changeState++;
+      changeScreen(newscreenState);
     })
     .catch(error => console.log(error));
   }
@@ -113,24 +108,18 @@ const CircleFollowOut = ({cid}) => {
   )
 }
 
-const CircleFollowIn = ({cid, screenState}) => {
-  const [followstate, setFollowState] = useState(false);
+const CircleFollowIn = ({cid, screenState, changeScreen}) => {
   
   const followCircle = () => {
-    const formdata = {
-      circleId: cid,
-      circleName: screenState[2].name,
-    }
-    console.log(formdata);
-    console.log(localStorage.getItem('nickname'));
     axios({
-      method:'POST',
-      url:`http://3.35.240.252:8080/users/${localStorage.getItem('nickname')}/follower`,
-      Headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
-      data: formdata,
+      method:"POST",
+      url:`http://3.35.240.252:8080/users/follower/${cid}`,
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
     }).then(() => {
-      setFollowState(true);
-    })
+      let newscreenState = screenState.map(res => res);
+      newscreenState[5].changeState++;
+      changeScreen(newscreenState);
+    }).catch(error => console.log(error));
   }
 
   return(
@@ -148,15 +137,15 @@ const CircleJoinFollow = ({cid, state, screenState, changeScreen}) => {
   return(
     <div>
     {
-      state.join ? <div className="circleJFbutton"><WritePosting cid={cid} screenState={screenState} changeScreen={changeScreenJF}/><CircleJoinOut cid={cid}/></div> :
-      state.follow ? <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState}/> <CircleFollowOut cid={cid}/></div> :
-      <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState}/><CircleFollowIn cid={cid} screenState={screenState}/></div>
+      state.join ? <div className="circleJFbutton"><WritePosting cid={cid} screenState={screenState} changeScreen={changeScreenJF}/><CircleJoinOut cid={cid}screenState={screenState} changeScreen={changeScreenJF}/></div> :
+      state.follow ? <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState} changeScreen={changeScreenJF}/> <CircleFollowOut cid={cid}screenState={screenState} changeScreen={changeScreenJF}/></div> :
+      <div className="circleJFbutton"><CircleJoinIn cid={cid} screenState={screenState} changeScreen={changeScreenJF}/><CircleFollowIn cid={cid} screenState={screenState}changeScreen={changeScreenJF}/></div>
     }
     </div>
   )
 }
 
-const CircleInfo = ({ screenState, changeScreen }) => {
+const CircleInfo = ({ screenState, changeScreen}) => {
   const [circle, setCircle] = useState(CircleInformation);
   const [dataForPost, setdataForPost] = useState([]);
 
@@ -168,6 +157,11 @@ const CircleInfo = ({ screenState, changeScreen }) => {
       setdataForPost(result.dataForPost);
     }
   }
+
+  useEffect(() => {
+    const navTitleName = document.querySelector('.logoClava');
+    navTitleName.innerHTML = circle.name;
+  })
 
   useEffect(() => {
     getCircle();
@@ -183,7 +177,10 @@ const CircleInfo = ({ screenState, changeScreen }) => {
         <img src={circle.circleProfilePhoto} />
       </div>
       <div className="circleInfoTitle">
-        <div className="circleInfoName">{circle.name}</div>
+        <div className="circleInfoUserCount">
+          <span>멤버 : <strong>{circle.circleMember.length}</strong></span>&nbsp;&nbsp;
+          <span>팔로워 : <strong>{circle.circleFollower.length}</strong></span>
+        </div>
         <div className="circleInfoCheckUser">
           <CircleJoinFollow cid={circle.id} state={circle.circleUserCheck} screenState={screenState} changeScreen={changeScreenCircleInfo}/>
         </div>

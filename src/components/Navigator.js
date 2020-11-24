@@ -12,6 +12,11 @@ const Navigator = ({ screenState, sidemenu, changeScreen, handleLogoutFromHome }
     changeScreen(newState);
   }
 
+  useEffect(() => {
+    if(!screenState[2].checked){
+      document.querySelector('.logoClava').innerHTML = "Clava";
+    }
+  })
   const handleLogout = () => handleLogoutFromHome();
 
   return (

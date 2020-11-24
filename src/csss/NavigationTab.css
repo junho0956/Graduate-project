@@ -1,7 +1,7 @@
 .userProfileIn {
   position: absolute;
-  display: none;
   /* opacity: 1; */
+  display: none;
   font-size: 1.2rem;
   width: 6vw;
   margin-top: 6px;

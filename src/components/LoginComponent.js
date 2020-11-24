@@ -16,17 +16,16 @@ const LoginComponent = () => {
     const userdata = {
       email: idValue,
       password: pwValue,
-      newList:['hello','world!'],
     };
 
     axios.post("http://3.35.240.252:8080/auth", userdata)
     .then((res) => {
+      console.log("res : ",res);
       const usertokenData = {
         token: res.data.accessToken,
         email: idValue,
         nickname: res.data.userNickname,
       };
-
       if(res.data.accessToken){
         setUserToken(usertokenData);
         window.location.reload();

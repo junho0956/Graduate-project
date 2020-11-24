@@ -14,7 +14,8 @@ const Home = ({ handleLogoutFromApp }) => {
     { name: "", checked: false }, // profile 1
     { name: "", checked: false }, // circle 2
     { postData: [], checked: false }, // feed 3
-    { writepostCircleID: "", checked: false}
+    { writepostCircleID: "", checked: false},
+    { changeState: 0}
   ]);
   // sideMenu open/close 관리
   const [sidemenu, setMenuOpen] = useState(true);
@@ -29,7 +30,6 @@ const Home = ({ handleLogoutFromApp }) => {
 
   const getProfileCircleOfUser = useCallback(async() => {
     const resultProfile = await getUserProfile(localStorage.getItem('nickname'));
-    // console.log(resultProfile);
     if(resultProfile){
       const resultCircle = await getUserCircle(resultProfile);
       if(resultCircle){
@@ -37,12 +37,12 @@ const Home = ({ handleLogoutFromApp }) => {
         setUserCircleList(resultCircle);
       }
     }
-  }, []);
+  }, [screenState]);
 
   useEffect(() => {
     AllCircles();
     getProfileCircleOfUser();
-  }, []);
+  }, [screenState]);
 
   const movingSideMenu = (menuOpen) => {
     const sidemenuUl = document.querySelector(".sidemenuLoc").children[0];
@@ -62,9 +62,6 @@ const Home = ({ handleLogoutFromApp }) => {
   // 로그아웃 핸들러
   const handleLogout = () => handleLogoutFromApp();
 
-  // 임시용
-  const A = [1, 2, 3];
-
   return (
     <div className="homebasic">
       <div className="homenavi">
@@ -78,9 +75,9 @@ const Home = ({ handleLogoutFromApp }) => {
       <div className="homeMain">
         <div className="homeFeed">
           {screenState[0].checked ? <HomeFeed userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen}/> : 
-          screenState[1].checked ? <Profile userInfo={userInfo} userCircleList={userCircleList} screenState={screenState} changeScreen={changeScreen} /> : 
+          screenState[1].checked ? <Profile screenState={screenState} changeScreen={changeScreen} /> : 
           screenState[2].checked ? <CircleInfo screenState={screenState} changeScreen={changeScreen} /> :
-          screenState[3].checked ? <FeedItem postData={screenState[3].postData} changeScreen={changeScreen} /> :
+          screenState[3].checked ? <FeedItem postData={screenState[3].postData} screenState={screenState} changeScreen={changeScreen} /> :
           <WritePost screenState={screenState} changeScreen={changeScreen} />
           }
         </div>

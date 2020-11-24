@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../csss/Profile.css";
 import default_profile_img from "../img/default-profile.jpg";
 import axios from "axios";
-import colony from "../img/colony.PNG";
 import {UserInfo, UserCircleInfo} from '../model';
+import {getUserProfile} from '../function/getUserProfile';
+import { getUserCircle } from '../function/getUserCircle';
 
 const ViewCircle = ({ screenState, data, changeScreen }) => {
 
@@ -16,39 +17,58 @@ const ViewCircle = ({ screenState, data, changeScreen }) => {
 
   return (
     <div className="viewCirclebasic" onClick={changeScreenView}>
-      <img src={colony}></img>
+      <img src={data.circlePhoto}></img>
       {data.circleName}
     </div>
   );
 };
 
-const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
+const Profile = ({ screenState, changeScreen }) => {
   const [user, setUser] = useState(UserInfo);
   const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
   
+  const getProfile = async() => {
+    const userprofile = await getUserProfile(screenState[1].name);
+    const usercircle = await getUserCircle(userprofile);
+    setUser(userprofile);
+    setCircleInfo(usercircle);
+  }
+
   useEffect(() => {
-    setUser(userInfo);
-    setCircleInfo(userCircleList);
-  }, [userInfo, userCircleList]);
+    getProfile();
+  }, [screenState]);
 
   // 업로드 구현
-  const profileUpdate = (e) => {
+  const profileUpdate = async(e) => {
     if (e.target.files !== null) {
-      console.log("file : ",e.target.files[0]);
       const fd = new FormData();
       fd.append("data", e.target.files[0]);
-      console.log("file fd type => ", typeof fd);
-      console.log("file image type => ", typeof e.target.files[0]);
-      // axios({
-      //   method:"post",
-      //   Headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
-      //   url:"http://3.35.240.252:8080/upload",
-      //   data:fd,
-      //   processData:false,
-      //   contentType:false,
-      // }).then(res => {
-      //   console.log("result : ",res);
-      // })
+      const imageUrl = await axios({
+        method:"post",
+        headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
+        url:"http://3.35.240.252:8080/upload",
+        data:fd,
+        processData:false,
+        contentType:false,
+      })
+      console.log(imageUrl);
+      const formdata = {
+        name:localStorage.getItem('nickname'),
+        photoUrl:imageUrl.data
+      };
+
+      axios({
+        method:'patch',
+        url:'http://3.35.240.252:8080/usersImg',
+        data:formdata,
+        headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
+      })  
+      .then(() => {
+        window.location.reload();
+        // const userUpdate = {...user};
+        // userUpdate.userPhoto = res.data;
+        // setUser(userUpdate);
+      }).catch(error => console.log(error));
     };
   }
   const changeScreenProfile = res => changeScreen(res);
@@ -57,17 +77,18 @@ const Profile = ({ userInfo, userCircleList, screenState, changeScreen }) => {
     <div className="profilebasic">
       <div className="profileLeft">
         <div className="profileImg">
-          <img src={default_profile_img} />
+          <img src={user.userPhoto} />
         </div>
         <div className="profileUserInfo">
           <div>{screenState[1].name}</div>
           <div>{user.organization}</div>
         </div>
-        <div className="profileUpdate">
+        <div className="profileUpdate" onChange={profileUpdate}>
+          <label htmlFor="userImageButton" id="userImageButtonlabel">Edit Profile</label>
           <input
             type="file"
+            id="userImageButton"
             accept="image/jpeg, image/jpg"
-            onChange={profileUpdate}
           />
         </div>
       </div>

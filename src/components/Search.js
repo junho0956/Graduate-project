@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../csss/Search.css";
-import axios from "axios";
-import colonyImg from "../img/colony.PNG";
-import {Circle} from '../model';
 
 // 검색결과별 컴포넌트
 const SearchItem = ({ searchResult, screenState, changeScreen }) => {
+  
   const changeScreenItem = () => {
     const newscreenState = screenState.map(res => {return {...res, checked:false}});
     newscreenState[2].name = searchResult.name;

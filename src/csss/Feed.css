@@ -28,10 +28,19 @@ li {
   flex-direction: row;
   align-items: center;
   padding: 1rem;
+  position: relative;
+}
+
+.feedTitleInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  cursor:pointer;
 }
 
 .feedTitle img {
-  border: 1px solid white;
+  border: 0.5px solid white;
   border-radius: 30px;
   width: 50px;
   height: 50px;
@@ -46,6 +55,8 @@ li {
 #slide img {
   position: relative;
   width: 40vw;
+  border-top:0.5px solid lightgrey;
+  border-bottom:0.5px solid lightgrey;
 }
 
 .feedContent {
@@ -61,6 +72,32 @@ li {
   position: relative;
   align-items: center;
   width: 100%;
+  height:4vh;
+}
+
+#contentLike{
+  /* width:100%; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  text-align:left;
+  position: relative;
+  font-size:1rem;
+  padding:0.7rem;
+}
+
+#contentLike span{
+  font-size:1.8rem;
+  margin-right:0.5rem;
+}
+
+#contentLike span:hover{
+  font-size:2rem;
+}
+
+#contentLike img{
+  width:2rem;
+  height:2rem;
 }
 
 #contentDate {
@@ -120,4 +157,8 @@ li {
 
 .commentButton{
   display:none;
+}
+
+#contentLike span{
+  color:red;
 }

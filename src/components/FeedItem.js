@@ -2,6 +2,8 @@ import React,{useState, useEffect} from "react";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 import axios from 'axios';
 import {slider} from '../function/slider';
+import {BsThreeDots, BsTrash} from 'react-icons/bs';
+import {AiOutlineFire, AiTwotoneFire} from 'react-icons/ai';
 import jQuery from "jquery";
 import $ from "jquery";
 window.$ = window.jQuery = jQuery;
@@ -17,24 +19,24 @@ const setCommentCss = () => {
     })
   })
 
-  // textarea.addEventListener('focus', function(){
-  //   commentbutton.style.cssText="display:flex; flex-direction:row; position:relative; width:100%; justify-content:flex-end;";
-  //   commentbutton.children[0].style.cssText= "width:5rem; height: 2rem; cursor:pointer; border:none; font-size:0.9rem; color:grey; margin:0.5rem; background-color:transparent;";
-  //   commentbutton.children[1].style.cssText= "width:5rem; height: 2rem; cursor:pointer; border:none; border-radius:3px; font-size:0.9rem; color:lightgrey; background-color:blue; margin:0.5rem;"
-  // })
-
   $(document).ready(function(){
       $('.feedComment textarea').on('keyup', function(e){
         $(this).css('height','auto');
         $(this).height(this.scrollHeight);
       })
-  })
+  });
 }
 
-const FeedItem = ({ postData, changeScreen}) => {
+const FeedItem = ({ postData, screenState, changeScreen}) => {
+  
   const [feed, setFeed] = useState(postData);
   const [writecomment, setWritecomment] = useState("");
   const cancle = "cancle", comment = 'comment';
+
+  const userId = localStorage.getItem('userId');
+  
+  const [userLike, setUserLike] = useState(false);
+  const [likeId, setLikeId] = useState(null);
   
   const gettime1 = (date) => {
     const time = new Date(date);
@@ -68,7 +70,10 @@ const FeedItem = ({ postData, changeScreen}) => {
     setWritecomment(e.target.value);    
   }
 
-  useEffect(() => setCommentCss(),[]);
+  useEffect(() => {
+    setCommentCss();
+  },[]);
+
   useEffect(() => {
     slider();
 
@@ -79,7 +84,27 @@ const FeedItem = ({ postData, changeScreen}) => {
       incomment.children[1].style.cssText = "width:34vw; margin:0.3rem 0.7rem 0.3rem 0.7rem; word-break:break-all;";
       incomment.children[1].children[0].style.cssText = "color:grey; font-size:0.7rem; word-break:initial;"
     });
-  }, [feed]);
+
+    const property = document.querySelectorAll('.feedProperty');
+    property.forEach(res => {
+      res.style.cssText="transition:0.5s; cursor:pointer; position:absolute; width:2.5rem; height:2.5rem; top:50%; right:2rem; border-radius:50%; display:flex; justify-content:center; align-items:center; transform:translate(-50%, -50%); ";
+      res.children[1].style.cssText = "display:none;";
+      res.addEventListener('mouseenter',function(){res.style.backgroundColor = 'lightgrey';});
+      res.addEventListener('mouseleave',function(){res.style.backgroundColor = 'white';});
+      res.addEventListener('click',function(){
+        res.children[0].style.display="none";
+        res.children[1].style.cssText="cursor:pointer; position:absolute; width:2.5rem; height:2.5rem; border-radius:50%; display:flex; justify-content:center; align-items:center;";
+      })
+    })
+    // likeId => 삭제를 위해서
+    let newLikeId = feed.postLike.filter(res => res.userId === Number(userId));
+    console.log("newLikeId : ",newLikeId);
+    if(newLikeId.length>0){
+      newLikeId = Number(newLikeId[0].id);
+      setLikeId(newLikeId);
+      setUserLike(true);
+    }
+  }, [feed, screenState]);
 
   const commentButton = btn => {
 
@@ -107,11 +132,94 @@ const FeedItem = ({ postData, changeScreen}) => {
     }
   }
 
+  const delComment = (id) => {
+    axios({
+      method:"DELETE",
+      url:'http://3.35.240.252:8080/delete/comment',
+      data:{deleteId:id},
+      headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
+    }).then(res => {
+      let newFeed = {...feed};
+      newFeed.postComment = newFeed.postComment.filter(res => res.id !== id);
+      setFeed(newFeed);
+    })
+  }
+
+  const delPost = () => {
+    if(window.confirm("정말로 게시글을 삭제하시겠습니까?")){
+      axios({
+        method:"DELETE",
+        url:'http://3.35.240.252:8080/delete/post',
+        data:{deleteId:postData.id},
+        headers:{'Authorization':'Bearer '+localStorage.getItem('token')}
+      }).then(res => {
+        window.location.reload();
+      }).catch(error => console.log(error));
+    }
+  }
+
+  const changeScreenFeed = () => {
+    let newscreenState = screenState.map(res => {return{...res, checked:false}});
+    newscreenState[2].checked = true;
+    newscreenState[2].name = feed.circleName;
+    changeScreen(newscreenState);
+  }
+
+  const clickLike = () => {
+    console.log("userLike : ", userLike);
+    if(!userLike){ // Like
+      console.log(typeof feed.id);
+      console.log(Number(feed.id)); 
+      axios({
+        method:'post',
+        headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+        url:`http://3.35.240.252:8080/posts/${feed.id}/like`,
+      }).then(() => {
+        axios({
+          method:'post',
+          headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+          url:`http://3.35.240.252:8080/posts/found/${feed.id}`,
+        }).then(postdata => {
+          setFeed(postdata.data);
+        })
+      }).catch(error=>console.log(error)).catch(error => console.log(error));
+    }
+    else{ //UnLike
+
+      axios({
+        method:'delete',
+        headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+        url:`http://3.35.240.252:8080/delete/like`,
+        data:{deleteId:feed.id},
+      }).then(() => {
+        axios({
+          method:'post',
+          headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
+          url:`http://3.35.240.252:8080/posts/found/${feed.id}`,
+        }).then(postdata => {
+          setUserLike(false);
+          setLikeId(null);
+          setFeed(postdata.data);
+        })
+      }).catch(error=>console.log(error));
+    }
+  }
+
+  const nickname = localStorage.getItem('nickname');
+
   return (
     <div className="feedbasic">
       <div className="feedTitle">
+        <div className="feedTitleInfo" onClick={changeScreenFeed}>
         <img src={feed.circleProfilePhoto} />
         <span className="feedCircleName">{feed.circleName}</span>
+        </div>
+        {feed.author === nickname ? 
+          <div className="feedProperty">
+            <BsThreeDots/>
+            <div className="feedTrash" onClick={delPost}><BsTrash /></div>
+          </div>
+        :null}
       </div>
       <div className="mainPictures">
         <span className="slideButton">
@@ -136,6 +244,7 @@ const FeedItem = ({ postData, changeScreen}) => {
       </div>
       <div className="feedContent">
         <div className="contentTop">
+          <div id="contentLike" onClick={clickLike}>{userLike ? <span><AiTwotoneFire /></span>: <span id="likethis"><AiOutlineFire /></span>}{feed.likeNum}</div>
           <div id="contentDate">{gettime1(feed.write_Date)}</div>
         </div>
         <div className="contentText">
@@ -146,7 +255,9 @@ const FeedItem = ({ postData, changeScreen}) => {
             return(
               <div className="Incomment" key={index}>
                 <div className="commentAuthor"><strong>{res.author}</strong></div>
-                <div className="commentDiscription">{res.description}&nbsp;&nbsp;&nbsp;<span className="discriptionDate">{gettime2(res.write_Date)}</span></div>
+                <div className="commentDiscription">{res.description}&nbsp;&nbsp;&nbsp;<span className="discriptionDate">{gettime2(res.write_Date)}</span>&nbsp;
+                  {res.author === nickname ? <span className="delcomment" onClick={() => delComment(res.id)}>✖</span> : null}
+                </div>
               </div>
             )
           })}

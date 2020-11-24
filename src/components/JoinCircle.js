@@ -6,10 +6,10 @@ const JoinCircle = ({ data, screenState, changeScreen }) => {
   const [circle, setCircle] = useState({
     id: data.circleId,
     name: data.circleName,
-    picture: CircleImg,
-    school: data.Information.school,
-    location: data.Information.location,
-    what: data.Information.what,
+    picture: data.circlePhoto,
+    school: data.school,
+    location: data.location,
+    what: data.what,
   });
 
   const changeScreenJ = () => {

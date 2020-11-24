@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoginComponent, SignUpComponent } from "../components";
-import backgroundImg from "../img/5.jpg";
+import backgroundImg from "../img/2.jpg";
 import "../csss/Login.css";
 
 const Login = () => {
@@ -30,12 +30,6 @@ const Login = () => {
       <img src={backgroundImg} />
       <div className="loginSide"></div>
       <div className="loginMain">
-        <div className="loginDiscription">
-          <p className="loginHeader">동아리 커뮤니티</p>
-          <p className="loginHeaderDiscript">
-            실시간으로 동아리를 확인해보세요!
-          </p>
-        </div>
         <div className="loginComponents">
           <div className="loginChangeButton">
             <button id="loginbtn" onClick={ClickLoginorSignUp}>
@@ -49,6 +43,12 @@ const Login = () => {
             {loginOrSignup ? <LoginComponent /> : <SignUpComponent />}
           </div>
         </div>
+        {/* <div className="loginDiscription">
+          <p className="loginHeader">동아리 커뮤니티</p>
+          <p className="loginHeaderDiscript">
+            실시간으로 동아리를 확인해보세요!
+          </p>
+        </div> */}
       </div>
       <div className="side"></div>
     </div>
