@@ -12,7 +12,7 @@ const FollowCircle = ({ data, sreenState, changeScreen }) => {
   });
 
   const changeScreenF = () => {
-    const newscreenState = sreenState.map(res => {return{...res, checked:false}});
+    let newscreenState = sreenState.map(res => {return{...res, checked:false}});
     newscreenState[2].name = circle.name;
     newscreenState[2].checked = true;
     changeScreen(newscreenState);

@@ -11,7 +11,8 @@
 }
 
 .followcircleItem img {
-  width: 40px;
+  width: 35px;
+  height: 35px;
   margin-right: 2rem;
   /* border: 0.1px solid white; */
   border-radius: 20px;

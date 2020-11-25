@@ -31,8 +31,10 @@ const CirclePost = ({postdata, screenState, changeScreen}) => {
 
 const CirclePosts = ({postdata, screenState, changeScreen}) => {
     // console.log(postdata);
+    const [postData, setPostData] = useState(postdata.reverse());
+    
     useEffect(() => {
-
+        
         const miniPostInfoParent = document.querySelectorAll('.circleMiniPostInfo');
         miniPostInfoParent.forEach(res => 
             res.style.cssText="position:absolute; display:none; top:0; left:0; margin:1rem; width:17vw; height:17vw; font-family:'Nanum-Gothic',sans-serif;");

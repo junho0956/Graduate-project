@@ -24,12 +24,15 @@ const ViewCircle = ({ screenState, data, changeScreen }) => {
 };
 
 const Profile = ({ screenState, changeScreen }) => {
+  
   const [user, setUser] = useState(UserInfo);
   const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
   
   const getProfile = async() => {
     const userprofile = await getUserProfile(screenState[1].name);
     const usercircle = await getUserCircle(userprofile);
+    console.log("userprofile:", userprofile);
+    console.log("usercircle: ",usercircle);
     setUser(userprofile);
     setCircleInfo(usercircle);
   }
@@ -51,7 +54,6 @@ const Profile = ({ screenState, changeScreen }) => {
         processData:false,
         contentType:false,
       })
-      console.log(imageUrl);
       const formdata = {
         name:localStorage.getItem('nickname'),
         photoUrl:imageUrl.data
@@ -63,11 +65,10 @@ const Profile = ({ screenState, changeScreen }) => {
         data:formdata,
         headers:{'Authorization':'Bearer ' + localStorage.getItem('token')},
       })  
-      .then(() => {
-        window.location.reload();
-        // const userUpdate = {...user};
-        // userUpdate.userPhoto = res.data;
-        // setUser(userUpdate);
+      .then((res) => {
+        let userUpdate = {...user};
+        userUpdate.userPhoto = imageUrl.data;
+        setUser(userUpdate);
       }).catch(error => console.log(error));
     };
   }
@@ -77,7 +78,7 @@ const Profile = ({ screenState, changeScreen }) => {
     <div className="profilebasic">
       <div className="profileLeft">
         <div className="profileImg">
-          <img src={user.userPhoto} />
+          <img src={user.userPhoto !== null ? user.userPhoto : default_profile_img} />
         </div>
         <div className="profileUserInfo">
           <div>{screenState[1].name}</div>

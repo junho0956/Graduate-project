@@ -10,15 +10,16 @@
     "http-proxy-middleware": "^1.0.6",
     "jquery": "^3.5.1",
     "node-sass": "^4.14.1",
+    "proxy": "http://3.35.240.252:8080/",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icon": "^1.0.0",
     "react-icons": "^3.11.0",
+    "react-loading": "^2.0.3",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "redux": "^4.0.5",
-    "proxy": "http://3.35.240.252:8080/"
+    "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

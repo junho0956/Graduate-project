@@ -32,7 +32,10 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
   const [feed, setFeed] = useState(postData);
   const [writecomment, setWritecomment] = useState("");
   const cancle = "cancle", comment = 'comment';
-
+  const [circleInfo, setcircleInfo] = useState({
+    circleName : postData.circleName,
+    circleProfilePhoto : postData.circleProfilePhoto
+  })
   const userId = localStorage.getItem('userId');
   
   const [userLike, setUserLike] = useState(false);
@@ -77,6 +80,12 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
   useEffect(() => {
     slider();
 
+    const totalImage = document.querySelectorAll('#slide ul li img');
+    totalImage.forEach(res => {
+      res.style.cssText = "width:40vw; height:30vw;";
+      // console.log(res);
+    })
+
     const Incomment = document.querySelectorAll('.Incomment');
     Incomment.forEach(incomment => {
       incomment.style.cssText = "position:relative; width:100%; display:flex; flex-direction:row;";
@@ -98,7 +107,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
     })
     // likeId => 삭제를 위해서
     let newLikeId = feed.postLike.filter(res => res.userId === Number(userId));
-    console.log("newLikeId : ",newLikeId);
+    
     if(newLikeId.length>0){
       newLikeId = Number(newLikeId[0].id);
       setLikeId(newLikeId);
@@ -166,10 +175,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
   }
 
   const clickLike = () => {
-    console.log("userLike : ", userLike);
     if(!userLike){ // Like
-      console.log(typeof feed.id);
-      console.log(Number(feed.id)); 
       axios({
         method:'post',
         headers:{'Authorization':'Bearer '+localStorage.getItem('token')},
@@ -211,8 +217,8 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
     <div className="feedbasic">
       <div className="feedTitle">
         <div className="feedTitleInfo" onClick={changeScreenFeed}>
-        <img src={feed.circleProfilePhoto} />
-        <span className="feedCircleName">{feed.circleName}</span>
+        <img src={circleInfo.circleProfilePhoto} />
+        <span className="feedCircleName">{circleInfo.circleName}</span>
         </div>
         {feed.author === nickname ? 
           <div className="feedProperty">

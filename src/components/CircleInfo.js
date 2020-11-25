@@ -57,7 +57,7 @@ const CircleJoinOut = ({cid, screenState, changeScreen}) => {
 const CircleJoinIn = ({cid, screenState, changeScreen}) => {
 
   const signUpCircle = () => {
-    
+    console.log(cid);
     axios({
       method:'POST',
       url:`http://3.35.240.252:8080/users/joinCircle/${cid}`,
@@ -148,7 +148,7 @@ const CircleJoinFollow = ({cid, state, screenState, changeScreen}) => {
 const CircleInfo = ({ screenState, changeScreen}) => {
   const [circle, setCircle] = useState(CircleInformation);
   const [dataForPost, setdataForPost] = useState([]);
-
+  
   // screenState가 바뀌면서 띄우고자 하는 동아리에 대한 정보를 name을 기준으로 가져옴
   const getCircle = async() => {
     const result = await getCircleInfo(screenState[2].name);

@@ -1,11 +1,20 @@
-import React from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import { Login, Home } from "./components";
 import getUserToken from "./Hooks/getUserToken";
-// import jQuery from "jquery";
-// import $ from "jquery";
-// window.$ = window.jQuery = jQuery;
+// import Loader from './function/Loader';
+import axios from 'axios';
+
+// const [loading, setLoding] = useState(null);
+
+// const httpInstance = axios.create({
+//   baseURL:[],
+//   timeout:10000,
+// })
+
+// useEffect(() => {
+
+// },[]);
 
 function App() {
   const [token, setToken] = getUserToken("token");

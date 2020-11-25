@@ -78,12 +78,12 @@
   display: flex;
   flex-flow: row wrap;
   font-size: 1.2rem;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 }
 
 .viewCirclebasic {
   display: flex;
-  flex-flow: row wrap;
+  /* flex-flow: row; */
   align-items: center;
   width: 10vw;
   cursor: pointer;
@@ -97,7 +97,8 @@
 }
 
 .viewCirclebasic img {
-  width: 3rem;
-  padding-right: 1rem;
+  width: 35px;
+  height: 35px;
+  margin-right: 1rem;
   border-radius: 50%;
 }
