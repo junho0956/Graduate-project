@@ -1,57 +1,71 @@
-import { BsListOl } from 'react-icons/bs';
-
 export const User = {
-    email: String,
-    password: String,
-    name: String,
-    nickname: String,
-    user_gender: String,
-    user_organization: String,
-    myCircle: Array,
-    followCircle: Array,
-    join: Date,
-    profilePhoto: URL,
+    email: "",
+    password: "",
+    name: "",
+    nickname: "",
+    user_gender: "",
+    user_organization: "",
+    myCircle: [],
+    followCircle: [],
+    join: "",
+    profilePhoto: "",
 };
 
 export const CircleMember = {
     member: User,
-    position: String
+    position: ""
 }
 
 export const Comment = {
     author: User,
-    description: String,
-    created: Date
+    id: null,
+    postID: null,
+    description: "",
+    write_Date: "",
 }
 
 export const Post = {
+    id: null,
     author: User,
-    description: String,
-    postPhoto: URL,
-    created: Date,
-    likeCount: Number,
-    comment: Array(Comment)
+    circleId: null,
+    circleName: "",
+    circleProfilePhoto: "",
+    description: "",
+    postPhoto: [{
+        id: null,
+        photoUrl: "",
+        postId: null
+    }],
+    likeNum: null,
+    write_Date: "",
+    postComment: [Comment],
+    postLike: [{
+        id:null,
+        postId: null,
+        userId: null
+    }]
 }
 
 export const Circle = {
-    leader: String,
-    name: String,
-    organization: String,
-    description: String,
-    circleProfilePhoto: URL,
-    follower: Array(User),
-    circleMember: Array(CircleMember),
-    category: String,
-    post: Array(Post)
+    leader: "",
+    name: "",
+    organization: "",
+    description: "",
+    circleProfilePhoto: "",
+    follower: [User],
+    circleMember: [CircleMember],
+    category: "",
+    post: [Post]
 }
 
 export const CircleInformation = {
+    id: null,
     name: "",
     circleProfilePhoto: "",
     organization: "",
     description: "",
     category: "",
-    location: "",
+    place: "",
     circlePosts: [],
     circleMember: [],
     circleFollower: [],
@@ -61,14 +75,9 @@ export const CircleInformation = {
     },
 }
 
-export const UserInfo = {
-    organization: "",
-    userPhoto: "",
-    followCircle: "",
-    joinCircle: "",
+export const UserCircleInfo = {
+    myCircle: [],
+    followCircle: [],
 }
 
-export const UserCircleInfo = {
-    joincircle: [],
-    followcircle: [],
-}
+

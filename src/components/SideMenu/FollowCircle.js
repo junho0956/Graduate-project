@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "../csss/FollowCircle.css";
+import "../css/FollowCircle.css";
 
 const FollowCircle = ({ data, sreenState, changeScreen }) => {
   const [circle, setCircle] = useState({
-    id: data.circleId,
-    name: data.circleName,
-    picture: data.circlePhoto,
-    school: data.school,
-    location: data.location,
-    what: data.what,
+    id: data.id,
+    name: data.name,
+    picture: data.circleProfilePhoto,
+    organization: data.organization,
+    place: data.place,
+    category: data.category,
   });
 
   const changeScreenF = () => {
@@ -24,8 +24,8 @@ const FollowCircle = ({ data, sreenState, changeScreen }) => {
       <div className="followcircleInfo">
         <div className="followcircleTitle">{circle.name}</div>
         <div className="followcircleContents">
-          {circle.school}&nbsp;/&nbsp;{circle.location}
-          &nbsp;/&nbsp;{circle.what}
+          {circle.organization}&nbsp;/&nbsp;{circle.location}
+          &nbsp;/&nbsp;{circle.category}
         </div>
       </div>
     </div>

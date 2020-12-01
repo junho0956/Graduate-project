@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import FeedItem from "./FeedItem";
-import {slider} from '../function/slider';
-import "../csss/Feed.css";
-import {getCircleInfo} from '../function/getCircleInfo';
+import {slider} from './function/slider';
+import "./css/Feed.css";
+import {getCircleInfo} from './function/getCircleInfo';
+import {UserCircleInfo} from '../model';
+import { CircleInfo } from './Circle';
+
+/**
+ * 
+ * @param {UserCircleInfo} userCircleList 
+ */
 
 const HomeFeed = ({ userCircleList, screenState, changeScreen }) => {
   const [feed, setFeed] = useState([]);
@@ -13,22 +20,22 @@ const HomeFeed = ({ userCircleList, screenState, changeScreen }) => {
    * 시간순으로 정렬한 후에 FeedItem을 통해서 보여줘야 한다.
    * FeedItem 에 필요한 정보는 function/getCircleInfo 에 동아리 이름을 파라미터로 넘기면
    * 그 동아리에 대한 모든 피드를 가져올 수 있고,
-   * 가져온 모든 피드에 대해서 write_Data 변수를 통해 객체 내부 모든피드를 정렬한 후,
+   * 가져온 모든 피드에 대해서 write_Data 변수를 통해 객체 내부 모든 피드를 정렬한 후,
    * FeedItem을 Mapping!
    */
-  const getUserAllFeed = async() => {
+  const makeHomeFeed = async() => {
     // 가입한 동아리에서 각 동아리 이름을 가지고 동아리 피드에 대한 정보를 가져온다.
     const joinAllFeed = await Promise.all(
-      userCircleList.joincircle.map(async res => {
-        return await getCircleInfo(res.circleName);
+      userCircleList.myCircle.map(async res => {
+        return await getCircleInfo(res.name);
       })
     )
     const followAllFeed = await Promise.all(
-      userCircleList.followcircle.map(async(res) => {
-        return await getCircleInfo(res.circleName);
+      userCircleList.followCircle.map(async(res) => {
+        return await getCircleInfo(res.name);
       })
     )
-    
+
     let makeAllFeed = [];
     joinAllFeed.forEach(res => {
       return res.dataForPost.forEach(res => {
@@ -42,12 +49,14 @@ const HomeFeed = ({ userCircleList, screenState, changeScreen }) => {
     });
 
     makeAllFeed.sort(function(a,b){return a.id - b.id})
+    // console.log(makeAllFeed);
     makeAllFeed.reverse();
+    // console.log(makeAllFeed);
     setFeed(makeAllFeed);
   }
 
   useEffect(() => {
-    getUserAllFeed();
+    makeHomeFeed();
   }, [userCircleList]);
   useEffect(() => slider(),[feed]);
 

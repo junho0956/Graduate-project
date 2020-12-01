@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LoginComponent, SignUpComponent } from "../components";
-import backgroundImg from "../img/2.jpg";
-import "../csss/Login.css";
+import { LoginComponent, SignUpComponent } from "./";
+import backgroundImg from "../../img/2.jpg";
+import "../css/Login.css";
 
 const Login = () => {
   const [loginOrSignup, setloginOrSignup] = useState(true);
@@ -16,7 +16,8 @@ const Login = () => {
         signupButton.style.fontSize = "1.5rem";
         setloginOrSignup(!loginOrSignup);
       }
-    } else if (e.target.id === "signupbtn") {
+    } 
+    else if (e.target.id === "signupbtn") {
       if (loginOrSignup) {
         loginButton.style.fontSize = "1.5rem";
         signupButton.style.fontSize = "2.5rem";

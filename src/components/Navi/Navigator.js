@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../csss/Navigator.css";
+import "../css/Navigator.css";
 import NavigationTab from "./NavigationTab";
 
 const Navigator = ({ screenState, sidemenu, changeScreen, handleLogoutFromHome }) => {

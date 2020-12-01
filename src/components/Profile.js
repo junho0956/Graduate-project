@@ -1,38 +1,38 @@
-import React, { useState, useEffect, useCallback } from "react";
-import "../csss/Profile.css";
+import React, { useState, useEffect } from "react";
+import "./css/Profile.css";
 import default_profile_img from "../img/default-profile.jpg";
 import axios from "axios";
-import {UserInfo, UserCircleInfo} from '../model';
-import {getUserProfile} from '../function/getUserProfile';
-import { getUserCircle } from '../function/getUserCircle';
+import {User, UserCircleInfo} from '../model';
+import {getUserProfile} from './function/getUserProfile';
+import { getUserCircle } from './function/getUserCircle';
 
 const ViewCircle = ({ screenState, data, changeScreen }) => {
 
   const changeScreenView = () => {
     let newscreenState = screenState.map(res => {return {...res, checked:false}});
     newscreenState[2].checked = true;
-    newscreenState[2].name = data.circleName;
+    newscreenState[2].name = data.name;
     changeScreen(newscreenState);
   }
 
   return (
     <div className="viewCirclebasic" onClick={changeScreenView}>
-      <img src={data.circlePhoto}></img>
-      {data.circleName}
+      <img src={data.circleProfilePhoto}></img>
+      {data.name}
     </div>
   );
 };
 
 const Profile = ({ screenState, changeScreen }) => {
   
-  const [user, setUser] = useState(UserInfo);
+  const [user, setUser] = useState(User);
   const [circleInfo, setCircleInfo] = useState(UserCircleInfo);
   
   const getProfile = async() => {
     const userprofile = await getUserProfile(screenState[1].name);
     const usercircle = await getUserCircle(userprofile);
-    console.log("userprofile:", userprofile);
-    console.log("usercircle: ",usercircle);
+    console.log(userprofile);
+    
     setUser(userprofile);
     setCircleInfo(usercircle);
   }
@@ -78,11 +78,11 @@ const Profile = ({ screenState, changeScreen }) => {
     <div className="profilebasic">
       <div className="profileLeft">
         <div className="profileImg">
-          <img src={user.userPhoto !== null ? user.userPhoto : default_profile_img} />
+          <img src={user.profilePhoto !== null ? user.profilePhoto : default_profile_img} />
         </div>
         <div className="profileUserInfo">
           <div>{screenState[1].name}</div>
-          <div>{user.organization}</div>
+          <div>{user.user_organization}</div>
         </div>
         <div className="profileUpdate" onChange={profileUpdate}>
           <label htmlFor="userImageButton" id="userImageButtonlabel">Edit Profile</label>
@@ -97,7 +97,7 @@ const Profile = ({ screenState, changeScreen }) => {
         <div className="profileJoinCircle">
           <p>Joining</p>
           <div className="profileJoinCircleView">
-            {circleInfo.joincircle.map((res, index) => {
+            {circleInfo.myCircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>
@@ -105,7 +105,7 @@ const Profile = ({ screenState, changeScreen }) => {
         <div className="profileFollowCircle">
           <p>Following</p>
           <div className="profileFollowCircleView">
-            {circleInfo.followcircle.map((res, index) => {
+            {circleInfo.followCircle.map((res, index) => {
               return <ViewCircle screenState={screenState} data={res} key={index} changeScreen={changeScreenProfile}/>;
             })}
           </div>

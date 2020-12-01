@@ -8,7 +8,7 @@ export async function getCircleInfo(circleName){
         data:{circleName:circleName}
       });
       const userEmail = localStorage.getItem('email');
-      
+
       let checkUserJoinCircle = getcircleInfo.data.circleMember.filter(res => res.email === userEmail);
       let checkUserFollowCircle = getcircleInfo.data.circleFollower.filter(res => res.email === userEmail);
       checkUserJoinCircle = checkUserJoinCircle.length > 0 ? true : false;

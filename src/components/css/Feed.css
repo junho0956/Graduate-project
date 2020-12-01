@@ -131,13 +131,13 @@ li {
   cursor: pointer;
 }
 
-.feedComment {
+.insertComment {
   border-top: 1px solid lightgrey;
   position: relative;
   width:40vw;
 }
 
-.feedComment textarea {
+.insertComment textarea {
   border: none;
   margin:0.7rem;
   font-size: 1.3rem;
@@ -146,12 +146,12 @@ li {
   resize:none;
 }
 
-.feedComment textarea:focus{
+.insertComment textarea:focus{
   outline:none;
   border-bottom:1.5px solid black;
 }
 
-.feedComment textarea::-webkit-scrollbar{
+.insertComment textarea::-webkit-scrollbar{
   display:none;
 }
 

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { JoinCircle, FollowCircle } from "../components";
-import "../csss/MyCircle.css";
+import React, { useState, useEffect } from "react";
+import { JoinCircle, FollowCircle } from "./";
+import "../css/MyCircle.css";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
-import {UserCircleInfo} from '../model';
+import {UserCircleInfo} from '../../model';
 
 const MyCircle = ({userCircleList, screenState, changeScreen}) => {
   
@@ -65,7 +65,7 @@ const MyCircle = ({userCircleList, screenState, changeScreen}) => {
         <div className="JoinCircleInfo">
           <ul>
             <li>
-              {circleInfo.joincircle.map((res, index) => {
+              {circleInfo.myCircle.map((res, index) => {
                 return <JoinCircle key={index} data={res} screenState={screenState} changeScreen={changeScreenCircle}/>;
               })}
             </li>
@@ -81,7 +81,7 @@ const MyCircle = ({userCircleList, screenState, changeScreen}) => {
         <div className="FollowCircleInfo">
           <ul>
             <li>
-              {circleInfo.followcircle.map((res, index) => {
+              {circleInfo.followCircle.map((res, index) => {
                 return <FollowCircle key={index} data={res} screenState={screenState} changeScreen={changeScreenCircle}/>;
               })}
             </li>

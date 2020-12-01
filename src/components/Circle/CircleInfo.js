@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../csss/CircleInfo.css";
+import "../css/CircleInfo.css";
 import axios from 'axios';
-import {CirclePosts} from '../components';
-import {CircleInformation} from '../model';
+import {CirclePosts} from './';
+import {CircleInformation} from '../../model';
 import {getCircleInfo} from '../function/getCircleInfo';
 
 const WritePosting = ({cid, screenState, changeScreen}) => {
@@ -146,6 +146,7 @@ const CircleJoinFollow = ({cid, state, screenState, changeScreen}) => {
 }
 
 const CircleInfo = ({ screenState, changeScreen}) => {
+  
   const [circle, setCircle] = useState(CircleInformation);
   const [dataForPost, setdataForPost] = useState([]);
   

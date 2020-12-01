@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../csss/Search.css";
+import "../css/Search.css";
 
 // 검색결과별 컴포넌트
 const SearchItem = ({ searchResult, screenState, changeScreen }) => {
@@ -13,13 +13,13 @@ const SearchItem = ({ searchResult, screenState, changeScreen }) => {
 
   return (
     <div className="searchItem" onClick={changeScreenItem}>
-      <img src={searchResult.picture} />
+      <img src={searchResult.circleProfilePhoto} />
       <div className="searchItemInformation">
         <span id="searchItemName">{searchResult.name}</span>
         <span id="searchItemInfo">
-          {searchResult.school}&nbsp;/&nbsp;{searchResult.location}
+          {searchResult.organization}&nbsp;/&nbsp;{searchResult.place}
           &nbsp;/&nbsp;
-          {searchResult.what}
+          {searchResult.category}
         </span>
       </div>
     </div>
@@ -27,10 +27,11 @@ const SearchItem = ({ searchResult, screenState, changeScreen }) => {
 };
 
 const Search = ({ searchTotalData, screenState, changeScreen }) => {
+  
   // 검색에 사용되는 상탯값(검색결과, 검색인풋, 동아리 리스트)
   const [searchResult, setSearchResult] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [circleList, setCircleList] = useState([]);
+  const [circleList, setCircleList] = useState(searchTotalData);
 
   // Home component에서 searchData 값이 바뀔때마다 circleList를 변경함
   useEffect(() => {setCircleList(searchTotalData)},[searchTotalData]);

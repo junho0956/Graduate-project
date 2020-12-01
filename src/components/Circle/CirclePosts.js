@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import '../csss/CircleInfo.css';
+import '../css/CircleInfo.css';
 import jQuery from "jquery";
 import $ from "jquery";
-import image from '../img/1.jpg';
+import image from '../../img/1.jpg';
 window.$ = window.jQuery = jQuery;
 
 
@@ -30,11 +30,10 @@ const CirclePost = ({postdata, screenState, changeScreen}) => {
 }
 
 const CirclePosts = ({postdata, screenState, changeScreen}) => {
-    // console.log(postdata);
-    const [postData, setPostData] = useState(postdata.reverse());
+    postdata.reverse();
+    const [postData, setPostData] = useState(postdata);
     
     useEffect(() => {
-        
         const miniPostInfoParent = document.querySelectorAll('.circleMiniPostInfo');
         miniPostInfoParent.forEach(res => 
             res.style.cssText="position:absolute; display:none; top:0; left:0; margin:1rem; width:17vw; height:17vw; font-family:'Nanum-Gothic',sans-serif;");

@@ -1,7 +1,7 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useRef} from "react";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 import axios from 'axios';
-import {slider} from '../function/slider';
+import {slider} from './function/slider';
 import {BsThreeDots, BsTrash} from 'react-icons/bs';
 import {AiOutlineFire, AiTwotoneFire} from 'react-icons/ai';
 import jQuery from "jquery";
@@ -9,9 +9,10 @@ import $ from "jquery";
 window.$ = window.jQuery = jQuery;
 
 const setCommentCss = () => {
-  const feedComment = document.querySelectorAll('.feedComment');
+  // 댓글 입력부분
+  const insertComment = document.querySelectorAll('.insertComment');
 
-  feedComment.forEach(res => {
+  insertComment.forEach(res => {
     res.children[0].addEventListener('focus', function(){
       res.children[1].style.cssText="display:flex; flex-direction:row; position:relative; width:100%; justify-content:flex-end;";
       res.children[1].children[0].style.cssText= "width:5rem; height: 2rem; cursor:pointer; border:none; font-size:0.9rem; color:grey; margin:0.5rem; background-color:transparent;";
@@ -20,7 +21,7 @@ const setCommentCss = () => {
   })
 
   $(document).ready(function(){
-      $('.feedComment textarea').on('keyup', function(e){
+      $('.insertComment textarea').on('keyup', function(e){
         $(this).css('height','auto');
         $(this).height(this.scrollHeight);
       })
@@ -38,20 +39,24 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
   })
   const userId = localStorage.getItem('userId');
   
+  const imgRef = useRef(null);
+  const Incomment = useRef(null);
+
   const [userLike, setUserLike] = useState(false);
   const [likeId, setLikeId] = useState(null);
   
+  // 포스트 날짜
   const gettime1 = (date) => {
     const time = new Date(date);
     return `${time.getFullYear()}년 ${time.getMonth()+1}월 ${time.getDate()}일 ${time.getHours()}시 ${time.getMinutes()}분`;
   }
 
+  // 시간차 구하기
   const gettime2 = (date) => {
     let commentTime = "";
     const time = new Date(date);
     const now = new Date();
 
-    // 시간차 구하기
     const subSec = now.getTime() - time.getTime();
     const sec = Math.floor(subSec/1000);
     const min = Math.floor(sec/60);
@@ -80,10 +85,8 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
   useEffect(() => {
     slider();
 
-    const totalImage = document.querySelectorAll('#slide ul li img');
-    totalImage.forEach(res => {
-      res.style.cssText = "width:40vw; height:30vw;";
-      // console.log(res);
+    imgRef.current.childNodes.forEach(res => {
+      res.children[0].style.cssText = "width:40vw; height:30vw;";
     })
 
     const Incomment = document.querySelectorAll('.Incomment');
@@ -93,6 +96,16 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
       incomment.children[1].style.cssText = "width:34vw; margin:0.3rem 0.7rem 0.3rem 0.7rem; word-break:break-all;";
       incomment.children[1].children[0].style.cssText = "color:grey; font-size:0.7rem; word-break:initial;"
     });
+
+
+    // console.log(Incomment.current.childNodes);
+    // Incomment.current.childNodes[0].forEach(incomment => {
+    //   console.log(incomment);
+    //   // incomment.style.cssText = "position:relative; width:100%; display:flex; flex-direction:row;";
+    //   // incomment.children[0].style.cssText = "width:6vw; margin:0.3rem 0.7rem 0.3rem 0.7rem; word-break:break-all;";
+    //   // incomment.children[1].style.cssText = "width:34vw; margin:0.3rem 0.7rem 0.3rem 0.7rem; word-break:break-all;";
+    //   // incomment.children[1].children[0].style.cssText = "color:grey; font-size:0.7rem; word-break:initial;"
+    // })
 
     const property = document.querySelectorAll('.feedProperty');
     property.forEach(res => {
@@ -125,7 +138,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
         data: { description: writecomment}
       })
       .then(res => {
-        document.querySelector('.feedComment textarea').value = "";
+        document.querySelector('.insertComment textarea').value = "";
         document.querySelector('.commentButton').style.display="none";
         let newFeed = {...feed};
         newFeed.postComment = newFeed.postComment.concat(res.data);
@@ -135,7 +148,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
       .catch(error => console.log("error!", error))
     }
     else if(btn === 'cancle'){
-      document.querySelector('.feedComment textarea').value = "";
+      document.querySelector('.insertComment textarea').value = "";
       document.querySelector('.commentButton').style.display="none";
       setWritecomment("");
     }
@@ -237,7 +250,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
           </span>
         </span>
         <div id="slide">
-          <ul>
+          <ul ref={imgRef}>
             {feed.postPhoto.map((res, index) => {
               return(
                 <li key={index}>
@@ -256,7 +269,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
         <div className="contentText">
             {feed.description}
         </div>
-        <div className="contentComment">
+        <div ref={Incomment} className="contentComment">
           {feed.postComment.map((res,index) => {
             return(
               <div className="Incomment" key={index}>
@@ -270,7 +283,7 @@ const FeedItem = ({ postData, screenState, changeScreen}) => {
           <div id="commentAll">댓글 더 보기..</div>
         </div>
       </div>
-      <div className="feedComment">
+      <div className="insertComment">
         <textarea placeholder="댓글 달기.." rows="1" onChange={inputComment}></textarea>
         <div className="commentButton">
           <button onClick={() => commentButton(cancle)}>취소</button>

@@ -1,7 +1,13 @@
 import axios from "axios";
+import {User} from '../../model';
+
+/**
+ * 
+ * @param {User} userInfo 
+ */
 
 export async function getUserCircle(userInfo) {
-  const settingUser = { ...userInfo };
+  
   /**
    * await는 Promise 객체는 pending 자체를 기다린 후에 반환하지만,
    * Promise 배열은 pending 을 기다리지 않고 반환하게 된다.
@@ -12,8 +18,8 @@ export async function getUserCircle(userInfo) {
    */
 
   // 위에서 받은 동아리 정보를 기준으로 join,follow 를 구분하여 axios
-  const joincircleResult = await Promise.all(
-    settingUser.joinCircle.map(async (res) => {
+  const myCircleResult = await Promise.all(
+    userInfo.myCircle.map(async (res) => {
       return await axios({
         method: "POST",
         url: `http://3.35.240.252:8080/circles/found2`,
@@ -23,7 +29,7 @@ export async function getUserCircle(userInfo) {
     })
   );
   const followcircleResult = await Promise.all(
-    settingUser.followCircle.map(async (res) => {
+    userInfo.followCircle.map(async (res) => {
       return await axios({
         method: "POST",
         url: `http://3.35.240.252:8080/circles/found2`,
@@ -33,31 +39,11 @@ export async function getUserCircle(userInfo) {
     })
   );
 
-  const getjoinInfo = joincircleResult.map((res) => {
-    return {
-      circleId: res.data.id,
-      circleName: res.data.name,
-      circlePhoto: res.data.circleProfilePhoto,
-      school: res.data.organization,
-      what: res.data.category,
-      location: res.data.place,
-      description: res.data.discription,
-    };
-  });
-  const getfollowInfo = followcircleResult.map((res) => {
-    return {
-      circleId: res.data.id,
-      circleName: res.data.name,
-      circlePhoto: res.data.circleProfilePhoto,
-      school: res.data.organization,
-      what: res.data.category,
-      location: res.data.place,
-      description: res.data.discription,
-    };
-  });
+  const getjoinInfo = myCircleResult.map(res => res.data);
+  const getfollowInfo = followcircleResult.map(res => res.data);
 
   return {
-    joincircle: getjoinInfo,
-    followcircle: getfollowInfo,
+    myCircle: getjoinInfo,
+    followCircle: getfollowInfo,
   };
 }

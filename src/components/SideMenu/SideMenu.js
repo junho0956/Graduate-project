@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../csss/SideMenu.css";
-import { Search, MyCircle } from "../components";
+import "../css/SideMenu.css";
+import { Search, MyCircle } from "./";
 import { AiOutlineStar } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 

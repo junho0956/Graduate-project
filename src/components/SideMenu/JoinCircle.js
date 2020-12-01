@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import CircleImg from "../img/colony.PNG";
-import "../csss/JoinCircle.css";
+import React, { useState} from "react";
+import "../css/JoinCircle.css";
 
 const JoinCircle = ({ data, screenState, changeScreen }) => {
+  
   const [circle, setCircle] = useState({
-    id: data.circleId,
-    name: data.circleName,
-    picture: data.circlePhoto,
-    school: data.school,
-    location: data.location,
-    what: data.what,
+    id: data.id,
+    name: data.name,
+    picture: data.circleProfilePhoto,
+    organization: data.organization,
+    place: data.place,
+    category: data.category,
   });
 
   const changeScreenJ = () => {
@@ -25,8 +25,8 @@ const JoinCircle = ({ data, screenState, changeScreen }) => {
       <div className="joincircleInfo">
         <div className="circleName">{circle.name}</div>
         <div className="circleContents">
-          {circle.school}&nbsp;/&nbsp;{circle.location}
-          &nbsp;/&nbsp;{circle.what}
+          {circle.organization}&nbsp;/&nbsp;{circle.place}
+          &nbsp;/&nbsp;{circle.category}
         </div>
       </div>
     </div>

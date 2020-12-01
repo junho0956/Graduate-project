@@ -1,40 +1,35 @@
 import React, { useState } from "react";
-import "../csss/LoginComponent.css";
+import "../css/LoginComponent.css";
 import axios from "axios";
-import getUserToken from "../Hooks/getUserToken";
+// import SetUser from "../../Hooks/SetUser";
 
 const LoginComponent = () => {
-  const [idValue, setID] = useState("");
-  const [pwValue, setPW] = useState("");
-  const [usertoken, setUserToken] = getUserToken("token");
+  const [inputID, setID] = useState("");
+  const [inputPW, setPW] = useState("");
+  // const [notuse, setUser] = SetUser("token");
 
   const forgotUserBtn = () => {};
 
   const attempLogin = (e) => {
     e.preventDefault();
 
-    const userdata = {
-      email: idValue,
-      password: pwValue,
+    const loginState = {
+      email: inputID,
+      password: inputPW,
     };
 
-    axios.post("http://3.35.240.252:8080/auth", userdata)
+    axios.post("http://3.35.240.252:8080/auth", loginState)
     .then((res) => {
-      console.log("res : ",res);
-      const usertokenData = {
-        token: res.data.accessToken,
-        email: idValue,
-        nickname: res.data.userNickname,
-      };
       if(res.data.accessToken){
-        setUserToken(usertokenData);
+        localStorage.setItem("token", res.data.accessToken);
+        localStorage.setItem("email", inputID);
+        localStorage.setItem("nickname", res.data.userNickname);
         window.location.reload();
       }
       else{
         alert(res.data.msg);
         setPW('');
       }
-
     })
     .catch((error) => console.log(error));
   };
@@ -52,7 +47,7 @@ const LoginComponent = () => {
             <input
               id="id"
               type="text"
-              value={idValue}
+              // value={idValue}
               placeholder=" ID"
               onChange={onChange}
             />
@@ -61,7 +56,7 @@ const LoginComponent = () => {
             <input
               id="pw"
               type="password"
-              value={pwValue}
+              // value={pwValue}
               placeholder=" PW"
               onChange={onChange}
             />

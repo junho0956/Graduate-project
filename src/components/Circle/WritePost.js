@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {MdAddToPhotos} from 'react-icons/md';
-import '../csss/WritePost.css';
+import '../css/WritePost.css';
 import jQuery from "jquery";
 import $ from "jquery";
 window.$ = window.jQuery = jQuery;

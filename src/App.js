@@ -1,23 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "./App.css";
-import { Login, Home } from "./components";
-import getUserToken from "./Hooks/getUserToken";
-// import Loader from './function/Loader';
-import axios from 'axios';
-
-// const [loading, setLoding] = useState(null);
-
-// const httpInstance = axios.create({
-//   baseURL:[],
-//   timeout:10000,
-// })
-
-// useEffect(() => {
-
-// },[]);
+import {Home} from "./components";
+import {Login} from './components/Login';
 
 function App() {
-  const [token, setToken] = getUserToken("token");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -27,10 +13,12 @@ function App() {
     window.location.reload();
   };
 
+  const usertoken = localStorage.getItem('token');
+
   return (
     <div className="Appbasic">
       <div className="Root">
-        {token.token !== null ? <Home handleLogoutFromApp={handleLogout} /> : <Login /> }
+        {usertoken !== null ? <Home handleLogoutFromApp={handleLogout} /> : <Login /> }
       </div>
     </div>
   );

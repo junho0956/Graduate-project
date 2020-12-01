@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../csss/NavigationTab.css";
+import "../css/NavigationTab.css";
 import { AiFillHome, AiOutlineHome, AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 import { HiUser, HiOutlineUser } from "react-icons/hi";
 
